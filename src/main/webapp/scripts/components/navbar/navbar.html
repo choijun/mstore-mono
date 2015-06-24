@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://kms-technology.com" target="_blank">
+                <img class="logo" src="assets/images/logo.png" />
+            </a>
+            <a class="navbar-brand" href="#/">
+                <span>mStore</span> <span class="navbar-version">v{{VERSION}}</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active">
+                    <a ui-sref="home"><span class="fa fa-home fa-2x"></span></a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="products"><span class="fa fa-mobile fa-2x"></span> <span>Cell Phones</span></a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="cart"><span class="fa fa-shopping-cart fa-2x"></span> <span>Shopping Cart (2)</span></a>
+                </li>
+                <li ui-sref-active="active" class="navbar-right">
+                    <a ui-sref="login"><span class="fa fa-sign-in"></span> <span>Sign In</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

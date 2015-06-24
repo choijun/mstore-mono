@@ -1,0 +1,5 @@
+[
+  {"owner": "trungnguyen", "id": "abc1234567890", "fullName": "Trung Nguyen (Home)", "address1": "36 Bo Bao Tan Thang st.", "address2": "Son Ky ward, Tan Phu district", "city": "Ho Chi Minh", "zip": "70000", "country": "VN"},
+  {"owner": "trungnguyen", "id": "abc1234567891", "fullName": "Trung Nguyen (KMS)", "address1": "123 Cong Hoa st.", "address2": "ward 12, Tan Binh district", "city": "Ho Chi Minh", "zip": "70000", "country": "VN"},
+  {"owner": "huynguyen", "id": "abc1234567892", "fullName": "Huy Nguyen (KMS)", "address1": "123 Cong Hoa st.", "address2": "ward 12, Tan Binh district", "city": "Ho Chi Minh", "zip": "70000", "country": "VN"}
+]
