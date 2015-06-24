@@ -1,6 +1,6 @@
 info:
     name: mStore APIs
-    version: 1.0.0
+    version: ${version}
 
 app:
     tax-rate: !!float "0.1"

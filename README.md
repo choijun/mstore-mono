@@ -1,4 +1,6 @@
-# mStore - a REST-based application
+# mStore - Monolithic-based version
+
+Developing Monolithic-based web application using [Spring Boot](http://projects.spring.io/spring-boot/).
 
 ## How to Build
 
