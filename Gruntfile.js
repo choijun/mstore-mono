@@ -43,22 +43,12 @@ module.exports = function (grunt) {
             }
         },
         autoprefixer: {
-        // not used since Uglify task does autoprefixer,
-        //    options: ['last 1 version'],
-        //    dist: {
-        //        files: [{
-        //            expand: true,
-        //            cwd: '.tmp/styles/',
-        //            src: '**/*.css',
-        //            dest: '.tmp/styles/'
-        //        }]
-        //    }
         },
         wiredep: {
             app: {
                 src: ['src/main/webapp/index.html'],
                 exclude: [
-                    /angular-i18n/ // localizations are loaded dynamically
+                    /angular-i18n/
                 ]
             }
         },
@@ -104,9 +94,6 @@ module.exports = function (grunt) {
             ]
         },
         concat: {
-        // not used since Uglify task does concat,
-        // but still available if needed
-        //    dist: {}
         },
         rev: {
             dist: {
@@ -170,19 +157,8 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            // By default, your `index.html` <!-- Usemin Block --> will take care of
-            // minification. This option is pre-configured if you do not wish to use
-            // Usemin blocks.
-            // dist: {
-            //     files: {
-            //         '<%= yeoman.dist %>/styles/main.css': [
-            //             '.tmp/styles/**/*.css',
-            //             'styles/**/*.css'
-            //         ]
-            //     }
-            // }
             options: {
-                root: 'src/main/webapp' // Replace relative paths for static resources with absolute path
+                rebase: false
             }
         },
         ngtemplates:    {
@@ -252,7 +228,17 @@ module.exports = function (grunt) {
                     src: [
                         'generated/*'
                     ]
-                }]
+                }, {
+                    expand: true,
+                    cwd: 'src/main/webapp/bower_components/bootstrap/dist',
+                    src: ['fonts/*.*'],
+                    dest: '<%= yeoman.dist %>/assets'
+                }, {
+                    expand: true,
+                    cwd: 'src/main/webapp/bower_components/components-font-awesome',
+                    src: ['fonts/*.*'],
+                    dest: '<%= yeoman.dist %>/assets'
+                 }]
             }
         },
         concurrent: {
