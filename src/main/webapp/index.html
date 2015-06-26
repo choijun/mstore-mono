@@ -1,68 +1,39 @@
 <!doctype html>
-<!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>
-<html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
-<head>
+<head lang="en">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>mStore Application</title>
     <meta name="viewport" content="width=device-width">
-    <!-- build:css assets/styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css assets/styles/main.css -->
-    <link rel="stylesheet" href="assets/styles/main.css">
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- build:css styles/app.min.css -->
+    <link rel="stylesheet" href="assets/styles/bootstrap-ios.css">
+    <link rel="stylesheet" href="assets/styles/app.css">
     <!-- endbuild -->
 </head>
-<body ng-app="mstoreApp">
-    <!--[if lt IE 10]>
-    <p class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please
-        <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div ui-view="navbar" ng-cloak=""></div>
-    <div class="container">
-        <div class="well" ui-view="content"></div>
-        <div class="footer">
-            <div class="container">
-                <p class="text-muted">&copy;2015 KMS Technology, Inc.</p>
-            </div>
-        </div>
-    </div>
+<body>
+    <div class="ui-view"></div>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/react/react.min.js"></script>
+    <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
 
-    <!-- build:js scripts/app.js -->
-    <script src="scripts/app/app.js"></script>
-    <script src="scripts/app/app.constants.js"></script>
-    <script src="scripts/app/error/error.js"></script>
-    <script src="scripts/app/home/home.js"></script>
-    <script src="scripts/app/home/home.controller.js"></script>
-
-    <script src="scripts/components/navbar/navbar.directive.js"></script>
-    <script src="scripts/components/navbar/navbar.controller.js"></script>
+    <!-- build:js scripts/app.min.js -->
+    <script type="text/javascript" src="dist/scripts/app/utils.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/shared/base.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/home/home.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/product/product-item.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/product/product-review.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/product/product.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/product/products.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/cart/cart.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/order/orders.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/shared/cart-summary.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/shared/header.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/shared/viewport.js"></script>
+    <script type="text/javascript" src="dist/scripts/app/app.js"></script>
     <!-- endbuild -->
 </body>
 </html>
