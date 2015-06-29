@@ -40,7 +40,7 @@ var ProductItem = React.createClass({
         if (KMS.Cache.get('cartId')) {
             this.updateCart(KMS.Cache.get('cartId'), itemId, $('#quantity').val());
         } else {
-            $.get('/api/carts', function(data) {
+            $.get('/api/carts/cart-id', function(data) {
                 KMS.Cache.set('cartId', data);
                 this.updateCart(data, itemId, quantity);
             }.bind(this));
