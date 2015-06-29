@@ -4,13 +4,13 @@ Developing Monolithic-based web application using [Spring Boot](http://projects.
 
 ## How to Build
 
-You can also serve the UI using Grunt. As a prerequisite you need to have [NPM](https://nodejs.org/download/) and [Bower](http://bower.io/#install-bower) installed:
+You can also serve the UI using [Gulp](http://gulpjs.com/). As a prerequisite you need to have [NPM](https://nodejs.org/download/) and [Bower](http://bower.io/#install-bower) installed:
 
 Next, install all dependencies needed:
 
     $ npm install
     $ bower install
-    $ grunt
+    $ gulp
 
 ## How to Run
 

@@ -88,8 +88,8 @@
                                     <goal>build</goal>
                                 </goals>
                                 <configuration>
-                                    <buildTool>grunt</buildTool>
-                                    <buildArgs>build --force --no-color</buildArgs>
+                                    <buildTool>gulp</buildTool>
+                                    <buildArgs>dist --force --no-color</buildArgs>
                                 </configuration>
                             </execution>
                         </executions>

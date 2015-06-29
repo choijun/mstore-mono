@@ -5,9 +5,11 @@
     <title>mStore Application</title>
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- build:css1 styles/vendor.min.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbuild -->
 
-    <!-- build:css styles/app.min.css -->
+    <!-- build:css2 styles/app.min.css -->
     <link rel="stylesheet" href="assets/styles/bootstrap-ios.css">
     <link rel="stylesheet" href="assets/styles/app.css">
     <!-- endbuild -->
@@ -15,25 +17,27 @@
 <body>
     <div class="ui-view"></div>
 
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="bower_components/react/react.min.js"></script>
+    <!-- build:js1 scripts/vendor.min.js -->
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/react/react.js"></script>
     <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
+    <!-- endbuild -->
 
-    <!-- build:js scripts/app.min.js -->
-    <script type="text/javascript" src="dist/scripts/app/utils.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/shared/base.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/home/home.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/product/product-item.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/product/product-review.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/product/product.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/product/products.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/cart/cart.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/order/orders.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/shared/cart-summary.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/shared/header.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/shared/viewport.js"></script>
-    <script type="text/javascript" src="dist/scripts/app/app.js"></script>
+    <!-- build:js2 scripts/app.min.js -->
+    <script type="text/javascript" src=".tmp/scripts/app/utils.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/shared/base.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/home/home.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/product/product-item.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/product/product-review.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/product/product.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/product/products.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/cart/cart.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/order/orders.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/shared/cart-summary.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/shared/header.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/shared/viewport.js"></script>
+    <script type="text/javascript" src=".tmp/scripts/app/app.js"></script>
     <!-- endbuild -->
 </body>
 </html>

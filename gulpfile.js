@@ -6,21 +6,36 @@ var usemin = require('gulp-usemin');
 var minifycss = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 
-var srcdir = 'src/main/webapp/scripts/';
-var distdir = 'src/main/webapp/dist/';
+var basedir = 'src/main/webapp/';
+var srcdir = basedir + 'scripts/';
+var tmpdir = basedir + '.tmp/';
+var distdir = basedir + 'dist/';
 
 gulp.task('clean', function() {
-    return gulp.src([distdir + '*'], {read: false})
+    return gulp.src([tmpdir + '**', distdir + '**'], {read: false})
         .pipe(clean());
 });
 
-gulp.task('scripts', function() {
-    return gulp.src([srcdir + '**/*.jsx', srcdir + '**/*.js'])
-        .pipe(react())
-        .pipe(gulp.dest(distdir + 'scripts/'));
+gulp.task('copy', ['clean'], function() {
+    gulp.src([basedir + 'bower_components/bootstrap/dist/fonts/**.*'])
+        .pipe(gulp.dest(distdir + 'fonts/'));
+    gulp.src([basedir + 'bower_components/components-font-awesome/fonts/**.*'])
+            .pipe(gulp.dest(distdir + 'fonts/'));
+    gulp.src([basedir + 'assets/fonts/**.*'])
+            .pipe(gulp.dest(distdir + 'fonts/'));
+    gulp.src([basedir + 'assets/images/**.*'])
+                .pipe(gulp.dest(distdir + 'images/'));
+    gulp.src([basedir + 'assets/products/**.*'])
+            .pipe(gulp.dest(distdir + 'products/'));
 });
 
-gulp.task('usemin', function () {
+gulp.task('scripts', ['clean'], function() {
+    return gulp.src([srcdir + '**/*.jsx', srcdir + '**/*.js'])
+        .pipe(react())
+        .pipe(gulp.dest(tmpdir + 'scripts/'));
+});
+
+gulp.task('usemin', ['lint'], function () {
     return gulp.src('src/main/webapp/index.html')
         .pipe(usemin({
             css: [minifycss()],
@@ -29,8 +44,8 @@ gulp.task('usemin', function () {
         .pipe(gulp.dest(distdir));
 });
 
-gulp.task('lint', function() {
-    return gulp.src(distdir + 'scripts/**/*.js')
+gulp.task('lint', ['scripts'], function() {
+    return gulp.src(tmpdir + 'scripts/**/*.js')
         .pipe(jshint());
 });
 
@@ -44,6 +59,6 @@ gulp.task('watch', ['clean'], function() {
     });
 });
 
-gulp.task('default', ['clean'], function() {
-    return gulp.start('scripts', 'lint');
-});
+gulp.task('default', ['clean', 'scripts', 'lint']);
+
+gulp.task('dist', ['clean', 'copy', 'scripts', 'lint', 'usemin']);
