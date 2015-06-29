@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import vn.kms.mstore.domain.cart.Cart;
+import vn.kms.mstore.domain.catalog.ItemRepository;
 import vn.kms.mstore.domain.order.Order;
 import vn.kms.mstore.domain.order.OrderItem;
 import vn.kms.mstore.domain.order.OrderItemRepository;
@@ -93,18 +94,20 @@ public class OrderRest extends BaseRest {
         order.setOrderDate(new Date());
         orderRepo.save(order);
 
-        cartRest.removeCartById(null);
+        cartRest.removeCartById("");
 
         return order.getId();
     }
 
     @RequestMapping(method = GET)
-    public List<Order> getOrders(@PathVariable String accountId) {
-        return orderRepo.findByAccountId(accountId);
+    public List<Order> getOrders() {
+        val userId = SecurityUtil.getLoginId();
+        return orderRepo.findByAccountId(userId);
     }
 
     @RequestMapping(value = "/{orderId}", method = GET)
-    public Order getOrder(@PathVariable String accountId, @PathVariable String orderId) {
+    public Order getOrder(@PathVariable String orderId) {
+        String accountId = SecurityUtil.getLoginId();
         val order = orderRepo.findOne(orderId);
         if (order == null || !order.getAccountId().equals(accountId)) {
             throw new DataNotFoundException("Order #" + orderId + " is not found");
@@ -123,7 +126,8 @@ public class OrderRest extends BaseRest {
     @RequestMapping(value = "/{orderId}", method = DELETE)
     @Transactional
     @ResponseStatus(value = NO_CONTENT)
-    public void cancelOrder(@PathVariable String accountId, @PathVariable String orderId) {
+    public void cancelOrder(@PathVariable String orderId) {
+        String accountId = SecurityUtil.getLoginId();
         Order order = orderRepo.findOne(orderId);
         if (order == null || !order.getAccountId().equals(accountId)) {
             throw new DataNotFoundException("Order #" + orderId + " is not found");
@@ -139,7 +143,7 @@ public class OrderRest extends BaseRest {
     }
 
     private Order buildNewOrder(String shippingAddressId, String billingAddressId) {
-        Cart cart = cartRest.getDetailCart(null);
+        Cart cart = cartRest.getDetailCart("");
         Address shippingAddress = loginUserRest.getAddressById(shippingAddressId);
         Address billingAddress = loginUserRest.getAddressById(billingAddressId);
         Order order = new Order();

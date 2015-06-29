@@ -15,18 +15,19 @@ import vn.kms.mstore.domain.cart.CartItemRepository;
 import vn.kms.mstore.domain.cart.CartRepository;
 import vn.kms.mstore.domain.cart.DetailCartItem;
 import vn.kms.mstore.domain.catalog.Item;
+import vn.kms.mstore.domain.catalog.ItemRepository;
 import vn.kms.mstore.util.DataNotFoundException;
 import vn.kms.mstore.util.SecurityUtil;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by trungnguyen on 6/24/15.
@@ -43,9 +44,9 @@ public class CartRest extends BaseRest {
     private CartRepository cartRepo;
 
     @Autowired
-    private ItemRest itemRest;
+    private ItemRepository itemRepo;
 
-    @RequestMapping(method = GET)
+    @RequestMapping(value="/cart-id", method = GET)
     @Transactional
     public String getCartId() {
         String userId = SecurityUtil.getLoginId();
@@ -63,16 +64,36 @@ public class CartRest extends BaseRest {
     }
 
     @RequestMapping(value = "/{cartId}", method = GET)
+    @Transactional
     public Cart getDetailCart(@PathVariable String cartId) {
         String userId = SecurityUtil.getLoginId();
 
         val cartFromId = cartRepo.findOne(cartId);
         val cartFromLogin = cartRepo.findByOwner(userId);
+
         if (cartFromId == null && cartFromLogin == null) {
             throw new DataNotFoundException("Cart " + cartId + " is not existed");
         }
 
-        return buildDetailCart(cartFromLogin, cartFromId);
+        Cart cart;
+        if (cartFromLogin == null) {
+            if (SecurityUtil.getLoginId() != null) {
+                cartFromId.setOwner(SecurityUtil.getLoginId());
+                cartRepo.save(cartFromId);
+            }
+
+            cart = cartFromId;
+        } else if (cartFromId == null) {
+            cart = cartFromLogin;
+        } else if (!cartFromLogin.getId().equals(cartFromId.getId())) { // existing both carts, merge them
+            return mergeCarts(cartFromLogin, cartFromId);
+        } else { // cartFromLogin and cartFromId are the same
+            cart = cartFromLogin;
+        }
+
+        buildDetailCart(cart, cart.getId());
+
+        return cart;
     }
 
     @RequestMapping(value = "/{cartId}", method = POST)
@@ -94,7 +115,7 @@ public class CartRest extends BaseRest {
     @ResponseStatus(value = NO_CONTENT)
     @Transactional
     public void removeCartItem(@PathVariable String cartId, @PathVariable String itemId) {
-        val cartItem = cartItemRepo.findOne(new CartItem.PK(cartId, itemId));
+        CartItem cartItem = cartItemRepo.findOne(new CartItem.PK(cartId, itemId));
         if (cartItem == null) {
             throw new DataNotFoundException("Item " + itemId + " is not found in cart " + cartId);
         }
@@ -106,7 +127,7 @@ public class CartRest extends BaseRest {
     @ResponseStatus(value = NO_CONTENT)
     @Transactional
     public void removeCartById(@PathVariable String cartId) {
-        val cartFromId = cartRepo.findOne(cartId);
+        Cart cartFromId = cartRepo.findOne(cartId);
         if (cartFromId != null) {
             cartItemRepo.deleteByCartId(cartFromId.getId());
             cartRepo.delete(cartFromId);
@@ -120,35 +141,22 @@ public class CartRest extends BaseRest {
         }
     }
 
-    private Cart buildDetailCart(Cart cartFromLogin, Cart cartFromId) {
-        Cart cart;
-        if (cartFromLogin == null) {
-            if (SecurityUtil.getLoginId() != null) {
-                cartFromId.setOwner(SecurityUtil.getLoginId());
-                cartRepo.save(cartFromId);
-            }
+    private Cart mergeCarts(Cart cartFromLogin, Cart cartFromId) {
+        val cart = cartFromLogin;
 
-            cart = cartFromId;
-        } else if (cartFromId == null) {
-            cart = cartFromLogin;
-        } else { // existing both carts, merge them
-            cart = mergeCarts(cartFromLogin, cartFromId);
-        }
+        buildDetailCart(cart, cartFromLogin.getId());
+        buildDetailCart(cart, cartFromId.getId());
 
-        if (cart.getDetails() != null) { // already build cart details
-            return cart;
-        }
-
-        buildCartDetails(cart, cart.getId());
+        cartRepo.delete(cartFromId);
 
         return cart;
     }
 
-    private void buildCartDetails(Cart finalCart, String cartId) {
-        val cartItems = cartItemRepo.findByCartId(cartId);
+    private void buildDetailCart(Cart finalCart, String cartId) {
+        List<CartItem> cartItems = cartItemRepo.findByCartId(cartId);
         cartItems.forEach(cartItem -> {
             DetailCartItem detailItem = new DetailCartItem(cartItem);
-            Item item = itemRest.getItemById(cartItem.getItemId());
+            Item item = itemRepo.findOne(cartItem.getItemId());
             if (item != null) {
                 detailItem.setPrice(item.getPrice());
                 detailItem.setQuantityInStock(item.getQuantity());
@@ -156,16 +164,5 @@ public class CartRest extends BaseRest {
 
             finalCart.addDetailCartItem(detailItem);
         });
-    }
-
-    private Cart mergeCarts(Cart cartFromLogin, Cart cartFromId) {
-        val cart = cartFromLogin;
-
-        buildCartDetails(cart, cartFromLogin.getId());
-        buildCartDetails(cart, cartFromId.getId());
-
-        cartRepo.delete(cartFromId);
-
-        return cart;
     }
 }
