@@ -19,13 +19,19 @@ var CartSummary = React.createClass({
     },
     updateCart: function() {
         if (KMS.Cache.get('cartId')) {
-            $.get('/api/carts/' + KMS.Cache.get('cartId'), function(data) {
+            $.ajax({
+                url: '/api/carts/' + KMS.Cache.get('cartId')
+            }).done(function (data) {
                 var quantity = 0;
                 $.each(data.details, function(index, item) {
                     quantity += item.quantity;
                 });
                 this.setState({ quantity: quantity, totalPrice: data.totalPrice });
-            }.bind(this));
+            }.bind(this))
+            .fail(function(response) {
+                console.log(JSON.parse(response.responseText).message);
+                KMS.Cache.remove('cartId');
+            });
         } else {
             this.setState({ quantity: 0, totalPrice: 0 });
         }
