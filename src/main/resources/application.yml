@@ -2,10 +2,6 @@ info:
     name: mStore APIs
     version: 1.0.0
 
-app:
-    tax-rate: !!float "0.1"
-    shipping-fee: !!int "499"
-
 spring:
     datasource:
       url: "jdbc:h2:~/mstoredb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"

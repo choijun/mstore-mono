@@ -22,6 +22,7 @@ import vn.kms.mstore.util.SecurityUtil;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -50,12 +51,6 @@ public class OrderRest extends BaseRest {
 
     @Autowired
     private ItemRest itemRest;
-
-    @Value("${app.tax-rate}")
-    private double taxRate;
-
-    @Value("${app.shipping-fee}")
-    private long shippingFee;
 
     @RequestMapping(value = "/preview-order", method = GET)
     public Order previewOrder(@RequestParam(required = false) String shippingAddressId,
@@ -94,7 +89,7 @@ public class OrderRest extends BaseRest {
         order.setOrderDate(new Date());
         orderRepo.save(order);
 
-        cartRest.removeCartById("");
+        cartRest.removeCart(null);
 
         return order.getId();
     }
@@ -143,13 +138,11 @@ public class OrderRest extends BaseRest {
     }
 
     private Order buildNewOrder(String shippingAddressId, String billingAddressId) {
-        Cart cart = cartRest.getDetailCart("");
+        Cart cart = cartRest.getDetailCart(null);
         Address shippingAddress = loginUserRest.getAddressById(shippingAddressId);
         Address billingAddress = loginUserRest.getAddressById(billingAddressId);
         Order order = new Order();
 
-        order.setTaxRate(taxRate);
-        order.setShippingFee(shippingFee);
         order.setShippingAddressId(shippingAddress.getId());
         order.setBillingAddressId(billingAddress.getId());
         order.setShippingAddress(shippingAddress);
@@ -168,6 +161,26 @@ public class OrderRest extends BaseRest {
             order.setSubTotal(order.getSubTotal() + lineTotal);
         });
 
+        order.setTaxRate(calculateTaxRate(order.getBillingAddress()));
+        order.setShippingFee(calculateShippingFee(order.getSubTotal(), order.getShippingAddress()));
         return order;
+    }
+
+    private double calculateTaxRate(Address billingAddress) {
+        // random 3% .. 10%
+        double taxRate = (3 + Math.random() * 8) / 100.0;
+        return (double) Math.round(taxRate * 100) / 100;
+    }
+
+    private long calculateShippingFee(long subTotal, Address shippingAddress) {
+        // random 0.1% .. 1% of subTotal
+        double rate = (1 + Math.random() * 10) / 1000.0;
+        return (long) (subTotal * (double) Math.round(rate * 100) / 100);
+    }
+
+    public static void main(String[] args) {
+        double taxRate = 3 + Math.random() * 13;
+        taxRate = Math.round(taxRate) / 100.0;
+        System.out.println(taxRate);
     }
 }

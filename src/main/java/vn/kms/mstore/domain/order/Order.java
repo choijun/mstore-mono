@@ -43,4 +43,12 @@ public class Order implements Serializable {
 
     @Transient
     private List<OrderItem> details = new ArrayList<>();
+
+    public long getTaxFee() {
+        return (long) (taxRate * subTotal);
+    }
+
+    public long getTotal() {
+        return subTotal + getTaxFee() + shippingFee;
+    }
 }

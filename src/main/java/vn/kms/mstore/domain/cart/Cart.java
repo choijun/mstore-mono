@@ -43,7 +43,7 @@ public class Cart implements Serializable {
         }
     }
 
-    public long getTotalPrice() {
-        return details.stream().mapToLong(DetailCartItem::getPrice).sum();
+    public long getSubTotal() {
+        return details.stream().mapToLong(item -> item.getPrice() * item.getQuantity()).sum();
     }
 }
