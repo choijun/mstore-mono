@@ -4,23 +4,18 @@ Developing Monolithic-based web application using [Spring Boot](http://projects.
 
 ## How to Build
 
-You can also serve the UI using [Gulp](http://gulpjs.com/). As a prerequisite you need to have [NPM](https://nodejs.org/download/) and [Bower](http://bower.io/#install-bower) installed:
-
-Next, install all dependencies needed:
-
-    $ npm install
-    $ bower install
-    $ gulp
+    $ mvn clean package
 
 ## How to Run
 
-Right now the easiest way to run the UI is to use Spring Boot.
+Run separate module `service` and `webui` by going to its directory and perform below command:
 
     $ mvn spring-boot:run
-    
-and visit [http://localhost:8080](http://localhost:8080).
 
-You also could access all REST APIs by using Swagger UI at [http://localhost:8080/api.html](http://localhost:8080).
+Visit [http://localhost:8000](http://localhost:8000) for REST service
+
+Visit [http://localhost:8080](http://localhost:8080) for Web UI
+
 
 ## IDE Support
 

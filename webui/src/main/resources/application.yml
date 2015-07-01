@@ -1,0 +1,12 @@
+info:
+    name: mStore Web UI
+    version: 1.0.0
+
+server:
+    port: 8080
+
+zuul:
+  routes:
+    mstore-service:
+      path: /api/**
+      url: http://localhost:8000

@@ -1,0 +1,22 @@
+info:
+    name: mStore Service
+    version: 1.0.0
+
+server:
+    port: 8000
+
+management:
+    context-path: /manage
+
+spring:
+    datasource:
+      url: "jdbc:h2:~/mstoredb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+      username: sa
+      password:
+    jpa:
+      hibernate:
+        ddl-auto: update
+
+endpoints:
+    health:
+        sensitive: false
