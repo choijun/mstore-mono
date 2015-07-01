@@ -5,49 +5,49 @@ var Container = React.createClass({
 });
 var ContainerFluid = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('container-fluid', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('container-fluid', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var Row = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('row', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('row', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var Column = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('col-sm-' + this.props.colSpan, this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('col-sm-' + this.props.colSpan, this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var Panel = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('panel panel-default', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('panel panel-default', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var PanelHeader = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('panel panel-heading', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('panel panel-heading', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var PanelBody = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('panel panel-body', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('panel panel-body', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
 });
 var PanelFooter = React.createClass({
     render: function() {
-        return <Container cls={KMS.Dom.mergeCls('panel panel-footer', this.props.cls)}>
+        return <Container cls={MSTORE.Dom.mergeCls('panel panel-footer', this.props.cls)}>
             {this.props.children}
         </Container>;
     }
@@ -60,7 +60,7 @@ var Icon = React.createClass({
 });
 var Button = React.createClass({
     render: function() {
-        return <button type="button" className={KMS.Dom.mergeCls('btn btn-sm btn-' + this.props.type, this.props.cls)} onClick={this.props.onClick}>
+        return <button type="button" className={MSTORE.Dom.mergeCls('btn btn-sm btn-' + this.props.type, this.props.cls)} onClick={this.props.onClick}>
             {this.props.icon ? <Icon type={this.props.icon} /> : ''}
             {this.props.text}
         </button>;
@@ -84,7 +84,7 @@ var Link = React.createClass({
 
 var Table = React.createClass({
     render: function() {
-        return <table className={KMS.Dom.mergeCls('table table-striped table-hover', this.props.cls)}>
+        return <table className={MSTORE.Dom.mergeCls('table table-striped table-hover', this.props.cls)}>
             {this.props.children}
         </table>;
     }
@@ -92,7 +92,7 @@ var Table = React.createClass({
 
 var DialogPopup = React.createClass({
     render: function() {
-        return <div className={KMS.Dom.mergeCls('modal fade', this.props.cls)} id={this.props.id} tabIndex="-1" role="dialog" aria-hidden="true">
+        return <div className={MSTORE.Dom.mergeCls('modal fade', this.props.cls)} id={this.props.id} tabIndex="-1" role="dialog" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     {this.props.children}
@@ -107,5 +107,29 @@ var PopupHeader = React.createClass({
             <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 className="modal-title">{this.props.title}</h4>
         </div>;
+    }
+});
+var Breadcrumb = React.createClass({
+    render: function() {
+        var active = this.props.list.pop();
+        return <ol className="breadcrumb">
+            {this.props.list.map(function(location, index) {
+                return <li key={index}><Link text={location.text} path={location.path} /></li>;
+            }, this)}
+            <li className="active"><span>{active.text}</span></li>
+        </ol>;
+    }
+});
+var Address = React.createClass({
+    render: function() {
+        return <address>
+            <strong>{this.props.data.fullName}</strong><br />
+            {this.props.data.address1}<br />
+            {this.props.data.address2}<br />
+            {this.props.data.city}, {this.props.data.state} {this.props.data.zip}<br />
+            {this.props.data.country}<br />
+            <abbr title="Phone">P:</abbr> {this.props.data.phoneNumber}<br /><br />
+            <Button text="Edit Address" />
+        </address>;
     }
 });

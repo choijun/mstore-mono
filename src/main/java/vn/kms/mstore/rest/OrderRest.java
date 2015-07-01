@@ -177,10 +177,4 @@ public class OrderRest extends BaseRest {
         double rate = (1 + Math.random() * 10) / 1000.0;
         return (long) (subTotal * (double) Math.round(rate * 100) / 100);
     }
-
-    public static void main(String[] args) {
-        double taxRate = 3 + Math.random() * 13;
-        taxRate = Math.round(taxRate) / 100.0;
-        System.out.println(taxRate);
-    }
 }

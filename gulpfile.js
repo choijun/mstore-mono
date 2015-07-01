@@ -50,7 +50,7 @@ gulp.task('lint', ['scripts'], function() {
 });
 
 gulp.task('watch', ['scripts'], function() {
-    gulp.watch(srcdir + '**/*.jsx', ['scripts', 'lint']);
+    gulp.watch([srcdir + '**/*.jsx', srcdir + '**/*.js'], ['scripts', 'lint']);
 });
 
 gulp.task('default', ['clean', 'scripts', 'lint', 'watch']);
