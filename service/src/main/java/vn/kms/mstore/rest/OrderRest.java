@@ -13,8 +13,8 @@ import vn.kms.mstore.domain.order.Order;
 import vn.kms.mstore.domain.order.OrderItem;
 import vn.kms.mstore.domain.order.OrderItemRepository;
 import vn.kms.mstore.domain.order.OrderRepository;
-import vn.kms.mstore.domain.user.Address;
-import vn.kms.mstore.domain.user.User;
+import vn.kms.mstore.domain.customer.Address;
+import vn.kms.mstore.domain.customer.Customer;
 import vn.kms.mstore.util.DataNotFoundException;
 import vn.kms.mstore.util.SecurityUtil;
 
@@ -41,7 +41,7 @@ public class OrderRest extends BaseRest {
     private OrderItemRepository orderItemRepo;
 
     @Autowired
-    private LoginUserRest loginUserRest;
+    private AddressRest addressRest;
 
     @Autowired
     private CartRest cartRest;
@@ -49,18 +49,21 @@ public class OrderRest extends BaseRest {
     @Autowired
     private ItemRest itemRest;
 
+    @Autowired
+    private CustomerRest customerRest;
+
     @RequestMapping(value = "/preview-order", method = GET)
     public Order previewOrder(@RequestParam(required = false) String shippingAddressId,
                               @RequestParam(required = false) String billingAddressId) {
 
-        User user = loginUserRest.getUser();
+        Customer customer = customerRest.getCustomer();
 
         if (shippingAddressId == null) {
-            shippingAddressId = user.getAddressId();
+            shippingAddressId = customer.getAddressId();
         }
 
         if (billingAddressId == null) {
-            billingAddressId = user.getAddressId();
+            billingAddressId = customer.getAddressId();
         }
 
         return buildNewOrder(shippingAddressId, billingAddressId);
@@ -70,7 +73,7 @@ public class OrderRest extends BaseRest {
     @Transactional
     public String placeOrder(@RequestParam String shippingAddressId, @RequestParam String billingAddressId) {
 
-        val userId = SecurityUtil.getLoginId();
+        val customerId = SecurityUtil.getLoginId();
         val orderId = UUID.randomUUID().toString();
 
         val order = buildNewOrder(shippingAddressId, billingAddressId);
@@ -82,7 +85,7 @@ public class OrderRest extends BaseRest {
         });
 
         order.setId(orderId);
-        order.setAccountId(userId);
+        order.setCustomerId(customerId);
         order.setOrderDate(new Date());
         orderRepo.save(order);
 
@@ -93,20 +96,20 @@ public class OrderRest extends BaseRest {
 
     @RequestMapping(method = GET)
     public List<Order> getOrders() {
-        val userId = SecurityUtil.getLoginId();
-        return orderRepo.findByAccountId(userId);
+        val customerId = SecurityUtil.getLoginId();
+        return orderRepo.findByCustomerId(customerId);
     }
 
     @RequestMapping(value = "/{orderId}", method = GET)
     public Order getOrder(@PathVariable String orderId) {
-        String accountId = SecurityUtil.getLoginId();
+        String customerId = SecurityUtil.getLoginId();
         val order = orderRepo.findOne(orderId);
-        if (order == null || !order.getAccountId().equals(accountId)) {
+        if (order == null || !order.getCustomerId().equals(customerId)) {
             throw new DataNotFoundException("Order #" + orderId + " is not found");
         }
 
-        val shippingAddress = loginUserRest.getAddressById(order.getShippingAddressId());
-        val billingAddress = loginUserRest.getAddressById(order.getBillingAddressId());
+        val shippingAddress = addressRest.getAddressById(order.getShippingAddressId());
+        val billingAddress = addressRest.getAddressById(order.getBillingAddressId());
 
         order.setShippingAddress(shippingAddress);
         order.setBillingAddress(billingAddress);
@@ -119,9 +122,9 @@ public class OrderRest extends BaseRest {
     @Transactional
     @ResponseStatus(value = NO_CONTENT)
     public void cancelOrder(@PathVariable String orderId) {
-        String accountId = SecurityUtil.getLoginId();
+        String customerId = SecurityUtil.getLoginId();
         Order order = orderRepo.findOne(orderId);
-        if (order == null || !order.getAccountId().equals(accountId)) {
+        if (order == null || !order.getCustomerId().equals(customerId)) {
             throw new DataNotFoundException("Order #" + orderId + " is not found");
         }
 
@@ -136,8 +139,8 @@ public class OrderRest extends BaseRest {
 
     private Order buildNewOrder(String shippingAddressId, String billingAddressId) {
         Cart cart = cartRest.getDetailCart(null);
-        Address shippingAddress = loginUserRest.getAddressById(shippingAddressId);
-        Address billingAddress = loginUserRest.getAddressById(billingAddressId);
+        Address shippingAddress = addressRest.getAddressById(shippingAddressId);
+        Address billingAddress = addressRest.getAddressById(billingAddressId);
         Order order = new Order();
 
         order.setShippingAddressId(shippingAddress.getId());

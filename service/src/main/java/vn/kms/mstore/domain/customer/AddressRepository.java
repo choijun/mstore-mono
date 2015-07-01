@@ -1,4 +1,4 @@
-package vn.kms.mstore.domain.user;
+package vn.kms.mstore.domain.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package vn.kms.mstore.domain.user;
+package vn.kms.mstore.domain.customer;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
@@ -11,9 +11,9 @@ import java.io.Serializable;
 /**
  * Created by trungnguyen on 6/17/15.
  */
-@Entity(name = "users")
+@Entity
 @Data
-public class User implements Serializable {
+public class Customer implements Serializable {
     @Id
     @NotBlank
     private String id;

@@ -1,4 +1,4 @@
-package vn.kms.mstore.domain.user;
+package vn.kms.mstore.domain.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

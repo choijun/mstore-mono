@@ -1,7 +1,7 @@
 package vn.kms.mstore.domain.order;
 
 import lombok.Data;
-import vn.kms.mstore.domain.user.Address;
+import vn.kms.mstore.domain.customer.Address;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,7 +20,7 @@ public class Order implements Serializable {
     @Id
     private String id;
 
-    private String accountId;
+    private String customerId;
 
     private Date orderDate;
 

@@ -14,12 +14,12 @@ import vn.kms.mstore.domain.catalog.Item;
 import vn.kms.mstore.domain.catalog.ItemRepository;
 import vn.kms.mstore.domain.catalog.Product;
 import vn.kms.mstore.domain.catalog.ProductRepository;
+import vn.kms.mstore.domain.customer.Customer;
 import vn.kms.mstore.domain.review.Review;
 import vn.kms.mstore.domain.review.ReviewRepository;
-import vn.kms.mstore.domain.user.Address;
-import vn.kms.mstore.domain.user.AddressRepository;
-import vn.kms.mstore.domain.user.User;
-import vn.kms.mstore.domain.user.UserRepository;
+import vn.kms.mstore.domain.customer.Address;
+import vn.kms.mstore.domain.customer.AddressRepository;
+import vn.kms.mstore.domain.customer.CustomerRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -48,7 +48,7 @@ public class ServiceInitializer {
     private ReviewRepository reviewRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    private CustomerRepository customerRepo;
 
     @PostConstruct
     @Transactional
@@ -60,17 +60,16 @@ public class ServiceInitializer {
         initData("/db/init-address-data.json", Address.class, addressRepo);
         initData("/db/init-cart-data.json", Cart.class, cartRepo);
         initData("/db/init-cart-item-data.json", CartItem.class, cartItemRepo);
+        initData("/db/init-customer-data.json", Customer.class, customerRepo);
         initData("/db/init-item-data.json", Item.class, itemRepo);
         initData("/db/init-product-data.json", Product.class, productRepo);
         initData("/db/init-review-data.json", Review.class, reviewRepo);
-        initData("/db/init-user-data.json", User.class, userRepo);
     }
 
     private <T> void initData(String dataFilePath, Class<T> entityType, CrudRepository<T, ?> repository) throws Exception {
         val mapper = new ObjectMapper();
         val type = mapper.getTypeFactory().constructCollectionType(List.class, entityType);
         List<T> data = mapper.readValue(getClass().getResource(dataFilePath), type);
-        System.out.println(data);
         repository.save(data);
     }
 }
