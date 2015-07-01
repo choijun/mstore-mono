@@ -3,6 +3,9 @@ window.KMS || (function(window) {
         loadView: function(viewName) {
             window.location.hash = viewName;
         },
+        init: function(config) {
+
+        },
         String: {
             format: function (input) {
                 var args = arguments;
@@ -11,7 +14,7 @@ window.KMS || (function(window) {
                 });
             },
             toCurrency: function(amount) {
-                return '$' + (amount / 100);
+                return '$' + (amount / 100).toFixed(2);
             }      
         },
         Dom: {

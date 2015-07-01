@@ -4,6 +4,8 @@
   "appPath": "src/main/webapp",
   "dependencies": {
     "bootstrap": "3.3.5",
-    "react": "0.13.3"
+    "react": "0.13.3",
+    "bootstrap-rating": "1.3.0",
+    "font-awesome": "4.3.0"
   }
 }
