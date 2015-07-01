@@ -21,7 +21,7 @@ var Header = React.createClass({
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><Icon type="user" /></a>
                         <ul className="dropdown-menu">
-                            <li><Link text="My Account" /></li>
+                            <li><Link text="My Addresses" /></li>
                             <li role="separator" className="divider"></li>
                             <li><Link text="My Orders" /></li>
                         </ul>

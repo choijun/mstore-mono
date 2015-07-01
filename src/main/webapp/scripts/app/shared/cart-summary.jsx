@@ -5,30 +5,30 @@ var CartSummary = React.createClass({
         </Link>;
     },
     getInitialState: function() {
-        return { quantity: 0, totalPrice: 0 };
+        return { quantity: 0 };
     },
     componentWillMount: function() {
-        if (KMS.Cache.get('cartId')) {
+        if (MSTORE.Cache.get('cartId')) {
             this.updateCart();
         }
-        KMS.PubSub.subscribe('updateCart', this.updateCart);
+        MSTORE.PubSub.subscribe('updateCart', this.updateCart);
     },
     componentWillUnmount: function() {
-        KMS.PubSub.unsubscribe('updateCart', this.updateCart);
+        MSTORE.PubSub.unsubscribe('updateCart', this.updateCart);
     },
     updateCart: function() {
-        if (KMS.Cache.get('cartId')) {
+        if (MSTORE.Cache.get('cartId')) {
             $.ajax({
-                url: '/api/carts/total-items?cartId=' + KMS.Cache.get('cartId')
+                url: '/api/carts/total-items?cartId=' + MSTORE.Cache.get('cartId')
             }).done(function (data) {
                 this.setState({ quantity: data });
             }.bind(this))
             .fail(function(response) {
                 console.log(JSON.parse(response.responseText).message);
-                KMS.Cache.remove('cartId');
+                MSTORE.Cache.remove('cartId');
             });
         } else {
-            this.setState({ quantity: 0, totalPrice: 0 });
+            this.setState({ quantity: 0 });
         }
     }
 });

@@ -1,18 +1,11 @@
 var Products = React.createClass({
     render: function() {
         return <ContainerFluid>
+            <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Products'}] } />
             <Row>
                 {this.state.products.map(function(prod, index) {
                     return <Column key={index} colSpan="3">
-                        <Panel cls="product-item text-center">
-                            <PanelBody>
-                                <Link path={'#products/' + prod.id}><img src={'assets/products/' + prod.id + '.jpg'} alt={prod.name} /></Link>
-                            </PanelBody>
-                            <PanelFooter>
-                                <h4><Link path={'#products/' + prod.id} text={prod.name} /></h4>
-                                <h5>Rating: <strong className="text-primary">{prod.ratingScore}</strong> from {prod.totalReviews} reviews</h5>
-                            </PanelFooter>
-                        </Panel>
+                        <ProductItem data={prod} />
                     </Column>;
                 }, this)}
             </Row>

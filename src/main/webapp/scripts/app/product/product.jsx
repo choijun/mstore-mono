@@ -1,7 +1,17 @@
 var Product = React.createClass({
     render: function() {
         var prod = this.state.product;
+
+        var quantityField = <input type="text" className="form-control" value="0" disabled />;
+        var addToCartButton = <button type="button" className="btn btn-sm btn-danger" disabled="disabled">Sold out</button>;
+        if (this.state.selectedItem.quantity > 0) {
+            quantityField = <input  type="number" id="quantity" className="form-control text-right" 
+                                    min="1" max={this.state.selectedItem.quantity} step="1" defaultValue="1" />;
+            addToCartButton = <Button type="primary" icon="shopping-cart" text="Add to Cart" onClick={this.addToCart} />;
+        }
+
         return <ContainerFluid>
+            <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Products', path: '#products'}, {text: this.state.product.name}] } />
             <Row>
                 <Column colSpan="6">
                     <Panel cls="product-item text-center">
@@ -22,12 +32,12 @@ var Product = React.createClass({
                     <Row>
                         <Column colSpan="12"><h2>{prod.name}</h2></Column>
                         <Column colSpan="12"><h4>{prod.description}</h4></Column>
-                        <Column colSpan="12"><h2>{KMS.String.toCurrency(this.state.selectedItem.price)}</h2></Column>
+                        <Column colSpan="12"><h2>{MSTORE.String.toCurrency(this.state.selectedItem.price)}</h2></Column>
                         <Column colSpan="3">
-                            <input type="number" id="quantity" min="1" max={this.state.selectedItem.quantity} step="1" defaultValue="1" className="form-control text-right" />
+                            {quantityField}
                         </Column>
                         <Column colSpan="3">
-                            <Button type="primary" icon="shopping-cart" text="Add to Cart" onClick={this.addToCart} />
+                            {addToCartButton}
                         </Column>
                     </Row>
                 </Column>
@@ -72,23 +82,23 @@ var Product = React.createClass({
     addToCart: function() {
         var itemId = this.state.selectedItem.id,
             quantity = $('#quantity').val();
-        if (KMS.Cache.get('cartId')) {
-            this.updateCart(KMS.Cache.get('cartId'), itemId, quantity);
+        if (MSTORE.Cache.get('cartId')) {
+            this.updateCart(MSTORE.Cache.get('cartId'), itemId, quantity);
         } else {
             $.get('/api/carts/cart-id', function(data) {
-                KMS.Cache.set('cartId', data);
+                MSTORE.Cache.set('cartId', data);
                 this.updateCart(data, itemId, quantity);
             }.bind(this));
         }
     },
     updateCart: function(cartId, itemId, quantity) {
         $.ajax({
-            url: '/api/carts/' + cartId,
+            url: '/api/carts/items',
             type: 'post',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ cartId: cartId, itemId: itemId, quantity: quantity })
         }).done(function (data) {
-            KMS.PubSub.publish('updateCart');
+            MSTORE.PubSub.publish('updateCart');
         });
     }
 });

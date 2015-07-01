@@ -1,10 +1,42 @@
-window.KMS || (function(window) {
-    window.KMS = {
+window.MSTORE || (function(window) {
+    window.MSTORE = {
         loadView: function(viewName) {
             window.location.hash = viewName;
         },
         init: function(config) {
+            if (config.routes) {
+                MSTORE.Route.initRoutes(config.routes, config.defaultView);
+                window.addEventListener('hashchange', MSTORE.loadViewFromHash);
+                if (config.ready) {
+                    config.ready();
+                }
+            }
+        },
+        loadViewFromHash: function() {
+            var params = window.location.hash.substr(1).split('/'),
+                viewName = params.length > 0 ? params.shift() : '';
 
+            if (params.length > 0) {
+                viewName += '/{id}';
+            }
+
+            var view = MSTORE.Route.getView(viewName);
+            if (view) {
+                React.render(React.createElement(view, { params: params }), $('.main-container').get(0));
+            } else {
+                MSTORE.loadView(MSTORE.Route._default);
+            }
+        },
+        Route: {
+            _routes: {},
+            _default: 'home',
+            initRoutes: function(routes, defaultView) {
+                this._routes = routes;
+                this._default = defaultView;
+            },
+            getView: function(viewName) {
+                return this._routes[viewName];
+            }
         },
         String: {
             format: function (input) {
