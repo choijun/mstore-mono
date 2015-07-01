@@ -14,8 +14,8 @@ window.KMS || (function(window) {
                 });
             },
             toCurrency: function(amount) {
-                return '$' + (amount / 100).toFixed(2);
-            }      
+                return '$ ' + (amount / 100).toFixed(2);
+            }
         },
         Dom: {
             mergeCls: function(base) {
@@ -57,7 +57,7 @@ window.KMS || (function(window) {
                     delete this._cache[key];
                 }
             }
-        },        
+        },
         PubSub: {
             subscribers: function() {
                 if (!this._subscribersMap) {

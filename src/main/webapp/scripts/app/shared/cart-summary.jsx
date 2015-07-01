@@ -19,13 +19,9 @@ var CartSummary = React.createClass({
     updateCart: function() {
         if (KMS.Cache.get('cartId')) {
             $.ajax({
-                url: '/api/carts/' + KMS.Cache.get('cartId')
+                url: '/api/carts/total-items?cartId=' + KMS.Cache.get('cartId')
             }).done(function (data) {
-                var quantity = 0;
-                $.each(data.details, function(index, item) {
-                    quantity += item.quantity;
-                });
-                this.setState({ quantity: quantity, totalPrice: data.totalPrice });
+                this.setState({ quantity: data });
             }.bind(this))
             .fail(function(response) {
                 console.log(JSON.parse(response.responseText).message);

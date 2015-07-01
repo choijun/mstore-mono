@@ -5,7 +5,7 @@ var Cart = React.createClass({
         </ContainerFluid>;
         if (this.state.cart.details.length > 0) {
             result = <ContainerFluid>
-                <h1>Owner: {this.state.cart.owner}</h1>
+                <h1>Shipping Cart</h1>
                 <Table cls="cart-table">
                     <thead>
                         <tr>
@@ -26,13 +26,13 @@ var Cart = React.createClass({
                                 <td className="text-right price">{KMS.String.toCurrency(item.price)}</td>
                                 <td className="text-right quantity">{item.quantity}</td>
                                 <td className="text-right subtotal">{KMS.String.toCurrency(item.price * item.quantity)}</td>
-                                
+
                             </tr>;
                         }, this)}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colSpan="5" className="text-right subtotal">{KMS.String.toCurrency(this.state.cart.totalPrice)}</th>
+                            <th colSpan="5" className="text-right subtotal">{KMS.String.toCurrency(this.state.cart.subTotal)}</th>
                         </tr>
                     </tfoot>
                 </Table>
@@ -46,7 +46,7 @@ var Cart = React.createClass({
     },
     componentDidMount: function() {
         if (KMS.Cache.get('cartId')) {
-            $.get('/api/carts/' + KMS.Cache.get('cartId'), function(data) {
+            $.get('/api/carts/detail?cartId=' + KMS.Cache.get('cartId'), function(data) {
                 this.setState({ cart: data });
             }.bind(this));
         }

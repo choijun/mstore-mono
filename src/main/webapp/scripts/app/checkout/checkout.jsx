@@ -2,7 +2,7 @@ var Checkout = React.createClass({
     render: function() {
         return <ContainerFluid>
             <Row>
-                <Column colSpan="4">
+                <Column colSpan="3">
                     <label className="text-primary">Shipping Address</label>
                     <address>
                         <strong>{this.state.order.shippingAddress.fullName}</strong><br />
@@ -14,7 +14,7 @@ var Checkout = React.createClass({
                         <Button text="Edit Shipping Address" />
                     </address>
                 </Column>
-                <Column colSpan="4">
+                <Column colSpan="3">
                     <label className="text-primary">Billing Address</label>
                     <address>
                         <strong>{this.state.order.billingAddress.fullName}</strong><br />
@@ -26,7 +26,7 @@ var Checkout = React.createClass({
                         <Button text="Edit Billing Address" />
                     </address>
                 </Column>
-                <Column colSpan="4">
+                <Column colSpan="6">
                     <Table cls="cart-table">
                         <thead>
                             <tr>
@@ -48,8 +48,12 @@ var Checkout = React.createClass({
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th colSpan="3" className="text-right">Sub-total</th>
+                                <td className="text-right">{KMS.String.toCurrency(this.state.order.subTotal)}</td>
+                            </tr>
+                            <tr>
                                 <th colSpan="3" className="text-right">Tax ({this.state.order.taxRate * 100}%)</th>
-                                <td className="text-right">{KMS.String.toCurrency(this.state.order.subTotal * this.state.order.taxRate)}</td>
+                                <td className="text-right">{KMS.String.toCurrency(this.state.order.taxFee)}</td>
                             </tr>
                             <tr>
                                 <th colSpan="3" className="text-right">Shipping</th>
@@ -57,7 +61,7 @@ var Checkout = React.createClass({
                             </tr>
                             <tr>
                                 <th colSpan="3" className="text-right">Total</th>
-                                <td className="text-right">{KMS.String.toCurrency(this.state.order.subTotal * (1 + this.state.order.taxRate) + this.state.order.shippingFee)}</td>
+                                <td className="text-right">{KMS.String.toCurrency(this.state.order.total)}</td>
                             </tr>
                         </tfoot>
                     </Table>
