@@ -81,7 +81,7 @@ var Checkout = React.createClass({
     },
     componentWillMount: function() {
         $.ajax({
-            url: '/api/orders/preview-order'
+            url: '/api/orders/orders/preview-order'
         }).done(function (data) {
             this.setState({ order: data });
         }.bind(this))
@@ -91,7 +91,7 @@ var Checkout = React.createClass({
     },
     placeOrder: function() {
         $.ajax({
-            url: MSTORE.String.format('/api/orders?shippingAddressId={0}&billingAddressId={1}', this.state.order.shippingAddressId, this.state.order.billingAddressId),
+            url: MSTORE.String.format('/api/orders/orders?shippingAddressId={0}&billingAddressId={1}', this.state.order.shippingAddressId, this.state.order.billingAddressId),
             type: 'put',
             contentType: "application/json; charset=utf-8",
         }).done(function (data) {

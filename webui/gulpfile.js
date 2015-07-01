@@ -18,15 +18,15 @@ gulp.task('clean', function() {
 
 gulp.task('copy', ['clean'], function() {
     gulp.src([basedir + 'bower_components/bootstrap/dist/fonts/**.*'])
-        .pipe(gulp.dest(distdir + 'fonts/'));
+        .pipe(gulp.dest(distdir + 'assets/fonts/'));
     gulp.src([basedir + 'bower_components/components-font-awesome/fonts/**.*'])
-            .pipe(gulp.dest(distdir + 'fonts/'));
+            .pipe(gulp.dest(distdir + 'assets/fonts/'));
     gulp.src([basedir + 'assets/fonts/**.*'])
-            .pipe(gulp.dest(distdir + 'fonts/'));
+            .pipe(gulp.dest(distdir + 'assets/fonts/'));
     gulp.src([basedir + 'assets/images/**.*'])
-                .pipe(gulp.dest(distdir + 'images/'));
+                .pipe(gulp.dest(distdir + 'assets/images/'));
     gulp.src([basedir + 'assets/products/**.*'])
-            .pipe(gulp.dest(distdir + 'products/'));
+            .pipe(gulp.dest(distdir + 'assets/products/'));
 });
 
 gulp.task('scripts', ['clean'], function() {

@@ -15,7 +15,7 @@ var Products = React.createClass({
         return { products: [] };
     },
     componentDidMount: function() {
-        $.get('/api/products', function(data) {
+        $.get('/api/catalog/products', function(data) {
             this.setState({ products: data });
         }.bind(this));
     }

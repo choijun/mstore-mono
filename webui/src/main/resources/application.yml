@@ -6,7 +6,26 @@ server:
     port: 8080
 
 zuul:
-  routes:
-    mstore-service:
-      path: /api/**
-      url: http://localhost:8000
+    host:
+        socket-timeout-millis: 20000
+        connect-timeout-millis: 5000
+    prefix: /api
+    routes:
+        auth-service:
+            path: /auth/** #AuthRest
+            url: http://localhost:8000/auth
+        cart-service:
+            path: /carts/** #CartRest
+            url: http://localhost:8000/
+        catalog-service:
+            path: /catalog/** #ProductRest, ItemRest
+            url: http://localhost:8000/
+        customer-service:
+            path: /customers/** #AddressRest, CustomerRest
+            url: http://localhost:8000/
+        order-service:
+            path: /orders/** #OrderRest
+            url: http://localhost:8000/
+        review-service:
+            path: /reviews/** #ReviewRest
+            url: http://localhost:8000/

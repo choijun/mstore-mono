@@ -19,7 +19,7 @@ var CartSummary = React.createClass({
     updateCart: function() {
         if (MSTORE.Cache.get('cartId')) {
             $.ajax({
-                url: '/api/carts/total-items?cartId=' + MSTORE.Cache.get('cartId')
+                url: '/api/carts/carts/total-items?cartId=' + MSTORE.Cache.get('cartId')
             }).done(function (data) {
                 this.setState({ quantity: data });
             }.bind(this))

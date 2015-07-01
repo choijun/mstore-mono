@@ -53,7 +53,7 @@ var Cart = React.createClass({
     },
     removeItem: function(itemId) {
         $.ajax({
-            url: '/api/carts/items' + '/' + itemId,
+            url: '/api/carts/carts/items' + '/' + itemId,
             type: 'delete'
         }).done(function (data) {
             this.loadCart();
@@ -62,7 +62,7 @@ var Cart = React.createClass({
     },
     loadCart: function() {
         if (MSTORE.Cache.get('cartId')) {
-            $.get('/api/carts/detail?cartId=' + MSTORE.Cache.get('cartId'), function(data) {
+            $.get('/api/carts/carts/detail?cartId=' + MSTORE.Cache.get('cartId'), function(data) {
                 this.setState({ cart: data });
             }.bind(this));
         }

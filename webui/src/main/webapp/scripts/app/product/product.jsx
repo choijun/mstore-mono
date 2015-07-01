@@ -5,7 +5,7 @@ var Product = React.createClass({
         var quantityField = <input type="text" className="form-control" value="0" disabled />;
         var addToCartButton = <button type="button" className="btn btn-sm btn-danger" disabled="disabled">Sold out</button>;
         if (this.state.selectedItem.quantity > 0) {
-            quantityField = <input  type="number" id="quantity" className="form-control text-right" 
+            quantityField = <input  type="number" id="quantity" className="form-control text-right"
                                     min="1" max={this.state.selectedItem.quantity} step="1" defaultValue="1" />;
             addToCartButton = <Button type="primary" icon="shopping-cart" text="Add to Cart" onClick={this.addToCart} />;
         }
@@ -44,11 +44,11 @@ var Product = React.createClass({
                 <Column colSpan="12">
                     <h2>REVIEWS</h2>
                     <p>
-                        <input  type="hidden" 
-                                id="ratingScore" 
+                        <input  type="hidden"
+                                id="ratingScore"
                                 className="rating"
-                                data-filled="fa fa-star fa-3x" 
-                                data-empty="fa fa-star-o fa-3x" 
+                                data-filled="fa fa-star fa-3x"
+                                data-empty="fa fa-star-o fa-3x"
                                 data-readonly />
                     </p>
                     {prod.reviews.map(function(review, index) {
@@ -68,7 +68,7 @@ var Product = React.createClass({
     },
     componentDidMount: function() {
         var productId = this.props.params[0];
-        $.get('/api/products/' + productId, function(data) {
+        $.get('/api/catalog/products/' + productId, function(data) {
             this.setState({ product: data });
             if (this.state.product.items.length > 0) {
                 this.setState({ selectedItem: this.state.product.items[0] });
@@ -85,7 +85,7 @@ var Product = React.createClass({
         if (MSTORE.Cache.get('cartId')) {
             this.updateCart(MSTORE.Cache.get('cartId'), itemId, quantity);
         } else {
-            $.get('/api/carts/cart-id', function(data) {
+            $.get('/api/carts/carts/cart-id', function(data) {
                 MSTORE.Cache.set('cartId', data);
                 this.updateCart(data, itemId, quantity);
             }.bind(this));
@@ -93,7 +93,7 @@ var Product = React.createClass({
     },
     updateCart: function(cartId, itemId, quantity) {
         $.ajax({
-            url: '/api/carts/items',
+            url: '/api/carts/carts/items',
             type: 'post',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ cartId: cartId, itemId: itemId, quantity: quantity })
