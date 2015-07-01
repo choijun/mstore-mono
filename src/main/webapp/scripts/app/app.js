@@ -7,6 +7,7 @@ KMS.loadViewFromHash = function() {
         case 'products': view = params.length > 0 ? Product : Products; break;
         case 'cart': view = Cart; break;
         case 'orders': view = Orders; break;
+        case 'checkout': view = Checkout; break;
         default: view = Home; break;
     }
 
@@ -15,3 +16,18 @@ KMS.loadViewFromHash = function() {
 window.addEventListener('hashchange', KMS.loadViewFromHash);
 React.render(React.createElement(Viewport), $('.ui-view').get(0));
 KMS.loadViewFromHash();
+
+KMS.init({
+    routes: {
+        'home': Home,
+        'products': Products,
+        'products/:productId': Product,
+        'cart': Cart,
+        'checkout': Checkout,
+        'orders': Orders
+    },
+    ready: function() {
+        React.render(React.createElement(Viewport), $('.ui-view').get(0));
+        React.render(React.createElement(Home), $('.main-container').get(0));
+    }
+})

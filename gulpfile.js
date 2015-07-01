@@ -12,7 +12,7 @@ var tmpdir = basedir + '.tmp/';
 var distdir = basedir + 'dist/';
 
 gulp.task('clean', function() {
-    return gulp.src([tmpdir + '**', distdir + '**'], {read: false})
+    return gulp.src([tmpdir + '*', distdir + '*'], {read: false})
         .pipe(clean());
 });
 
@@ -35,7 +35,7 @@ gulp.task('scripts', ['clean'], function() {
         .pipe(gulp.dest(tmpdir + 'scripts/'));
 });
 
-gulp.task('usemin', ['lint'], function () {
+gulp.task('usemin', ['scripts'], function () {
     return gulp.src('src/main/webapp/index.html')
         .pipe(usemin({
             css: [minifycss()],
@@ -49,16 +49,10 @@ gulp.task('lint', ['scripts'], function() {
         .pipe(jshint());
 });
 
-gulp.task('watch', ['clean'], function() {
-    var watching = false;
-    gulp.start('scripts', 'lint', function() {
-        if (!watching) {
-            watching = true;
-            gulp.watch(srcdir + '**/*.jsx', ['scripts', 'lint']);
-        }
-    });
+gulp.task('watch', ['scripts'], function() {
+    gulp.watch(srcdir + '**/*.jsx', ['scripts', 'lint']);
 });
 
-gulp.task('default', ['clean', 'scripts', 'lint']);
+gulp.task('default', ['clean', 'scripts', 'lint', 'watch']);
 
 gulp.task('dist', ['clean', 'copy', 'scripts', 'lint', 'usemin']);

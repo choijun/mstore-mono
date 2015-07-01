@@ -3,6 +3,7 @@ var Viewport = React.createClass({
         return <Container>
             <Header />
             <Container cls="main-container" />
+            <Footer />
         </Container>;
     }
 });

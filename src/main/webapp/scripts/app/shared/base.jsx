@@ -55,7 +55,7 @@ var PanelFooter = React.createClass({
 
 var Icon = React.createClass({
     render: function() {
-        return <span className={'glyphicon glyphicon-' + this.props.type} aria-hidden="true"></span>;
+        return <span className={'glyphicon glyphicon-' + this.props.type} aria-hidden="true" onClick={this.props.onClick}></span>;
     }
 });
 var Button = React.createClass({
@@ -84,18 +84,8 @@ var Link = React.createClass({
 
 var Table = React.createClass({
     render: function() {
-        return <table className={KMS.Dom.mergeCls('table table-striped table-bordered table-hover', this.props.cls)}>
-            <thead>
-                <tr>
-                    <th className="text-right">#</th>
-                    {this.props.headers.map(function(headerName, index) {
-                        return <th key={index} className="text-center">{headerName}</th>;
-                    }, this)}
-                </tr>
-            </thead>
-            <tbody>
-                {this.props.children}
-            </tbody>
+        return <table className={KMS.Dom.mergeCls('table table-striped table-hover', this.props.cls)}>
+            {this.props.children}
         </table>;
     }
 });

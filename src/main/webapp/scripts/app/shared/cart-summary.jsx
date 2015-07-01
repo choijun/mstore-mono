@@ -1,8 +1,7 @@
 var CartSummary = React.createClass({
     render: function() {
         return <Link cls="my-cart" icon="shopping-cart" path="#cart">
-            {this.state.quantity > 0 ? <span className="badge quantity">{this.state.quantity}</span> : ''}
-            {this.state.totalPrice > 0 ? <span className="total-price">{'$' + (this.state.totalPrice / 100)}</span> : ''}
+            {this.state.quantity > 0 ? <span className="quantity">{this.state.quantity}</span> : ''}
         </Link>;
     },
     getInitialState: function() {

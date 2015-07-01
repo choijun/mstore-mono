@@ -37,9 +37,15 @@
     margin-left: 10px;
     font-weight: bold;
 }
+.btn-action:first-child {
+    margin-left: 0;
+}
 a, a:hover, a:active, a:focus, a:visited, .text-primary {
     text-decoration: none;
     color: #007aff;
+}
+.text-danger {
+    color: #f06953;
 }
 .panel {
     margin-bottom: 0;
@@ -52,6 +58,7 @@ td, th {
 }
 .glyphicon {
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .modal-footer {
