@@ -1,5 +1,20 @@
 var Header = React.createClass({
     render: function() {
+        var MyAccount = <li>
+            <Link icon="log-in" onClick={this.login} />
+        </li>
+        if (this.state.loginUser.username) {
+            MyAccount = <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><Icon type="user" /></a>
+                <ul className="dropdown-menu">
+                    <li><Link text="My Addresses" /></li>
+                    <li><Link text="My Orders" /></li>
+                    <li role="separator" className="divider"></li>
+                    <li><Link text="Logout" onClick={this.logout} /></li>
+                </ul>
+            </li>;
+        }
+
         return <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
             <ContainerFluid>
                 <div className="navbar-header">
@@ -18,17 +33,44 @@ var Header = React.createClass({
                 <ul className="nav navbar-nav navbar-right">
                     <li><Link icon="phone" path="#products" /></li>
                     <li><CartSummary /></li>
-                    <li className="dropdown">
-                        <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><Icon type="user" /></a>
-                        <ul className="dropdown-menu">
-                            <li><Link text="My Addresses" /></li>
-                            <li><Link text="My Orders" /></li>
-                            <li role="separator" className="divider"></li>
-                            <li><Link text="Logout" /></li>
-                        </ul>
-                    </li>
+                    {MyAccount}
                 </ul>
             </ContainerFluid>
         </nav>;
+    },
+    getInitialState: function() {
+        return { loginUser: {} };
+    },
+    componentWillMount: function() {
+        this.authen();
+    },
+    authen: function() {
+        $.ajax({
+            url: '/api/auth/user'
+        }).done(function(data) {
+            if (data) {
+                MSTORE.Cache.set('loginUser', JSON.stringify(data));
+                this.setState({ loginUser: data });
+            } else {
+                MSTORE.Cache.remove('loginUser');
+                this.setState({ loginUser: {} });
+            }
+            
+        }.bind(this));
+    },
+    login: function() {
+        $.ajax({
+            url: '/login'
+        }).done(function (data) {
+            this.authen();
+        }.bind(this));
+    },
+    logout: function() {
+        $.ajax({
+            url: '/logout',
+            type: 'post'
+        }).done(function (data) {
+            this.authen();
+        }.bind(this));
     }
 });
