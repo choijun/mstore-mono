@@ -29,8 +29,8 @@ zuul:
             path: /api/reviews/reviews/** #ReviewRest
             url: http://localhost:8000/reviews/
         login-service: # mock auth
-            path: /login
+            path: /login/**
             url: http://localhost:8000/login
         logout-service: # mock auth
-            path: /logout
+            path: /logout/**
             url: http://localhost:8000/logout
