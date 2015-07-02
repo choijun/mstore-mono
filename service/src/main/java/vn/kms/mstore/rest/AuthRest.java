@@ -35,7 +35,7 @@ public class AuthRest extends BaseRest {
     @RequestMapping(value = "/auth/user", method = GET)
     public User getUser() {
         val userId = SecurityUtil.getLoginId();
-        Customer customer = userRepo.findOne(userId);
+        Customer customer = (userId != null)? userRepo.findOne(userId) : null;
         if (customer == null) {
             return null;
         }
