@@ -22,10 +22,11 @@ var Header = React.createClass({
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><Icon type="user" /></a>
                         <ul className="dropdown-menu">
                             <li><Link text="My Addresses" /></li>
-                            <li role="separator" className="divider"></li>
                             <li><Link text="My Orders" /></li>
+                            <li role="separator" className="divider"></li>
+                            <li><Link text="Logout" /></li>
                         </ul>
-        </li>
+                    </li>
                 </ul>
             </ContainerFluid>
         </nav>;

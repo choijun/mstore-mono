@@ -9,23 +9,28 @@ zuul:
     host:
         socket-timeout-millis: 20000
         connect-timeout-millis: 5000
-    prefix: /api
     routes:
         auth-service:
-            path: /auth/** #AuthRest
-            url: http://localhost:8000/auth
+            path: /api/auth/** #AuthRest
+            url: http://localhost:8000/auth/
         cart-service:
-            path: /carts/** #CartRest
-            url: http://localhost:8000/
+            path: /api/carts/carts/** #CartRest
+            url: http://localhost:8000/carts/
         catalog-service:
-            path: /catalog/** #ProductRest, ItemRest
+            path: /api/catalog/** #ProductRest, ItemRest
             url: http://localhost:8000/
         customer-service:
-            path: /customers/** #AddressRest, CustomerRest
+            path: /api/customers/** #AddressRest, CustomerRest
             url: http://localhost:8000/
         order-service:
-            path: /orders/** #OrderRest
-            url: http://localhost:8000/
+            path: /api/orders/orders/** #OrderRest
+            url: http://localhost:8000/orders/
         review-service:
-            path: /reviews/** #ReviewRest
-            url: http://localhost:8000/
+            path: /api/reviews/reviews/** #ReviewRest
+            url: http://localhost:8000/reviews/
+        login-service: # mock auth
+            path: /login
+            url: http://localhost:8000/login
+        logout-service: # mock auth
+            path: /logout
+            url: http://localhost:8000/logout
