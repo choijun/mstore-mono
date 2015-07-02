@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vn.kms.mstore.domain.review.Review;
 import vn.kms.mstore.domain.review.ReviewRepository;
+import vn.kms.mstore.util.SecurityUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ReviewRest extends BaseRest {
     public Review createReview(@PathVariable String productId, @RequestBody Review review) {
         review.setId(UUID.randomUUID().toString());
         review.setProductId(productId);
-        review.setAuthor(""); //TODO: get author for Authentication
+        review.setAuthor(SecurityUtil.getLoginId());
         review.setReviewAt(new Date());
 
         review = reviewRepo.save(review);

@@ -45,7 +45,7 @@ var Product = React.createClass({
                     <h2>REVIEWS</h2>
                     <p>
                         <input  type="hidden"
-                                id="ratingScore"
+                                id="avgRating"
                                 className="rating"
                                 data-filled="fa fa-star fa-3x"
                                 data-empty="fa fa-star-o fa-3x"
@@ -64,7 +64,7 @@ var Product = React.createClass({
         </ContainerFluid>;
     },
     getInitialState: function() {
-        return { product: { id: '', items: [], reviews: [], ratingScore: 0 }, selectedItem: { price: 0, quantity: 10 } };
+        return { product: { id: '', items: [], reviews: [], avgRating: 0 }, selectedItem: { price: 0, quantity: 10 } };
     },
     componentDidMount: function() {
         var productId = this.props.params[0];
@@ -73,7 +73,7 @@ var Product = React.createClass({
             if (this.state.product.items.length > 0) {
                 this.setState({ selectedItem: this.state.product.items[0] });
             }
-            $('#ratingScore').rating('rate', this.state.product.ratingScore);
+            $('#avgRating').rating('rate', this.state.product.avgRating);
         }.bind(this));
     },
     selectItem: function(item) {

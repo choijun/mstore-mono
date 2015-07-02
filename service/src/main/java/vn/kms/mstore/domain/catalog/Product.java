@@ -26,23 +26,14 @@ public class Product implements Serializable {
     private String description;
 
     @Transient
+    private double avgRating;
+
+    @Transient
+    private long totalReviews;
+
+    @Transient
     private List<Item> items = new ArrayList<>();
 
     @Transient
     private List<Review> reviews = new ArrayList<>();
-
-    public double getRatingScore() {
-        if (reviews.isEmpty()) {
-            return 0;
-        }
-
-        return reviews.stream()
-                .mapToInt(Review::getRating)
-                .average()
-                .getAsDouble();
-    }
-
-    public int getTotalReviews() {
-        return reviews.size();
-    }
 }
