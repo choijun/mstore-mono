@@ -1,15 +1,11 @@
-var Cart = React.createClass({
+MSTORE.View.Cart = React.createClass({
     render: function() {
-        var result = <ContainerFluid>
-            <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Cart'}] } />
-            <h1>Your cart is empty, <Link path="#products" text="click here to start shopping" /></h1>
-        </ContainerFluid>;
+        var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
 
         if (this.state.cart.details.length > 0) {
-            result = <ContainerFluid>
-                <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Cart'}] } />
+            result = <div>
                 <h1>Shipping Cart</h1>
-                <Table cls="cart-table">
+                <table className="table table-striped table-hover cart-table">
                     <thead>
                         <tr>
                             <th className="text-center">&nbsp;</th>
@@ -23,7 +19,7 @@ var Cart = React.createClass({
                         {this.state.cart.details.map(function(item, index) {
                             return <tr key={index}>
                                 <td className="text-center action text-danger">
-                                    <Icon type="remove" onClick={this.removeItem.bind(this, item.itemId)} />
+                                    <span className='glyphicon glyphicon-remove' aria-hidden="true" onClick={this.removeItem.bind(this, item.itemId)}></span>
                                 </td>
                                 <td>{item.itemId}</td>
                                 <td className="text-right price">{MSTORE.String.toCurrency(item.price)}</td>
@@ -38,22 +34,31 @@ var Cart = React.createClass({
                             <th colSpan="5" className="text-right subtotal">{MSTORE.String.toCurrency(this.state.cart.subTotal)}</th>
                         </tr>
                     </tfoot>
-                </Table>
-                <Link icon="ok" cls="btn btn-sm btn-primary btn-action pull-right" text="Checkout" path="#checkout" />
-            </ContainerFluid>;
+                </table>
+                <a href="#checkout" className="btn btn-sm btn-primary btn-action pull-right">
+                    <span className='glyphicon glyphicon-ok' aria-hidden="true"></span>
+                    Checkout
+                </a>
+            </div>;
         }
 
-        return result;
+        return <div className="container-fluid">
+            <ol className="breadcrumb">
+                <li><a href="#home">Home</a></li>
+                <li className="active">Cart</li>
+            </ol>
+            {result}
+        </div>;
     },
     getInitialState: function() {
         return { cart: { details: [] } };
     },
-    componentDidMount: function() {
+    componentWillMount: function() {
         this.loadCart();
     },
     removeItem: function(itemId) {
         $.ajax({
-            url: '/api/carts/carts/items' + '/' + itemId,
+            url: MSTORE.String.format(MSTORE.Resource.get('remove-cart-item'), itemId),
             type: 'delete'
         }).done(function (data) {
             this.loadCart();
@@ -61,10 +66,11 @@ var Cart = React.createClass({
         }.bind(this));
     },
     loadCart: function() {
-        if (MSTORE.Cache.get('cartId')) {
-            $.get('/api/carts/carts/detail?cartId=' + MSTORE.Cache.get('cartId'), function(data) {
-                this.setState({ cart: data });
-            }.bind(this));
-        }
+        $.ajax({
+            url: MSTORE.String.format(MSTORE.Resource.get('cart-details'), MSTORE.Cache.get('cartId'))
+        })
+        .done(function (data) {
+            this.setState({ cart: data });
+        }.bind(this));
     }
 });

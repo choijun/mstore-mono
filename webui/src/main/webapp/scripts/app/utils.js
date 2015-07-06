@@ -4,8 +4,11 @@ window.MSTORE || (function(window) {
             window.location.hash = viewName;
         },
         init: function(config) {
+            if (config.resources) {
+                MSTORE.Resource.init(config.resources);
+            }
             if (config.routes) {
-                MSTORE.Route.initRoutes(config.routes, config.defaultView);
+                MSTORE.Route.init(config.routes, config.defaultView);
                 window.addEventListener('hashchange', MSTORE.loadViewFromHash);
                 if (config.ready) {
                     config.ready();
@@ -27,10 +30,20 @@ window.MSTORE || (function(window) {
                 MSTORE.loadView(MSTORE.Route._default);
             }
         },
+        View: {},
+        Resource: {
+            _resources: {},
+            init: function(resources) {
+                this._resources = resources;
+            },
+            get: function(key) {
+                return this._resources[key];
+            }
+        },
         Route: {
             _routes: {},
             _default: 'home',
-            initRoutes: function(routes, defaultView) {
+            init: function(routes, defaultView) {
                 this._routes = routes;
                 this._default = defaultView;
             },
@@ -47,16 +60,6 @@ window.MSTORE || (function(window) {
             },
             toCurrency: function(amount) {
                 return '$ ' + (amount / 100).toFixed(2);
-            }
-        },
-        Dom: {
-            mergeCls: function(base) {
-                if (arguments.length > 1) {
-                    for (var i = 1, cls; (cls = arguments[i]) != null; ++i) {
-                        base += ' ' + cls;
-                    }
-                }
-                return base;
             }
         },
         Cache: {

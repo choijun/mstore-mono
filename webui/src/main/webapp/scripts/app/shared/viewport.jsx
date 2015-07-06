@@ -1,9 +1,9 @@
-var Viewport = React.createClass({
+MSTORE.Viewport = React.createClass({
     render: function() {
-        return <Container>
-            <Header />
-            <Container cls="main-container" />
-            <Footer />
-        </Container>;
+        return <div>
+            <MSTORE.View.Header />
+            <div className="main-container" />
+            <MSTORE.View.Footer />
+        </div>;
     }
 });
