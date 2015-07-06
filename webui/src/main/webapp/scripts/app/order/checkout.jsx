@@ -1,24 +1,20 @@
-var Checkout = React.createClass({
+MSTORE.View.Checkout = React.createClass({
     render: function() {
-        var result = <ContainerFluid>
-            <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Checkout'}] } />
-            <h1>Your cart is empty, <Link path="#products" text="click here to start shopping" /></h1>
-        </ContainerFluid>;
+        var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
 
         if (this.state.order.details.length > 0) {
-            result = <ContainerFluid>
-                <Breadcrumb list={ [{text: 'Home', path: '#home'}, {text: 'Checkout'}] } />
-                <Row>
-                    <Column colSpan="3">
+            result = <div>
+                <div className="row">
+                    <div className="col-sm-3">
                         <label className="text-primary">Shipping Address</label>
-                        <Address data={this.state.order.shippingAddress} />
-                    </Column>
-                    <Column colSpan="3">
+                        <MSTORE.View.Address data={this.state.order.shippingAddress} />
+                    </div>
+                    <div className="col-sm-3">
                         <label className="text-primary">Billing Address</label>
-                        <Address data={this.state.order.billingAddress} />
-                    </Column>
-                    <Column colSpan="6">
-                        <Table cls="cart-table">
+                        <MSTORE.View.Address data={this.state.order.billingAddress} />
+                    </div>
+                    <div className="col-sm-6">
+                        <table className="table table-striped table-hover cart-table">
                             <thead>
                                 <tr>
                                     <th className="text-center">&nbsp;</th>
@@ -55,46 +51,74 @@ var Checkout = React.createClass({
                                     <td className="text-right">{MSTORE.String.toCurrency(this.state.order.total)}</td>
                                 </tr>
                             </tfoot>
-                        </Table>
-                        <Button type="primary" cls="pull-right" text="Order" icon="ok" onClick={this.placeOrder} />
-                    </Column>
-                </Row>
-                <DialogPopup id="order-result-message">
-                    <PopupHeader title="Place Order Success" />
-                    <div className="modal-body">
-                        Your order <span className="text-primary">{this.state.order.id}</span> has been processed. <br />
-                        You can view your order history by going to the <Link text="My Orders" path="#order" />
+                        </table>
+                        <button type="button" className="btn btn-sm btn-primary pull-right" onClick={this.placeOrder}>
+                            <span className='glyphicon glyphicon-ok' aria-hidden="true"></span>
+                            Order
+                        </button>
                     </div>
-                    <div className="modal-footer row">
-                        <Column colSpan="12">
-                            <button type="button" className="btn btn-sm btn-default" data-dismiss="modal">OK</button>
-                        </Column>
+                </div>
+                <div className="modal fade" id="order-result-message" tabIndex="-1" role="dialog" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 className="modal-title">Place Order Success</h4>
+                            </div>
+                            <div className="modal-body">
+                                Your order <span className="text-primary">{this.state.order.id}</span> has been processed. <br />
+                                You can view your order history by going to the <a href="#orders">My Orders</a>
+                            </div>
+                            <div className="modal-footer row">
+                                <div className="col-sm-12">
+                                    <button type="button" className="btn btn-sm btn-default" data-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </DialogPopup>
-            </ContainerFluid>;
+                </div>
+            </div>;
         }
 
-        return result;
+        return <div className="container-fluid">
+            <ol className="breadcrumb">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#orders">Orders</a></li>
+                <li className="active">Checkout</li>
+            </ol>
+            {result}
+        </div>;
     },
     getInitialState: function() {
-        return { order: { shippingAddress: {}, billingAddress: {}, details: [] }, headers: ['Item', 'Price', 'Quantity', 'Sub Total'] };
+        return { order: { shippingAddress: {}, billingAddress: {}, details: [] } };
     },
     componentWillMount: function() {
+        if (MSTORE.Cache.get('loginUser')) {
+            this.previewOrder();
+        } else {
+            MSTORE.PubSub.publish('login', this.previewOrder);
+        }
+    },
+    previewOrder: function() {
         $.ajax({
-            url: '/api/orders/orders/preview-order'
-        }).done(function (data) {
+            url: MSTORE.String.format(MSTORE.Resource.get('preview-order'), MSTORE.Cache.get('cartId'))
+        })
+        .done(function (data) {
             this.setState({ order: data });
         }.bind(this))
         .fail(function(response) {
             console.log(JSON.parse(response.responseText).message);
+            MSTORE.Cache.remove('cartId');
+            MSTORE.PubSub.publish('updateCart');
         });
     },
     placeOrder: function() {
         $.ajax({
-            url: MSTORE.String.format('/api/orders/orders?shippingAddressId={0}&billingAddressId={1}', this.state.order.shippingAddressId, this.state.order.billingAddressId),
+            url: MSTORE.String.format(MSTORE.Resource.get('place-order'), this.state.order.shippingAddressId, this.state.order.billingAddressId),
             type: 'put',
-            contentType: "application/json; charset=utf-8",
-        }).done(function (data) {
+            contentType: 'application/json; charset=utf-8'
+        })
+        .done(function (data) {
             var order = this.state.order;
             order.id = data;
             this.setState({ order: order });

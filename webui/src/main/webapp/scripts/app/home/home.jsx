@@ -1,7 +1,7 @@
-var Home = React.createClass({
+MSTORE.View.Home = React.createClass({
     render: function() {
-        return <ContainerFluid>
-            <Container cls="center-block slide-title" />
-        </ContainerFluid>;
+        return <div className="container-fluid">
+        	<a href="#products" className="center-block slide-title"></a>
+        </div>;
     }
 });
