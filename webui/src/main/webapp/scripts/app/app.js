@@ -38,7 +38,7 @@ MSTORE.init({
             },
             statusCode: {
                 401: function() {
-                    window.location = "/login";
+                    //window.location = "/login";
                 }
             }
         });
