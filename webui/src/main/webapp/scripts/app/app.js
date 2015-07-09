@@ -22,7 +22,8 @@ MSTORE.init({
         'preview-order': '/api/orders/orders/preview-order?cartId={0}',
         'place-order': '/api/orders/orders?shippingAddressId={0}&billingAddressId={1}',
         'orders': '/api/orders/orders',
-        'create-review': '/api/reviews/reviews/{0}'
+        'create-review': '/api/reviews/reviews/{0}',
+        'get-item': '/api/catalog/items/{0}'
     },
     ready: function() {
         $.ajaxSetup({

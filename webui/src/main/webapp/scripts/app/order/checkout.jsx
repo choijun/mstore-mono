@@ -29,7 +29,7 @@ class Checkout extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.order.details.map(function(item, index) {
+                                {this.state.order.details.map((item, index) => {
                                     return <tr key={index}>
                                         <td>{item.itemId}</td>
                                         <td className="text-right">{MSTORE.String.toCurrency(item.unitPrice)}</td>
@@ -127,7 +127,7 @@ class Checkout extends React.Component {
                 order.id = data;
                 this.setState({ order: order });
                 $('#order-result-message').modal('show');
-                $('#order-result-message').on('hidden.bs.modal', function (e) {
+                $('#order-result-message').on('hidden.bs.modal', (e) => {
                     MSTORE.loadView('products');
                 })
                 MSTORE.Cache.remove('cartId');

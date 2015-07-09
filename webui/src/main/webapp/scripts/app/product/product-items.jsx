@@ -21,7 +21,7 @@ class ProductItems extends React.Component {
                         </div>
                         <div className="panel panel-footer">
                             <div className="btn-group" role="group">
-                                {product.items.map(function(item, index) {
+                                {product.items.map((item, index) => {
                                     var type = item.id === this.state.activeItem.id ? 'primary' : 'default';
                                     return <button type="button" className={'btn btn-sm btn-' + type} key={index} onClick={this.setActiveItem.bind(this, item)}>
                                         {item.name}
@@ -43,6 +43,7 @@ class ProductItems extends React.Component {
                                     data-filled="fa fa-star fa-3x"
                                     data-empty="fa fa-star-o fa-3x"
                                     data-readonly />
+                            <span> ({product.reviews.length})</span>
                         </div>
                         <div className="col-sm-3">
                             <ProductQuantity 
@@ -112,13 +113,27 @@ class ProductItems extends React.Component {
 
     componentWillMount() {
         var productId = this.props.params[0];
+        var itemId = '';
+        if (this.props.params.length > 1) {
+            itemId = this.props.params[1];
+        }
         $.ajax({
             url: MSTORE.String.format(MSTORE.Resource.get('product'), productId),
             success: (data) => {
-                this.setState({ product: data, activeItem: data.items[0] });
+                this.setState({ product: data });
+                if (itemId) {
+                    $.each(data.items, (index, item) => {
+                        if (itemId === item.id) {
+                            this.setState({ activeItem: item });
+                            return;
+                        }
+                    })
+                } else {
+                    this.setState({ activeItem: data.items[0] });
+                }
                 $('#rating').rating('rate', 0);
                 $('#avgRating').rating('rate', data.avgRating);
-                $.each(data.reviews, function(index, review) {
+                $.each(data.reviews, (index, review) => {
                     $('#' + review.id).rating('rate', review.rating);
                 })
             }

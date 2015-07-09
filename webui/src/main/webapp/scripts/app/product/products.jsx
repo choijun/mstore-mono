@@ -11,7 +11,7 @@ class Products extends React.Component {
                 <li className="active">Products</li>
             </ol>
             <div className="row">
-                {this.state.products.map(function(product, index) {
+                {this.state.products.map((product, index) => {
                     return <div className="col-sm-3" key={index}>
                         <div className="panel panel-default product-item text-center">
                             <div className="panel panel-body">
@@ -44,7 +44,7 @@ class Products extends React.Component {
             url: MSTORE.Resource.get('products'),
             success: (data) => {
                 this.setState({ products: data });
-                $.each(data, function(index, product) {
+                $.each(data, (index, product) => {
                     $('#' + product.id + '-rating').rating('rate', product.avgRating);
                 })
             }
