@@ -7,7 +7,7 @@ class LoginUser extends React.Component {
     render() {
         if (!this.state.loginUser.username) {
             return <li>
-                <a href="javascript:void(0)" onClick={this.login.bind(this)}>
+                <a href="/login">
                     <span className='glyphicon glyphicon-log-in' aria-hidden="true"></span>
                 </a>
             </li>;
