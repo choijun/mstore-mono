@@ -1,5 +1,10 @@
-MSTORE.View.Cart = React.createClass({
-    render: function() {
+class Cart extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { cart: { details: [] } };
+    }
+
+    render() {
         var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
 
         if (this.state.cart.details.length > 0) {
@@ -49,28 +54,29 @@ MSTORE.View.Cart = React.createClass({
             </ol>
             {result}
         </div>;
-    },
-    getInitialState: function() {
-        return { cart: { details: [] } };
-    },
-    componentWillMount: function() {
+    }
+
+    componentWillMount() {
         this.loadCart();
-    },
-    removeItem: function(itemId) {
+    }
+
+    removeItem(itemId) {
         $.ajax({
             url: MSTORE.String.format(MSTORE.Resource.get('remove-cart-item'), itemId),
-            type: 'delete'
-        }).done(function (data) {
-            this.loadCart();
-            MSTORE.PubSub.publish('updateCart');
-        }.bind(this));
-    },
-    loadCart: function() {
-        $.ajax({
-            url: MSTORE.String.format(MSTORE.Resource.get('cart-details'), MSTORE.Cache.get('cartId'))
-        })
-        .done(function (data) {
-            this.setState({ cart: data });
-        }.bind(this));
+            type: 'delete',
+            success: (data) => {
+                this.loadCart();
+                MSTORE.PubSub.publish('updateCart');
+            }
+        });
     }
-});
+
+    loadCart() {
+        $.ajax({
+            url: MSTORE.String.format(MSTORE.Resource.get('cart-details'), MSTORE.Cache.get('cartId')),
+            success: (data) => {
+                this.setState({ cart: data });
+            }
+        });
+    }
+}

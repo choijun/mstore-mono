@@ -1,11 +1,11 @@
 MSTORE.init({
     routes: {
-        'home': MSTORE.View.Home,
-        'products': MSTORE.View.Products,
-        'products/{id}': MSTORE.View.ProductItems,
-        'cart': MSTORE.View.Cart,
-        'checkout': MSTORE.View.Checkout,
-        'orders': MSTORE.View.Orders
+        'home': Home,
+        'products': Products,
+        'products/{id}': ProductItems,
+        'cart': Cart,
+        'checkout': Checkout,
+        'orders': Orders
     },
     defaultView: 'home',
     resources: {
@@ -43,7 +43,7 @@ MSTORE.init({
             }
         });
 
-        React.render(React.createElement(MSTORE.Viewport), $('.ui-view').get(0));
+        React.render(React.createElement(Viewport), $('.ui-view').get(0));
         MSTORE.loadViewFromHash();
     }
 });

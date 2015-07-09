@@ -1,5 +1,10 @@
-MSTORE.View.ProductItems = React.createClass({
-    render: function() {
+class ProductItems extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { product: { id: '', items: [], reviews: [], avgRating: 0 }, activeItem: { price: 0, quantity: 10 }, quantity: 1 };
+    }
+
+    render() {
         var product = this.state.product;
 
         return <div className="container-fluid">
@@ -12,13 +17,13 @@ MSTORE.View.ProductItems = React.createClass({
                 <div className="col-sm-6">
                     <div className="panel panel-default product-item text-center">
                         <div className="panel panel-body">
-                            <MSTORE.View.ProductImage data={product} />
+                            <ProductImage data={product} />
                         </div>
                         <div className="panel panel-footer">
                             <div className="btn-group" role="group">
                                 {product.items.map(function(item, index) {
                                     var type = item.id === this.state.activeItem.id ? 'primary' : 'default';
-                                    return <button type="button" className={'btn btn-sm btn-' + type} key={index} onClick={this.setActiveItem.bind(null, item)}>
+                                    return <button type="button" className={'btn btn-sm btn-' + type} key={index} onClick={this.setActiveItem.bind(this, item)}>
                                         {item.name}
                                     </button>;
                                 }, this)}
@@ -31,31 +36,34 @@ MSTORE.View.ProductItems = React.createClass({
                         <div className="col-sm-12"><h3>{product.name}</h3></div>
                         <div className="col-sm-12"><p>{product.description}</p></div>
                         <div className="col-sm-12"><h3>{MSTORE.String.toCurrency(this.state.activeItem.price)}</h3></div>
-                        <div className="col-sm-3">
-                            <MSTORE.View.ProductQuantity 
-                                quantityInStock={this.state.activeItem.quantity} 
-                                quantity={this.state.quantity} 
-                                onChange={this.setQuantity} />
+                        <div className="col-sm-12">
+                            <input  type="hidden"
+                                    id="avgRating"
+                                    className="rating"
+                                    data-filled="fa fa-star fa-3x"
+                                    data-empty="fa fa-star-o fa-3x"
+                                    data-readonly />
                         </div>
                         <div className="col-sm-3">
-                            <MSTORE.View.AddToCartButton quantity={this.state.activeItem.quantity} onClick={this.addToCart} />
+                            <ProductQuantity 
+                                quantityInStock={this.state.activeItem.quantity} 
+                                quantity={this.state.quantity} 
+                                onChange={this.setQuantity.bind(this)} />
+                        </div>
+                        <div className="col-sm-3">
+                            <AddToCartButton quantity={this.state.activeItem.quantity} onClick={this.addToCart.bind(this)} />
                         </div>
                     </div>
                 </div>
                 <div className="col-sm-12">
-                    <h2>REVIEWS</h2>
-                    <p>
-                        <input  type="hidden"
-                                id="avgRating"
-                                className="rating"
-                                data-filled="fa fa-star fa-3x"
-                                data-empty="fa fa-star-o fa-3x"
-                                data-readonly />
-                        from {product.reviews.length} review{product.reviews > 1 ? 's' : ''}
-                    </p>
-                    <a role="button" data-toggle="collapse" href="#collapseReview" aria-expanded="false" aria-controls="collapseExample">
-                        Write a review &raquo;
-                    </a>
+                    <h2>
+                        REVIEWS
+                        <a  role="button" className="pull-right"
+                            data-toggle="collapse" 
+                            href="#collapseReview" aria-expanded="false" aria-controls="collapseExample">
+                            Write a review &raquo;
+                        </a>
+                    </h2>
                     <div className="collapse" id="collapseReview">
                         <div className="well">
                             <form>
@@ -78,7 +86,7 @@ MSTORE.View.ProductItems = React.createClass({
                                 <div className="checkbox">
                                     <label><input type="checkbox" id="recommended" /> Recommend this product</label>
                                 </div>
-                                <button type="button" className="btn btn-sm btn-primary" onClick={this.createReview}>Send</button>
+                                <button type="button" className="btn btn-sm btn-primary" onClick={this.createReview.bind(this)}>Send</button>
                             </form>
                         </div>
                     </div>
@@ -100,31 +108,32 @@ MSTORE.View.ProductItems = React.createClass({
                 </div>
             </div>
         </div>;
-    },
-    getInitialState: function() {
-        return { product: { id: '', items: [], reviews: [], avgRating: 0 }, activeItem: { price: 0, quantity: 10 }, quantity: 1 };
-    },
-    componentWillMount: function() {
+    }
+
+    componentWillMount() {
         var productId = this.props.params[0];
         $.ajax({
-            url: MSTORE.String.format(MSTORE.Resource.get('product'), productId)
-        })
-        .done(function(data) {
-            this.setState({ product: data, activeItem: data.items[0] });
-            $('#rating').rating('rate', 0);
-            $('#avgRating').rating('rate', data.avgRating);
-            $.each(data.reviews, function(index, review) {
-                $('#' + review.id).rating('rate', review.rating);
-            })
-        }.bind(this));
-    },
-    setActiveItem: function(item) {
+            url: MSTORE.String.format(MSTORE.Resource.get('product'), productId),
+            success: (data) => {
+                this.setState({ product: data, activeItem: data.items[0] });
+                $('#rating').rating('rate', 0);
+                $('#avgRating').rating('rate', data.avgRating);
+                $.each(data.reviews, function(index, review) {
+                    $('#' + review.id).rating('rate', review.rating);
+                })
+            }
+        });
+    }
+
+    setActiveItem(item) {
         this.setState({ activeItem: item });
-    },
-    setQuantity: function(event) {
+    }
+
+    setQuantity(event) {
         this.setState({ quantity: event.target.value });
-    },
-    addToCart: function() {
+    }
+
+    addToCart() {
         var cartItem = { 
             cartId: MSTORE.Cache.get('cartId'), 
             itemId: this.state.activeItem.id, 
@@ -134,13 +143,14 @@ MSTORE.View.ProductItems = React.createClass({
             url: MSTORE.String.format(MSTORE.Resource.get('add-cart-item'), MSTORE.Cache.get('cartId')),
             type: 'post',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(cartItem)
-        })
-        .done(function (data) {
-            MSTORE.PubSub.publish('updateCart');
+            data: JSON.stringify(cartItem),
+            success: (data) => {
+                MSTORE.PubSub.publish('updateCart');
+            }
         });
-    },
-    createReview: function() {
+    }
+
+    createReview() {
         var loginUser = MSTORE.Cache.get('loginUser') ? JSON.parse(MSTORE.Cache.get('loginUser')) : null;
         var review = {
             author: loginUser ? loginUser.username : 'Anonymous',
@@ -154,14 +164,14 @@ MSTORE.View.ProductItems = React.createClass({
             url: MSTORE.String.format(MSTORE.Resource.get('create-review'), this.state.product.id),
             type: 'put',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(review)
-        })
-        .done(function (data) {
-            $('#collapseReview').collapse('hide');
-            var product = this.state.product;
-            product.reviews.unshift(data);
-            this.setState({ product: product });
-            $('#' + data.id).rating('rate', data.rating);
-        }.bind(this));
+            data: JSON.stringify(review),
+            success: (data) => {
+                $('#collapseReview').collapse('hide');
+                var product = this.state.product;
+                product.reviews.unshift(data);
+                this.setState({ product: product });
+                $('#' + data.id).rating('rate', data.rating);
+            }
+        });
     }
-});
+}

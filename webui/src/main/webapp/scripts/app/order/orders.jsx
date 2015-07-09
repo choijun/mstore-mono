@@ -1,5 +1,10 @@
-MSTORE.View.Orders = React.createClass({
-    render: function() {
+class Orders extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { orders: [] };
+    }
+
+    render() {
         return <div className="container-fluid">
             <ol className="breadcrumb">
                 <li><a href="#home">Home</a></li>
@@ -29,16 +34,14 @@ MSTORE.View.Orders = React.createClass({
                     </tbody>
                 </table>
         </div>;
-    },
-    getInitialState: function() {
-        return { orders: [] };
-    },
-    componentWillMount: function() {
-        $.ajax({
-            url: MSTORE.Resource.get('orders')
-        })
-        .done(function (data) {
-            this.setState({ orders: data })
-        }.bind(this))
     }
-});
+
+    componentWillMount() {
+        $.ajax({
+            url: MSTORE.Resource.get('orders'),
+            success: (data) => {
+                this.setState({ orders: data })
+            }
+        });
+    }
+}

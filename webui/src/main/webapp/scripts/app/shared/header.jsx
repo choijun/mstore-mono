@@ -1,5 +1,5 @@
-MSTORE.View.Header = React.createClass({
-    render: function() {
+class Header extends React.Component {
+    render() {
         return <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
             <div className="container-fluid">
                 <div className="navbar-header">
@@ -23,10 +23,10 @@ MSTORE.View.Header = React.createClass({
                     </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <MSTORE.View.CartSummary />
-                    <MSTORE.View.LoginUser />
+                    <CartSummary />
+                    <LoginUser />
                 </ul>
             </div>
         </nav>;
     }
-});
+}

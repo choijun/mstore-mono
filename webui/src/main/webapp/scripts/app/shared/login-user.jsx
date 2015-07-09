@@ -1,13 +1,18 @@
-MSTORE.View.LoginUser = React.createClass({
-	render: function() {
-		if (!this.state.loginUser.username) {
-			return <li>
+class LoginUser extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { loginUser: {} };
+    }
+
+    render() {
+        if (!this.state.loginUser.username) {
+            return <li>
                 <a href="/login">
                     <span className='glyphicon glyphicon-log-in' aria-hidden="true"></span>
                 </a>
             </li>;
-		} else {
-			return <li className="dropdown">
+        } else {
+            return <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span className='glyphicon glyphicon-user' aria-hidden="true"></span>
                 </a>
@@ -17,46 +22,58 @@ MSTORE.View.LoginUser = React.createClass({
                     </li>
                     <li role="separator" className="divider"></li>
                     <li>
-                        <a href="javascript:void(0)" onClick={this.logout}>Logout</a>
+                        <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>
                     </li>
                 </ul>
             </li>;
-		}
-	},
-	getInitialState: function() {
-        return { loginUser: {} };
-    },
-    componentWillMount: function() {
+        }
+    }
+
+    componentWillMount() {
         this.authen();
-        MSTORE.PubSub.subscribe('login', this.login);
-    },
-    componentWillUnmount: function() {
+        MSTORE.PubSub.subscribe('login', this.login.bind(this));
+    }
+
+    componentWillUnmount() {
         MSTORE.PubSub.unsubscribe('login', this.login);
-    },
-    authen: function() {
+    }
+
+    authen() {
         $.ajax({
-            url: MSTORE.Resource.get('authen')
-        })
-        .done(function(data) {
-            if (data) {
-                MSTORE.Cache.set('loginUser', JSON.stringify(data));
-                this.setState({ loginUser: data });
-            } else {
-                MSTORE.Cache.remove('loginUser');
-                this.setState({ loginUser: {} });
+            url: MSTORE.Resource.get('authen'),
+            success: (data) => {
+                if (data) {
+                    MSTORE.Cache.set('loginUser', JSON.stringify(data));
+                    this.setState({ loginUser: data });
+                } else {
+                    MSTORE.Cache.remove('loginUser');
+                    this.setState({ loginUser: {} });
+                }
             }
-        }.bind(this));
-    },
-    logout: function() {
+        });
+    }
+
+    login(cb) {
+        $.ajax({
+            url: MSTORE.Resource.get('login'),
+            success: (data) => {
+                this.authen();
+                MSTORE.PubSub.publish('updateCart');
+                if (cb && typeof cb === 'function') { cb(); }
+            }
+        });
+    }
+
+    logout() {
         $.ajax({
             url: MSTORE.Resource.get('logout'),
-            type: 'post'
-        })
-        .done(function (data) {
-            this.authen();
-            MSTORE.Cache.remove('cartId');
-            MSTORE.PubSub.publish('updateCart');
-            MSTORE.loadView(MSTORE.Route._default);
-        }.bind(this));
+            type: 'post',
+            success: (data) => {
+                this.authen();
+                MSTORE.Cache.remove('cartId');
+                MSTORE.PubSub.publish('updateCart');
+                MSTORE.loadView(MSTORE.Route._default);
+            }
+        });
     }
-});
+}

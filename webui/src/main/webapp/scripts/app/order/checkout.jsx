@@ -1,5 +1,10 @@
-MSTORE.View.Checkout = React.createClass({
-    render: function() {
+class Checkout extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { order: { shippingAddress: {}, billingAddress: {}, details: [] } };
+    }
+
+    render() {
         var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
 
         if (this.state.order.details.length > 0) {
@@ -7,11 +12,11 @@ MSTORE.View.Checkout = React.createClass({
                 <div className="row">
                     <div className="col-sm-3">
                         <label className="text-primary">Shipping Address</label>
-                        <MSTORE.View.Address data={this.state.order.shippingAddress} />
+                        <Address data={this.state.order.shippingAddress} />
                     </div>
                     <div className="col-sm-3">
                         <label className="text-primary">Billing Address</label>
-                        <MSTORE.View.Address data={this.state.order.billingAddress} />
+                        <Address data={this.state.order.billingAddress} />
                     </div>
                     <div className="col-sm-6">
                         <table className="table table-striped table-hover cart-table">
@@ -52,7 +57,7 @@ MSTORE.View.Checkout = React.createClass({
                                 </tr>
                             </tfoot>
                         </table>
-                        <button type="button" className="btn btn-sm btn-primary pull-right" onClick={this.placeOrder}>
+                        <button type="button" className="btn btn-sm btn-primary pull-right" onClick={this.placeOrder.bind(this)}>
                             <span className='glyphicon glyphicon-ok' aria-hidden="true"></span>
                             Order
                         </button>
@@ -67,7 +72,7 @@ MSTORE.View.Checkout = React.createClass({
                             </div>
                             <div className="modal-body">
                                 Your order <span className="text-primary">{this.state.order.id}</span> has been processed. <br />
-                                You can view your order history by going to the <a href="#orders">My Orders</a>
+                                You can view your order history by going to the <a href="javascript:void(0)">My Orders</a>
                             </div>
                             <div className="modal-footer row">
                                 <div className="col-sm-12">
@@ -88,46 +93,46 @@ MSTORE.View.Checkout = React.createClass({
             </ol>
             {result}
         </div>;
-    },
-    getInitialState: function() {
-        return { order: { shippingAddress: {}, billingAddress: {}, details: [] } };
-    },
-    componentWillMount: function() {
+    }
+
+    componentWillMount() {
         if (MSTORE.Cache.get('loginUser')) {
             this.previewOrder();
         } else {
             MSTORE.PubSub.publish('login', this.previewOrder);
         }
-    },
-    previewOrder: function() {
+    }
+
+    previewOrder() {
         $.ajax({
-            url: MSTORE.String.format(MSTORE.Resource.get('preview-order'), MSTORE.Cache.get('cartId'))
-        })
-        .done(function (data) {
-            this.setState({ order: data });
-        }.bind(this))
-        .fail(function(response) {
-            console.log(JSON.parse(response.responseText).message);
-            MSTORE.Cache.remove('cartId');
-            MSTORE.PubSub.publish('updateCart');
+            url: MSTORE.String.format(MSTORE.Resource.get('preview-order'), MSTORE.Cache.get('cartId')),
+            success: (data) => {
+                this.setState({ order: data });
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+                MSTORE.Cache.remove('cartId');
+                MSTORE.PubSub.publish('updateCart');
+            }
         });
-    },
-    placeOrder: function() {
+    }
+
+    placeOrder() {
         $.ajax({
             url: MSTORE.String.format(MSTORE.Resource.get('place-order'), this.state.order.shippingAddressId, this.state.order.billingAddressId),
             type: 'put',
-            contentType: 'application/json; charset=utf-8'
-        })
-        .done(function (data) {
-            var order = this.state.order;
-            order.id = data;
-            this.setState({ order: order });
-            $('#order-result-message').modal('show');
-            $('#order-result-message').on('hidden.bs.modal', function (e) {
-                MSTORE.loadView('products');
-            })
-            MSTORE.Cache.remove('cartId');
-            MSTORE.PubSub.publish('updateCart');
-        }.bind(this));
+            contentType: 'application/json; charset=utf-8',
+            success: (data) => {
+                var order = this.state.order;
+                order.id = data;
+                this.setState({ order: order });
+                $('#order-result-message').modal('show');
+                $('#order-result-message').on('hidden.bs.modal', function (e) {
+                    MSTORE.loadView('products');
+                })
+                MSTORE.Cache.remove('cartId');
+                MSTORE.PubSub.publish('updateCart');
+            }
+        });
     }
-});
+}
