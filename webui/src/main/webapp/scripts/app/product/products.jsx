@@ -24,8 +24,7 @@ MSTORE.View.Products = React.createClass({
                                     className="rating"
                                     data-filled="fa fa-star fa-1x"
                                     data-empty="fa fa-star-o fa-1x"
-                                    data-readonly />
-                                    from {product.totalReviews} review{product.totalReviews > 1 ? 's' : ''}
+                                    data-readonly /> ({product.totalReviews} review{product.totalReviews > 1 ? 's' : ''})
                                 </h5>
                             </div>
                         </div>

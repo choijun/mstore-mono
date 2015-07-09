@@ -2,7 +2,7 @@ MSTORE.View.LoginUser = React.createClass({
 	render: function() {
 		if (!this.state.loginUser.username) {
 			return <li>
-                <a href="javascript:void(0)" onClick={this.login}>
+                <a href="/login">
                     <span className='glyphicon glyphicon-log-in' aria-hidden="true"></span>
                 </a>
             </li>;
@@ -45,16 +45,6 @@ MSTORE.View.LoginUser = React.createClass({
                 MSTORE.Cache.remove('loginUser');
                 this.setState({ loginUser: {} });
             }
-        }.bind(this));
-    },
-    login: function(cb) {
-        $.ajax({
-            url: MSTORE.Resource.get('login')
-        })
-        .done(function (data) {
-            this.authen();
-            MSTORE.PubSub.publish('updateCart');
-            if (cb && typeof cb === 'function') { cb(); }
         }.bind(this));
     },
     logout: function() {

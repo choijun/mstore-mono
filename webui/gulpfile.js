@@ -19,7 +19,7 @@ gulp.task('clean', function() {
 gulp.task('copy', ['clean'], function() {
     gulp.src([basedir + 'bower_components/bootstrap/dist/fonts/**.*'])
         .pipe(gulp.dest(distdir + 'assets/fonts/'));
-    gulp.src([basedir + 'bower_components/components-font-awesome/fonts/**.*'])
+    gulp.src([basedir + 'bower_components/font-awesome/fonts/**.*'])
             .pipe(gulp.dest(distdir + 'assets/fonts/'));
     gulp.src([basedir + 'assets/fonts/**.*'])
             .pipe(gulp.dest(distdir + 'assets/fonts/'));
