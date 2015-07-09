@@ -1,5 +1,5 @@
-MSTORE.View.Address = React.createClass({
-    render: function() {
+class Address extends React.Component {
+    render() {
         return <address>
             <strong>{this.props.data.fullName}</strong><br />
             {this.props.data.address1}<br />
@@ -10,4 +10,4 @@ MSTORE.View.Address = React.createClass({
             <button type="button" className="btn btn-sm btn-default">Edit Address</button>
         </address>;
     }
-});
+}

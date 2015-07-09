@@ -30,7 +30,6 @@ window.MSTORE || (function(window) {
                 MSTORE.loadView(MSTORE.Route._default);
             }
         },
-        View: {},
         Resource: {
             _resources: {},
             init: function(resources) {

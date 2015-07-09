@@ -1,5 +1,5 @@
-MSTORE.View.AddToCartButton = React.createClass({
-    render: function() {
+class AddToCartButton extends React.Component {
+    render() {
         var disabled = !(this.props.quantity > 0),
             type = disabled ? 'danger' : 'primary';
 
@@ -12,4 +12,4 @@ MSTORE.View.AddToCartButton = React.createClass({
                 {disabled ? 'Sold out' : 'Add to Cart'}
         </button>;
     }
-});
+}
