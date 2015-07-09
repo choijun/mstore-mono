@@ -9,7 +9,7 @@ class Cart extends React.Component {
 
         if (this.state.cart.details.length > 0) {
             result = <div>
-                <h1>Shipping Cart</h1>
+                <h1>Shopping Cart</h1>
                 <table className="table table-striped table-hover cart-table">
                     <thead>
                         <tr>
@@ -21,12 +21,15 @@ class Cart extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.cart.details.map(function(item, index) {
+                        {this.state.cart.details.map((item, index) => {
                             return <tr key={index}>
                                 <td className="text-center action text-danger">
-                                    <span className='glyphicon glyphicon-remove' aria-hidden="true" onClick={this.removeItem.bind(this, item.itemId)}></span>
+                                    <span   className='glyphicon glyphicon-remove' aria-hidden="true" 
+                                            onClick={this.removeItem.bind(this, item.itemId)}></span>
                                 </td>
-                                <td>{item.itemId}</td>
+                                <td>
+                                    <a href="javascript:void(0)" onClick={this.viewProduct.bind(this, item.itemId)}>{item.itemId}</a>
+                                </td>
                                 <td className="text-right price">{MSTORE.String.toCurrency(item.price)}</td>
                                 <td className="text-right quantity">{item.quantity}</td>
                                 <td className="text-right subtotal">{MSTORE.String.toCurrency(item.price * item.quantity)}</td>
@@ -76,6 +79,15 @@ class Cart extends React.Component {
             url: MSTORE.String.format(MSTORE.Resource.get('cart-details'), MSTORE.Cache.get('cartId')),
             success: (data) => {
                 this.setState({ cart: data });
+            }
+        });
+    }
+
+    viewProduct(itemId) {
+        $.ajax({
+            url: MSTORE.String.format(MSTORE.Resource.get('get-item'), itemId),
+            success: (data) => {
+                MSTORE.loadView(MSTORE.String.format('products/{0}/{1}', data.productId, data.id));
             }
         });
     }

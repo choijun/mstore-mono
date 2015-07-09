@@ -22,7 +22,7 @@ class Orders extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.orders.map(function(order, index) {
+                        {this.state.orders.map((order, index) => {
                             return <tr key={index}>
                                 <td className="text-center">{(new Date(order.orderDate)).toLocaleDateString('en-US')}</td>
                                 <td className="text-right">{MSTORE.String.toCurrency(order.subTotal)}</td>
