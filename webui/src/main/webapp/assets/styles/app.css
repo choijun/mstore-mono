@@ -62,3 +62,8 @@ body {
 .fa-star {
     color: #007aff; 
 }
+.product-item-rating {
+    position: absolute;
+    right: 20px;
+    bottom: 80px;
+}

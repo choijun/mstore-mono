@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
 var minifycss = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
+var babel = require('gulp-babel');
 
 var basedir = 'src/main/webapp/';
 var srcdir = basedir + 'scripts/';
@@ -31,6 +32,7 @@ gulp.task('copy', ['clean'], function() {
 
 gulp.task('scripts', ['clean'], function() {
     return gulp.src([srcdir + '**/*.jsx', srcdir + '**/*.js'])
+        .pipe(babel())
         .pipe(react())
         .pipe(gulp.dest(tmpdir + 'scripts/'));
 });
