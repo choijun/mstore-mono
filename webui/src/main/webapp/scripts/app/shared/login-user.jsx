@@ -68,8 +68,9 @@ class LoginUser extends React.Component {
         $.ajax({
             url: MSTORE.Resource.get('logout'),
             type: 'post',
-            success: (data) => {
-                this.authen();
+            complete: (data) => {
+                MSTORE.Cache.remove('loginUser');
+                this.setState({ loginUser: {} });
                 MSTORE.Cache.remove('cartId');
                 MSTORE.PubSub.publish('updateCart');
                 MSTORE.loadView(MSTORE.Route._default);
