@@ -5,44 +5,12 @@ class Cart extends React.Component {
     }
 
     render() {
-        var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
+        let result = <CartEmpty />;
 
         if (this.state.cart.details.length > 0) {
             result = <div>
                 <h1>Shopping Cart</h1>
-                <table className="table table-striped table-hover cart-table">
-                    <thead>
-                        <tr>
-                            <th className="text-center">&nbsp;</th>
-                            <th className="text-center">&nbsp;</th>
-                            <th className="text-right">Price</th>
-                            <th className="text-right">Quantity</th>
-                            <th className="text-right">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.cart.details.map((item, index) => {
-                            return <tr key={index}>
-                                <td className="text-center action text-danger">
-                                    <span   className='glyphicon glyphicon-remove' aria-hidden="true" 
-                                            onClick={this.removeItem.bind(this, item.itemId)}></span>
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0)" onClick={this.viewProduct.bind(this, item.itemId)}>{item.itemId}</a>
-                                </td>
-                                <td className="text-right price">{MSTORE.String.toCurrency(item.price)}</td>
-                                <td className="text-right quantity">{item.quantity}</td>
-                                <td className="text-right subtotal">{MSTORE.String.toCurrency(item.price * item.quantity)}</td>
-
-                            </tr>;
-                        }, this)}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colSpan="5" className="text-right subtotal">{MSTORE.String.toCurrency(this.state.cart.subTotal)}</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                <CartList data={this.state.cart.details} subtotal={this.state.cart.subTotal} reloadCart={this.loadCart.bind(this)} />
                 <a href="#checkout" className="btn btn-sm btn-primary btn-action pull-right">
                     <span className='glyphicon glyphicon-ok' aria-hidden="true"></span>
                     Checkout
@@ -63,31 +31,11 @@ class Cart extends React.Component {
         this.loadCart();
     }
 
-    removeItem(itemId) {
-        $.ajax({
-            url: MSTORE.String.format(MSTORE.Resource.get('remove-cart-item'), itemId),
-            type: 'delete',
-            success: (data) => {
-                this.loadCart();
-                MSTORE.PubSub.publish('updateCart');
-            }
-        });
-    }
-
     loadCart() {
         $.ajax({
             url: MSTORE.String.format(MSTORE.Resource.get('cart-details'), MSTORE.Cache.get('cartId')),
             success: (data) => {
                 this.setState({ cart: data });
-            }
-        });
-    }
-
-    viewProduct(itemId) {
-        $.ajax({
-            url: MSTORE.String.format(MSTORE.Resource.get('get-item'), itemId),
-            success: (data) => {
-                MSTORE.loadView(MSTORE.String.format('products/{0}/{1}', data.productId, data.id));
             }
         });
     }

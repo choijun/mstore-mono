@@ -12,28 +12,7 @@ class Products extends React.Component {
             </ol>
             <div className="row">
                 {this.state.products.map((product, index) => {
-                    return <div className="col-sm-3" key={index}>
-                        <div className="panel panel-default product-item text-center">
-                            <div className="panel panel-body">
-                                <a href={'#products/' + product.id}>
-                                    <ProductImage data={product} />
-                                </a>
-                                <div className="product-item-rating">
-                                    <input  type="hidden"
-                                            id={product.id + '-rating'}
-                                            className="rating"
-                                            data-filled="fa fa-star fa-2x"
-                                            data-empty="fa fa-star-o fa-2x"
-                                            data-readonly />
-                                </div>
-                            </div>
-                            <div className="panel panel-footer">
-                                <h4>
-                                    <a href={'#products/' + product.id}>{product.name}</a>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>;
+                    return <Product key={index} data={product} />;
                 }, this)}
             </div>
         </div>;

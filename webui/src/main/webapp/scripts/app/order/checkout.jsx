@@ -5,7 +5,7 @@ class Checkout extends React.Component {
     }
 
     render() {
-        var result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
+        let result = <h1>Your cart is empty, <a href="#products">click here to start shopping</a></h1>;
 
         if (this.state.order.details.length > 0) {
             result = <div>
