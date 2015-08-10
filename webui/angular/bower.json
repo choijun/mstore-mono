@@ -1,0 +1,12 @@
+{
+  "name": "mstore",
+  "version": "0.0.1",
+  "devDependencies": {
+    "angular": "1.4.3",
+    "angular-resource": "1.4.3",
+    "angular-route": "1.4.3",
+    "angular-bootstrap": "~0.13.2",
+    "bootstrap": "3.3.5",
+    "font-awesome": "4.3.0"
+  }
+}
