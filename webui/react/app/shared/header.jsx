@@ -1,3 +1,5 @@
+'use strict';
+
 import CartSummary from './cart-summary';
 import LoginUser from './login-user';
 

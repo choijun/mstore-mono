@@ -1,9 +1,10 @@
 {
   "name": "mstore",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "devDependencies": {
     "bootstrap": "3.3.5",
+    "font-awesome": "4.3.0",
     "react": "0.13.3",
-    "font-awesome": "4.3.0"
+    "react-router": "0.13.3"
   }
 }

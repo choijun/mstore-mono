@@ -1,0 +1,21 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li class="active">Products</li>
+</ol>
+<div class="row">
+  <div class="col-sm-3" ng-repeat="prod in ::ctrl.products track by prod.id">
+    <div class="panel panel-default product-item text-center">
+     <div class="panel panel-body">
+       <a ng-href="#/products/{{ ::prod.id }}">
+         <div product-image product-id="prod.id"></div>
+         <div rating ng-model="prod.avgRating" max="5" readonly="true"></div>
+       </a>
+     </div>
+     <div class="panel panel-footer">
+       <h4>
+         <a ng-href="#/products/{{ ::prod.id }}" ng-bind="::prod.name"></a>
+       </h4>
+     </div>
+   </div>
+  </div>
+</div>

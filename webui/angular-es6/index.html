@@ -1,0 +1,44 @@
+<!doctype html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>mStore Application</title>
+  <meta name="viewport" content="width=device-width">
+  <!-- build:css1 assets/styles/framework.min.css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+  <!-- endbuild -->
+  <!-- build:css2 assets/styles/app.min.css -->
+  <link rel="stylesheet" href=".tmp/assets/styles/bootstrap.css" />
+  <link rel="stylesheet" href=".tmp/assets/styles/app.css" />
+  <!-- endbuild -->
+</head>
+<body>
+  <div header></div>
+  <div ng-view class="container-fluid"></div>
+  <div footer></div>
+  <!-- build:js1 app/framework.min.js -->
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <!-- endbuild -->
+  <!-- build:js2 app/app.min.js -->
+  <script type="text/javascript" src=".tmp/app.js"></script>
+  <!-- endbuild -->
+  <!-- build:js3 app/template.min.js -->
+  <script type="text/javascript" src=".tmp/views/shared/header/header.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/shared/footer/footer.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/shared/cart-summary/cart-summary.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/shared/account/account.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/home/home.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/product/products.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/product/product.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/product/product-image.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/cart/cart.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/order/checkout.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/order/order-address.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/views/areas/order/orders.tpl.js"></script>
+  <!-- endbuild -->
+</body>
+</html>
