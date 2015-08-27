@@ -55,7 +55,7 @@ gulp.task('styles', ['clean'], function() {
     .pipe(gulp.dest(config.dir.tmp + 'assets/'));
 });
 
-gulp.task('views', ['clean'], function() {
+gulp.task('html2js', ['clean'], function() {
   return gulp.src(config.dir.src + '**/*.html')
     .pipe(ngHtml2js({ moduleName: 'mstore', prefix: config.dir.src }))
     .pipe(gulp.dest(config.dir.tmp + 'views/'));
@@ -67,9 +67,9 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('build', ['copy', 'styles', 'views', 'lint']);
+gulp.task('build', ['copy', 'styles', 'html2js', 'lint']);
 
-gulp.task('usemin', ['copy', 'styles', 'views'], function() {
+gulp.task('usemin', ['copy', 'styles', 'html2js'], function() {
   return gulp.src('index.html')
     .pipe(usemin({
       css1: [minifycss()],

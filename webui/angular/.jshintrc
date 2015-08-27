@@ -20,7 +20,6 @@
   "browser": true,
   "laxcomma": true,
   "laxbreak": true,
-  "latedef" : "nofunc",
   "eqnull": true,
   "globals": {
     "angular": false

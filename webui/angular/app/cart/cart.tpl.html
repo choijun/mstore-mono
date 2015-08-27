@@ -1,0 +1,38 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li class="active">Cart</li>
+</ol>
+<h1 ng-if="ctrl.cart.details.length === 0">Your cart is empty, <a href="#products">click here to start shopping</a></h1>
+<table ng-if="ctrl.cart.details.length > 0" class="table table-striped table-hover cart-table">
+  <thead>
+    <tr>
+      <th class="text-center">&nbsp;</th>
+      <th class="text-center">&nbsp;</th>
+      <th class="text-right">Price</th>
+      <th class="text-right">Quantity</th>
+      <th class="text-right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in ctrl.cart.details track by item.itemId">
+      <td class="text-center action text-danger">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="ctrl.removeItem(item.itemId)"></span>
+      </td>
+      <td>
+        <a href="javascript:void(0)" ng-bind="::item.itemId"></a>
+      </td>
+      <td class="text-right price" ng-bind="::item.price | toCurrency"></td>
+      <td class="text-right quantity" ng-bind="::item.quantity"></td>
+      <td class="text-right subtotal" ng-bind="::(item.price * item.quantity) | toCurrency"></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colSpan="5" class="text-right subtotal" ng-bind="::ctrl.cart.subTotal | toCurrency"></th>
+    </tr>
+  </tfoot>
+</table>
+<a href="#/checkout" class="btn btn-sm btn-primary btn-action pull-right">
+  <span class='glyphicon glyphicon-ok' aria-hidden="true"></span>
+  Checkout
+</a>
