@@ -1,11 +1,10 @@
 {
   "name": "mstore",
-  "version": "0.0.2",
   "devDependencies": {
     "angular": "1.4.4",
-    "angular-route": "1.4.4",
+    "angular-new-router": "0.5.3",
     "angular-bootstrap": "0.13.3",
     "bootstrap": "3.3.5",
-    "font-awesome": "4.3.0"
+    "font-awesome": "4.4.0"
   }
 }

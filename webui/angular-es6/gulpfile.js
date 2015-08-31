@@ -17,13 +17,11 @@ var minifycss = require('gulp-minify-css');
 var usemin = require('gulp-usemin');
 
 
-var config = {
-  dir: {
-    src: 'app/',
-    assets: 'assets/',
-    tmp: '.tmp/',
-    dist: 'dist/'
-  }
+var PATH = {
+  src: 'app/',
+  assets: 'assets/',
+  tmp: '.tmp/',
+  dist: 'dist/'
 };
 
 function initBrowserSync(env) {
@@ -41,48 +39,48 @@ function initBrowserSync(env) {
 }
 
 gulp.task('clean', function (cb) {
-  del([config.dir.tmp + '*', config.dir.dist + '*'], cb);
+  del([PATH.tmp + '*', PATH.dist + '*'], cb);
 });
 
 gulp.task('copy', ['clean'], function() {
-  gulp.src(config.dir.assets + 'images/**.*')
-    .pipe(gulp.dest(config.dir.tmp + 'assets/images/'))
-    .pipe(gulp.dest(config.dir.dist + 'assets/images/'));
+  gulp.src(PATH.assets + 'images/**.*')
+    .pipe(gulp.dest(PATH.tmp + 'assets/images/'))
+    .pipe(gulp.dest(PATH.dist + 'assets/images/'));
   gulp.src(['bower_components/bootstrap/fonts/**.*', 'bower_components/font-awesome/fonts/**.*'])
-    .pipe(gulp.dest(config.dir.tmp + 'assets/fonts/'))
-    .pipe(gulp.dest(config.dir.dist + 'assets/fonts/'));
+    .pipe(gulp.dest(PATH.tmp + 'assets/fonts/'))
+    .pipe(gulp.dest(PATH.dist + 'assets/fonts/'));
 });
 
 gulp.task('styles', ['clean'], function() {
-  return gulp.src(config.dir.assets + '**/*.scss')
+  return gulp.src(PATH.assets + '**/*.scss')
     .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-    .pipe(gulp.dest(config.dir.tmp + 'assets/'));
+    .pipe(gulp.dest(PATH.tmp + 'assets/'));
 });
 
 gulp.task('scripts', ['clean'], function() {
-  browserify({ entries: config.dir.src + 'index.js', debug: true })
+  browserify({ entries: PATH.src + 'index.js', debug: true })
   .transform(babelify)
   .bundle()
   .pipe(source('app.js'))
   .pipe(ngAnnotate())
-  .pipe(gulp.dest(config.dir.tmp));
+  .pipe(gulp.dest(PATH.tmp));
 });
 
-gulp.task('html2js', ['clean'], function() {
-  return gulp.src(config.dir.src + '**/*.html')
-    .pipe(ngHtml2js({ moduleName: 'mstore', prefix: config.dir.src }))
-    .pipe(gulp.dest(config.dir.tmp + 'views/'));
+gulp.task('templates', ['clean'], function() {
+  return gulp.src(PATH.src + '**/*.html')
+    .pipe(ngHtml2js({ moduleName: 'mstore', prefix: PATH.src }))
+    .pipe(gulp.dest(PATH.tmp + 'templates/'));
 });
 
 gulp.task('lint', function() {
-  return gulp.src([config.dir.src + '**/*.js'])
+  return gulp.src([PATH.src + '**/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('build', ['copy', 'styles', 'scripts', 'html2js', 'lint']);
+gulp.task('build', ['copy', 'styles', 'scripts', 'templates', 'lint']);
 
-gulp.task('usemin', ['copy', 'styles', 'scripts', 'html2js'], function() {
+gulp.task('usemin', ['copy', 'styles', 'scripts', 'templates'], function() {
   return gulp.src('index.html')
     .pipe(usemin({
       css1: [minifycss()],
@@ -91,19 +89,17 @@ gulp.task('usemin', ['copy', 'styles', 'scripts', 'html2js'], function() {
       js2: [uglify()],
       js3: [uglify()]
     }))
-    .pipe(gulp.dest(config.dir.dist));
+    .pipe(gulp.dest(PATH.dist));
 });
 
-gulp.task('serve:dist', ['usemin'], function() {
+gulp.task('dist', ['usemin'], function() {
   initBrowserSync('PROD');
-});
-
-// Start browsersync task and then watch files for changes
-gulp.task('serve', ['build'], function() {
-  initBrowserSync('DEV');
-  gulp.watch(['*.html', 'assets/**/*.scss', 'app/**/*.js', 'app/**/*.html'], ['reload']);
 });
 
 gulp.task('reload', ['build'], browserSync.reload);
 
-gulp.task('default', ['serve']);
+// Start browsersync task and then watch files for changes
+gulp.task('default', ['build'], function() {
+  initBrowserSync('DEV');
+  gulp.watch(['*.html', 'assets/**/*.scss', 'app/**/*.js', 'app/**/*.html'], ['reload']);
+});
