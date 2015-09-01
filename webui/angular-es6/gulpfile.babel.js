@@ -1,30 +1,29 @@
 'use strict';
 
-var browserSync = require('browser-sync');
-var del = require('del');
-var proxy = require('proxy-middleware');
-var url = require('url');
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var ngAnnotate = require('gulp-ng-annotate');
-var uglify = require('gulp-uglify');
-var jshint = require('gulp-jshint');
-var ngHtml2js = require('gulp-ng-html2js');
-var minifycss = require('gulp-minify-css');
-var usemin = require('gulp-usemin');
+import browserSync from 'browser-sync';
+import del from 'del';
+import proxy from 'proxy-middleware';
+import url from 'url';
+import gulp from 'gulp';
+import sass from 'gulp-sass';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import source from 'vinyl-source-stream';
+import ngAnnotate from 'gulp-ng-annotate';
+import uglify from 'gulp-uglify';
+import jshint from 'gulp-jshint';
+import ngHtml2js from 'gulp-ng-html2js';
+import minifycss from 'gulp-minify-css';
+import usemin from 'gulp-usemin';
 
-
-var PATH = {
+const PATH = {
   src: 'app/',
   assets: 'assets/',
   tmp: '.tmp/',
   dist: 'dist/'
 };
 
-function initBrowserSync(env) {
+let initBrowserSync = (env) => {
   var proxyOptions = url.parse('http://localhost:8000');
   proxyOptions.route = '/api';
   browserSync({
@@ -38,11 +37,11 @@ function initBrowserSync(env) {
   });
 }
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', (cb) => {
   del([PATH.tmp + '*', PATH.dist + '*'], cb);
 });
 
-gulp.task('copy', ['clean'], function() {
+gulp.task('copy', ['clean'], () => {
   gulp.src(PATH.assets + 'images/**.*')
     .pipe(gulp.dest(PATH.tmp + 'assets/images/'))
     .pipe(gulp.dest(PATH.dist + 'assets/images/'));
@@ -51,13 +50,13 @@ gulp.task('copy', ['clean'], function() {
     .pipe(gulp.dest(PATH.dist + 'assets/fonts/'));
 });
 
-gulp.task('styles', ['clean'], function() {
+gulp.task('styles', ['clean'], () => {
   return gulp.src(PATH.assets + '**/*.scss')
     .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(gulp.dest(PATH.tmp + 'assets/'));
 });
 
-gulp.task('scripts', ['clean'], function() {
+gulp.task('scripts', ['clean'], () => {
   browserify({ entries: PATH.src + 'index.js', debug: true })
   .transform(babelify)
   .bundle()
@@ -66,13 +65,13 @@ gulp.task('scripts', ['clean'], function() {
   .pipe(gulp.dest(PATH.tmp));
 });
 
-gulp.task('templates', ['clean'], function() {
+gulp.task('templates', ['clean'], () => {
   return gulp.src(PATH.src + '**/*.html')
     .pipe(ngHtml2js({ moduleName: 'mstore', prefix: PATH.src }))
     .pipe(gulp.dest(PATH.tmp + 'templates/'));
 });
 
-gulp.task('lint', function() {
+gulp.task('lint', () => {
   return gulp.src([PATH.src + '**/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'));
@@ -80,7 +79,7 @@ gulp.task('lint', function() {
 
 gulp.task('build', ['copy', 'styles', 'scripts', 'templates', 'lint']);
 
-gulp.task('usemin', ['copy', 'styles', 'scripts', 'templates'], function() {
+gulp.task('usemin', ['copy', 'styles', 'scripts', 'templates'], () => {
   return gulp.src('index.html')
     .pipe(usemin({
       css1: [minifycss()],
@@ -92,14 +91,14 @@ gulp.task('usemin', ['copy', 'styles', 'scripts', 'templates'], function() {
     .pipe(gulp.dest(PATH.dist));
 });
 
-gulp.task('dist', ['usemin'], function() {
+gulp.task('dist', ['usemin'], () => {
   initBrowserSync('PROD');
 });
 
 gulp.task('reload', ['build'], browserSync.reload);
 
 // Start browsersync task and then watch files for changes
-gulp.task('default', ['build'], function() {
+gulp.task('default', ['build'], () => {
   initBrowserSync('DEV');
   gulp.watch(['*.html', 'assets/**/*.scss', 'app/**/*.js', 'app/**/*.html'], ['reload']);
 });

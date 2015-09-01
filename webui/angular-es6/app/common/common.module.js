@@ -11,7 +11,7 @@ import Account from './account/account';
 import Header from './header/header';
 import Footer from './footer/footer';
 
-export var commonModule = angular.module('mstore.common', [
+export const commonModule = angular.module('mstore.common', [
   'ui.bootstrap.tpls',
   'ui.bootstrap.modal',
   'ui.bootstrap.dropdown'

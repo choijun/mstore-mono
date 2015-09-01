@@ -22,7 +22,7 @@
     $compileProvider.debugInfoEnabled(false);
     // set templates path
     $componentLoaderProvider.setTemplateMapping(function(name) {
-      return '/app/components/' + name + '/' + name + '.html';
+      return 'app/components/' + name + '/' + name + '.html';
     });
   });
 })();

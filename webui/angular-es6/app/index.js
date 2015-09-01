@@ -3,13 +3,27 @@
 
 import {servicesModule} from './services/services.module'; // jshint ignore:line
 import {commonModule} from './common/common.module'; // jshint ignore:line
-import AppController from './app.controller';
 import HomeController from './components/home/home';
 import ProductsController from './components/products/products';
 import ProductController from './components/product/product';
 import CartController from './components/cart/cart';
 import CheckoutController from './components/checkout/checkout';
 import OrdersController from './components/orders/orders';
+
+class AppController {
+  /* @ngInject */
+  constructor($router) {
+    $router.config([
+      { path: '/home', component: 'home' },
+      { path: '/products', component: 'products' },
+      { path: '/products/:id', component: 'product' },
+      { path: '/cart', component: 'cart' },
+      { path: '/checkout', component: 'checkout' },
+      { path: '/orders', component: 'orders' },
+      { path: '/', redirectTo: '/home' }
+    ]);
+  }
+}
 
 angular.module('mstore', [
   'ngNewRouter',
