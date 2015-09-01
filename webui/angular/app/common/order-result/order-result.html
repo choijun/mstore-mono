@@ -1,0 +1,15 @@
+<div>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="orderResult.ok()"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Place Order Success</h4>
+  </div>
+  <div class="modal-body">
+    Your order <span class="text-primary" ng-bind="orderResult.orderId"></span> has been processed. <br />
+    You can view your order history by going to the <a href="javascript:void(0)">My Orders</a>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-sm btn-default" ng-click="orderResult.ok()">OK</button>
+    </div>
+  </div>
+</div>

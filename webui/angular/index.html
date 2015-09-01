@@ -13,57 +13,58 @@
   <link rel="stylesheet" href=".tmp/assets/styles/app.css" />
   <!-- endbuild -->
 </head>
-<body>
-  <div header></div>
-  <div ng-view class="container-fluid"></div>
-  <div footer></div>
+<body ng-app="mstore">
+  <div ng-strict-di ng-controller="AppController">
+    <div header></div>
+    <div ng-viewport class="container-fluid"></div>
+    <div footer></div>
+  </div>
   <!-- build:js1 app/framework.min.js -->
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-new-router/dist/router.es5.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <!-- endbuild -->
   <!-- build:js2 app/app.min.js -->
+  <script type="text/javascript" src="app/services/services.module.js"></script>
+  <script type="text/javascript" src="app/services/account.service.js"></script>
+  <script type="text/javascript" src="app/services/cache.service.js"></script>
+  <script type="text/javascript" src="app/services/cart.service.js"></script>
+  <script type="text/javascript" src="app/services/order.service.js"></script>
+  <script type="text/javascript" src="app/services/product.service.js"></script>
   <script type="text/javascript" src="app/common/common.module.js"></script>
-  <script type="text/javascript" src="app/common/cache.js"></script>
-  <script type="text/javascript" src="app/common/to-currency.filter.js"></script>
-  <script type="text/javascript" src="app/common/format.filter.js"></script>
-  <script type="text/javascript" src="app/core/core.module.js"></script>
-  <script type="text/javascript" src="app/core/account/account.service.js"></script>
-  <script type="text/javascript" src="app/core/account/account.controller.js"></script>
-  <script type="text/javascript" src="app/core/account/account.directive.js"></script>
-  <script type="text/javascript" src="app/core/cart-summary/cart-summary.service.js"></script>
-  <script type="text/javascript" src="app/core/cart-summary/cart-summary.controller.js"></script>
-  <script type="text/javascript" src="app/core/cart-summary/cart-summary.directive.js"></script>
-  <script type="text/javascript" src="app/core/header/header.directive.js"></script>
-  <script type="text/javascript" src="app/core/footer/footer.directive.js"></script>
-  <script type="text/javascript" src="app/product/product.module.js"></script>
-  <script type="text/javascript" src="app/product/product.service.js"></script>
-  <script type="text/javascript" src="app/product/product.controller.js"></script>
-  <script type="text/javascript" src="app/product/product-image.directive.js"></script>
-  <script type="text/javascript" src="app/cart/cart.module.js"></script>
-  <script type="text/javascript" src="app/cart/cart.service.js"></script>
-  <script type="text/javascript" src="app/cart/cart.controller.js"></script>
-  <script type="text/javascript" src="app/order/order.module.js"></script>
-  <script type="text/javascript" src="app/order/order.service.js"></script>
-  <script type="text/javascript" src="app/order/checkout.controller.js"></script>
-  <script type="text/javascript" src="app/order/order-address.directive.js"></script>
-  <script type="text/javascript" src="app/order/order-result-modal.controller.js"></script>
-  <script type="text/javascript" src="app/order/order.controller.js"></script>
+  <script type="text/javascript" src="app/common/account/account.js"></script>
+  <script type="text/javascript" src="app/common/cart-empty/cart-empty.js"></script>
+  <script type="text/javascript" src="app/common/cart-summary/cart-summary.js"></script>
+  <script type="text/javascript" src="app/common/footer/footer.js"></script>
+  <script type="text/javascript" src="app/common/format/format.js"></script>
+  <script type="text/javascript" src="app/common/header/header.js"></script>
+  <script type="text/javascript" src="app/common/order-address/order-address.js"></script>
+  <script type="text/javascript" src="app/common/order-result/order-result.js"></script>
+  <script type="text/javascript" src="app/common/product-image/product-image.js"></script>
+  <script type="text/javascript" src="app/common/to-currency/to-currency.js"></script>
   <script type="text/javascript" src="app/index.js"></script>
+  <script type="text/javascript" src="app/components/cart/cart.js"></script>
+  <script type="text/javascript" src="app/components/checkout/checkout.js"></script>
+  <script type="text/javascript" src="app/components/home/home.js"></script>
+  <script type="text/javascript" src="app/components/orders/orders.js"></script>
+  <script type="text/javascript" src="app/components/product/product.js"></script>
+  <script type="text/javascript" src="app/components/products/products.js"></script>
   <!-- endbuild -->
   <!-- build:js3 app/template.min.js -->
-  <script type="text/javascript" src=".tmp/views/core/header/header.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/core/cart-summary/cart-summary.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/core/account/account.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/core/footer/footer.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/core/home.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/product/products.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/product/product.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/product/product-image.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/cart/cart.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/order/checkout.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/order/order-address.tpl.js"></script>
-  <script type="text/javascript" src=".tmp/views/order/orders.tpl.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/header/header.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/cart-summary/cart-summary.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/account/account.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/footer/footer.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/product-image/product-image.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/cart-empty/cart-empty.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/order-address/order-address.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/order-result/order-result.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/home/home.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/products/products.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/product/product.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/cart/cart.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/checkout/checkout.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/orders/orders.js"></script>
   <!-- endbuild -->
 </body>
 </html>
