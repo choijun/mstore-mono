@@ -3,7 +3,7 @@ module mstore {
 
   export class ToCurrency {
     constructor() {
-      return amount => ('$ ' + (amount / 100).toFixed(2));
+      return (amount: number) => ('$ ' + (amount / 100).toFixed(2));
     }
   }
   

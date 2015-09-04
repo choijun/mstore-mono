@@ -7,7 +7,7 @@ module mstore {
     $http: ng.IHttpService;
     
     /* @ngInject */
-    constructor($http) {
+    constructor($http: ng.IHttpService) {
       this.$http = $http;
     }
   

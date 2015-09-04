@@ -13,7 +13,10 @@ module mstore {
     orderId: string;
     
     /* @ngInject */
-    constructor(OrderService, CacheService, $rootScope, $modal) {
+    constructor(OrderService: mstore.OrderService, 
+                CacheService: mstore.CacheService, 
+                $rootScope: ng.IRootScopeService, 
+                $modal: ng.ui.bootstrap.IModalService) {
       this.orderService = OrderService;
       this.cacheService = CacheService;
       this.$rootScope = $rootScope;
@@ -28,12 +31,12 @@ module mstore {
     }
   
     previewOrder() {
-      this.orderService.previewOrder().then(response => this.data = response.data);
+      this.orderService.previewOrder().then((response: mstore.IApiResponse) => this.data = response.data);
     }
   
     placeOrder() {
       this.orderService.placeOrder(this.data.shippingAddressId, this.data.billingAddressId)
-      .then(response => {
+      .then((response: mstore.IApiResponse) => {
         this.orderId = response.data;
         this.cacheService.remove('cartId');
         this.$rootScope.$broadcast('updateCart');

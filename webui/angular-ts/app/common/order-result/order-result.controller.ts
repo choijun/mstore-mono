@@ -9,7 +9,9 @@ module mstore {
     orderId: string;
     
     /* @ngInject */
-    constructor($modalInstance, $location, orderId) {
+    constructor($modalInstance: ng.ui.bootstrap.IModalServiceInstance, 
+                $location: ng.ILocationService, 
+                orderId: string) {
       this.$modalInstance = $modalInstance;
       this.$location = $location;
       this.orderId = orderId;

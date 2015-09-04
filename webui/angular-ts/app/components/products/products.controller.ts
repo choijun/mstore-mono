@@ -7,7 +7,7 @@ module mstore {
     data : Object;
     
     /* @ngInject */
-    constructor(ProductService) {
+    constructor(ProductService: mstore.ProductService) {
       ProductService.getProducts().then(response => this.data = response.data);
     }
   }

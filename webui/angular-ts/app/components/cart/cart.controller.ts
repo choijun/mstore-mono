@@ -9,7 +9,7 @@ module mstore {
     data: any;
     
     /* @ngInject */
-    constructor(CartService, $rootScope) {
+    constructor(CartService: mstore.CartService, $rootScope: ng.IRootScopeService) {
       this.cartService = CartService;
       this.$rootScope = $rootScope;
       this.data = { details: [] };
@@ -17,10 +17,10 @@ module mstore {
     }
   
     loadCart() {
-      this.cartService.loadCart().then(response => this.data = response.data);
+      this.cartService.loadCart().then((response: mstore.IApiResponse) => this.data = response.data);
     }
     
-    removeItem(itemId) {
+    removeItem(itemId: string) {
       this.cartService.removeCartItem(itemId).then(() => {
         this.loadCart();
         this.$rootScope.$broadcast('updateCart');

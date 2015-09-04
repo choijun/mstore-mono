@@ -8,7 +8,7 @@ module mstore {
     cacheService: mstore.CacheService;
     
     /* @ngInject */
-    constructor($http, CacheService) {
+    constructor($http: ng.IHttpService, CacheService: mstore.CacheService) {
       this.$http = $http;
       this.cacheService = CacheService;
     }
@@ -21,7 +21,7 @@ module mstore {
       return this.$http.get(`api/orders/preview-order?cartId=${this.cacheService.get('cartId')}`);
     }
   
-    placeOrder(shippingAddressId, billingAddressId) {
+    placeOrder(shippingAddressId: string, billingAddressId: string) {
       return this.$http({
         url: `api/orders?shippingAddressId=${shippingAddressId}&billingAddressId=${billingAddressId}`,
         method: 'PUT',

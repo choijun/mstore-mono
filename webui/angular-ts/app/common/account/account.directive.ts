@@ -11,19 +11,22 @@ module mstore {
     loginUser: any;
     
     /* @ngInject */
-    constructor(AccountService, CacheService, $location, $rootScope) {
+    constructor(AccountService: mstore.AccountService, 
+                CacheService: mstore.CacheService, 
+                $location: ng.ILocationService, 
+                $rootScope: ng.IRootScopeService) {
       this.accountService = AccountService;
       this.cacheService = CacheService;
       this.$location = $location;
       this.$rootScope = $rootScope;
       this.loginUser = {};
       this.authen();
-      $rootScope.$on('login', (event, cb) => this.login(cb));
+      $rootScope.$on('login', (event: any, cb: void) => this.login(cb));
     }
   
     authen() {
       this.accountService.authen()
-      .then(response => {
+      .then((response: mstore.IApiResponse) => {
         if (response.data) {
           this.cacheService.set('loginUser', response.data);
           this.loginUser = angular.fromJson(response.data);

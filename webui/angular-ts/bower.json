@@ -4,6 +4,7 @@
     "angular": "~1.4.5",
     "angular-bootstrap": "~0.13.3",
     "angular-new-router": "~0.5.3",
+    "angular-translate": "~2.7.2",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0"
   }

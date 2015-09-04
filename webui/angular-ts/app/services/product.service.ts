@@ -9,7 +9,7 @@ module mstore {
     cacheService: mstore.CacheService;
     
     /* @ngInject */
-    constructor($http, CacheService) {
+    constructor($http: ng.IHttpService, CacheService: mstore.CacheService) {
       this.$http = $http;
       this.cacheService = CacheService;
     }
@@ -18,11 +18,11 @@ module mstore {
       return this.$http.get('api/products');
     }
   
-    getProductById(id) {
+    getProductById(id: string) {
       return this.$http.get(`api/products/${id}`);
     }
     
-    addCartItem(itemId, quantity) {
+    addCartItem(itemId: string, quantity: number) {
       var cartItem = {
         cartId: this.cacheService.get('cartId'),
         itemId: itemId,

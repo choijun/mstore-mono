@@ -6,7 +6,7 @@ module mstore {
   // @mstore.controller()
   export class AppController {
     /* @ngInject */
-    constructor($router) {
+    constructor($router: any) {
       $router.config([
         { path: '/home', component: 'home' },
         { path: '/products', component: 'products' },

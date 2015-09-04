@@ -8,7 +8,7 @@ module mstore {
     cacheService: mstore.CacheService;
     
     /* @ngInject */
-    constructor($http, CacheService) {
+    constructor($http: ng.IHttpService, CacheService) {
       this.$http = $http;
       this.cacheService = CacheService;
     }
@@ -17,7 +17,7 @@ module mstore {
       return this.$http.get(`api/carts/detail?cartId=${this.cacheService.get('cartId')}`);
     }
     
-    removeCartItem(itemId) {
+    removeCartItem(itemId: string) {
       return this.$http.delete(`api/carts/items/${itemId}?cartId=${this.cacheService.get('cartId')}`);
     }
     
@@ -26,7 +26,7 @@ module mstore {
         url: 'api/carts/cart-id',
         method: 'GET',
         transformResponse: response => response
-      }).then(response => this.cacheService.set('cartId', response.data));
+      }).then((response: mstore.IApiResponse) => this.cacheService.set('cartId', response.data));
     }
   
     getTotalItems() {

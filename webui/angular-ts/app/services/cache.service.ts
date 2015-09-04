@@ -18,7 +18,7 @@ module mstore {
       }
     }
   
-    get(key) {
+    get(key: string) {
       if (this.hasLocalStorage()) {
         return localStorage.getItem(key) || undefined;
       } else {
@@ -26,7 +26,7 @@ module mstore {
       }
     }
   
-    set(key, value) {
+    set(key: string, value: string) {
       if (this.hasLocalStorage()) {
         localStorage.setItem(key, value);
       } else {
@@ -34,7 +34,7 @@ module mstore {
       }
     }
   
-    remove(key) {
+    remove(key: string) {
       if (this.hasLocalStorage()) {
         localStorage.removeItem(key);
       } else {

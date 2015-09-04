@@ -10,7 +10,7 @@ module mstore {
     quantity: number;
     
     /* @ngInject */
-    constructor(CartService, CacheService, $rootScope) {
+    constructor(CartService: mstore.CartService, CacheService: mstore.CacheService, $rootScope: ng.IRootScopeService) {
       this.cartService = CartService;
       this.cacheService = CacheService;
       this.updateCartSummary();
@@ -20,7 +20,7 @@ module mstore {
     updateCartSummary() {
       if (this.cacheService.get('cartId')) {
         this.cartService.getTotalItems()
-        .then(response => this.quantity = response.data)
+        .then((response: mstore.IApiResponse) => this.quantity = response.data)
         .catch(() => this.createNewCart());
       } else {
         this.createNewCart();

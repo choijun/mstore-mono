@@ -7,8 +7,8 @@ module mstore {
     data: any;
     
     /* @ngInject */
-    constructor(OrderService) {
-      OrderService.getOrders().then(response => this.data = response.data);
+    constructor(OrderService: mstore.OrderService) {
+      OrderService.getOrders().then((response: mstore.IApiResponse) => this.data = response.data);
     }
   }
   
