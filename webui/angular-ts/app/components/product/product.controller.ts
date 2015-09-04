@@ -1,16 +1,11 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts" />
+/// <reference path="../../../typings/angularjs/angular-route.d.ts" />
 
 module mstore {
   'use strict';
-  
-  interface IRouteParams extends ng.route.IRouteParamsService {
-    id: string;
-  }
- 
-  
-  @mstore.controller
+
   export class ProductController {
-    $routeParams: IRouteParams;
+    $routeParams: ng.route.IRouteParamsService;
     productService: mstore.ProductService;
     $rootScope: ng.IRootScopeService;
     data: any;
@@ -41,4 +36,6 @@ module mstore {
       });
     }
   }
+  
+  angular.module('mstore').controller('ProductController', ProductController);
 }

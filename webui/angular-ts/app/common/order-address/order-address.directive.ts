@@ -2,20 +2,21 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.directive
+
   export class OrderAddress {
-  constructor() {
-    return {
-      replace: true,
-      templateUrl: 'app/common/order-address/order-address.html',
-      scope: true,
-      controller: function () { },
-      controllerAs: 'orderAddress',
-      bindToController: {
-        address: '=orderAddress'
-      }
-    };
+    constructor() {
+      return {
+        replace: true,
+        templateUrl: 'app/common/order-address/order-address.html',
+        scope: true,
+        controller: () => { },
+        controllerAs: 'orderAddress',
+        bindToController: {
+          address: '=orderAddress'
+        }
+      };
+    }
   }
-}
+  
+  angular.module('mstore.common').directive('orderAddress', () => new OrderAddress());
 }

@@ -14,6 +14,4 @@ module mstore {
     // set templates path
     $componentLoaderProvider.setTemplateMapping(name => `app/components/${name}/${name}.html`);
   });
-  
-  export const controller = clazz => angular.module('mstore').controller(clazz.name, clazz);
 }

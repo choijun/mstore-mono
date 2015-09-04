@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.controller
+
   export class CartController {
     cartService: mstore.CartService;
     $rootScope: ng.IRootScopeService;
@@ -28,4 +27,6 @@ module mstore {
       });
     }
   }
+  
+  angular.module('mstore').controller('CartController', CartController);
 }

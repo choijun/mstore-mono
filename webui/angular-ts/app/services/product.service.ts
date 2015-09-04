@@ -3,8 +3,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.service
+
   export class ProductService {
     $http: ng.IHttpService;
     cacheService: mstore.CacheService;
@@ -32,4 +31,6 @@ module mstore {
       return this.$http.post(`api/carts/items?cartId=${cartItem.cartId}`, cartItem);
     }
   }
+  
+  angular.module('mstore.services').service('ProductService', ProductService);
 }

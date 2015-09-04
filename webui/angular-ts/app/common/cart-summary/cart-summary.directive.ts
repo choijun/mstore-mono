@@ -32,8 +32,7 @@ module mstore {
       this.quantity = 0;
     }
   }
-  
-  @mstore.directive
+
   export class CartSummary {
     constructor() {
       return {
@@ -45,4 +44,6 @@ module mstore {
       };
     }
   }
+  
+  angular.module('mstore.common').directive('cartSummary', () => new CartSummary());
 }

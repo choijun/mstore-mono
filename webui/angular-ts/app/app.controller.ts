@@ -3,7 +3,7 @@
 module mstore {
   'use strict';
   
-  @mstore.controller
+  // @mstore.controller()
   export class AppController {
     /* @ngInject */
     constructor($router) {
@@ -18,4 +18,6 @@ module mstore {
       ]);
     }
   }
+  
+  angular.module('mstore').controller('AppController', AppController);
 }

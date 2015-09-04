@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.service
+
   export class CacheService {
     _cache : Object;
     
@@ -43,4 +42,6 @@ module mstore {
       }
     }
   }
+  
+  angular.module('mstore.services').service('CacheService', CacheService);
 }

@@ -2,9 +2,10 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.controller
+
   export class HomeController {
     constructor() { }
   }
+  
+  angular.module('mstore').controller('HomeController', HomeController);
 }

@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.service
+
   export class AccountService {
     $http: ng.IHttpService;
     
@@ -21,7 +20,9 @@ module mstore {
     }
   
     logout() {
-      return this.$http.post('api/logout');
+      return this.$http.post('api/logout', {});
     }
   }
+  
+  angular.module('mstore.services').service('AccountService', AccountService);
 }

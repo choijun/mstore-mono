@@ -3,8 +3,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.controller
+
   export class CheckoutController {
     orderService: mstore.OrderService;
     cacheService: mstore.CacheService;
@@ -49,4 +48,6 @@ module mstore {
       });
     }
   }
+  
+  angular.module('mstore').controller('CheckoutController', CheckoutController);
 }

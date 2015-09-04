@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.directive
+
   export class Footer {
     constructor() {
       return {
@@ -12,4 +11,6 @@ module mstore {
       };
     }
   }
+  
+  angular.module('mstore.common').directive('footer', () => new Footer());
 }

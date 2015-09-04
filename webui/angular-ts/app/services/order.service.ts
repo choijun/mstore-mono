@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.service
+
   export class OrderService {
     $http: ng.IHttpService;
     cacheService: mstore.CacheService;
@@ -30,4 +29,6 @@ module mstore {
       });
     }
   }
+  
+  angular.module('mstore.services').service('OrderService', OrderService);
 }

@@ -2,12 +2,15 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.controller
+
   export class OrdersController {
+    data: any;
+    
     /* @ngInject */
     constructor(OrderService) {
       OrderService.getOrders().then(response => this.data = response.data);
     }
   }
+  
+  angular.module('mstore').controller('OrdersController', OrdersController);
 }

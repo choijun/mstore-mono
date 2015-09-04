@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.controller
+
   export class ProductsController {
     data : Object;
     
@@ -12,4 +11,6 @@ module mstore {
       ProductService.getProducts().then(response => this.data = response.data);
     }
   }
+  
+  angular.module('mstore').controller('ProductsController', ProductsController);
 }

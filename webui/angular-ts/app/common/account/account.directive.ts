@@ -54,8 +54,7 @@ module mstore {
       });
     }
   }
-  
-  @mstore.directive
+
   export class Account {
     constructor() {
       return {
@@ -67,4 +66,6 @@ module mstore {
       };
     }
   }
+  
+  angular.module('mstore.common').directive('account', () => new Account());
 }

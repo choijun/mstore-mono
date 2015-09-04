@@ -2,20 +2,15 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.directive
+
   export class CartEmpty {
     constructor() {
       return {
         replace: true,
-        templateUrl: 'app/common/cart-empty/cart-empty.html',
-        scope: true,
-        controller: () => { },
-        controllerAs: 'cartEmpty',
-        bindToController: {
-          productId: '='
-        }
+        templateUrl: 'app/common/cart-empty/cart-empty.html'
       };
     }
   }
+  
+  angular.module('mstore.common').directive('cartEmpty', () => new CartEmpty());
 }

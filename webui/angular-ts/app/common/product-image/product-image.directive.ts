@@ -2,8 +2,7 @@
 
 module mstore {
   'use strict';
-  
-  @mstore.directive
+
   export class ProductImage {
     constructor() {
       return {
@@ -18,4 +17,6 @@ module mstore {
       };
     }
   }
+  
+  angular.module('mstore.common').directive('productImage', () => new ProductImage());
 }
