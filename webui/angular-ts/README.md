@@ -4,17 +4,18 @@
 The project directory should now have the following structures:
 
 * `app`
- * `scripts`
- * `areas`: code (scripts and views) of every feature should be a sub-directory
- * `shared`: code of shared components
- * `app.js`: main script
+ * `common`: code of shared components
+ * `components`: code (scripts and views) of every feature should be a sub-directory
+ * `services`: code of services
+ * `app.controller.ts`: router
+ * `index.ts`: main script
 * `assets`
  * `styles`
    * `bootstrap.scss`: customized Bootstrap styles
    * `app.scss`: application styles
  * `images`: application images
 * `index.html`: application page
-* `gulpfile.js` and `gulp`: build scripts
+* `gulpfile.babel.js`: build scripts
 * `bower_components`: Bower components
 * `bower.json`: Bower package definition
 * `node_modules`: NPM components
@@ -47,6 +48,7 @@ Other build commands:
 
 * `gulp`: package the application for distribution
  * `clean`: delete `dist` directory
- * `scripts`: transpile JS code
- * `styles`: compile Compass to CSS
  * `copy`: copy application images to `dist`
+ * `styles`: compile Compass to CSS
+ * `scripts`: transpile JS code
+ * `templates`: compile html to js
