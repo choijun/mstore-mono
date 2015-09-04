@@ -1,0 +1,69 @@
+<!doctype html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>mStore Application</title>
+  <meta name="viewport" content="width=device-width">
+  <!-- build:css1 assets/styles/framework.min.css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+  <!-- endbuild -->
+  <!-- build:css2 assets/styles/app.min.css -->
+  <link rel="stylesheet" href=".tmp/assets/styles/bootstrap.css" />
+  <link rel="stylesheet" href=".tmp/assets/styles/app.css" />
+  <!-- endbuild -->
+</head>
+<body ng-app="mstore">
+  <div ng-strict-di ng-controller="AppController">
+    <div header></div>
+    <div ng-viewport class="container-fluid"></div>
+    <div footer></div>
+  </div>
+  <!-- build:js1 app/framework.min.js -->
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-new-router/dist/router.es5.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <!-- endbuild -->
+  <!-- build:js2 app/app.min.js -->
+  <script type="text/javascript" src=".tmp/index.module.js"></script>
+  <script type="text/javascript" src=".tmp/services/services.module.js"></script>
+  <script type="text/javascript" src=".tmp/services/account.service.js"></script>
+  <script type="text/javascript" src=".tmp/services/cache.service.js"></script>
+  <script type="text/javascript" src=".tmp/services/product.service.js"></script>
+  <script type="text/javascript" src=".tmp/services/cart.service.js"></script>
+  <script type="text/javascript" src=".tmp/services/order.service.js"></script>
+  <script type="text/javascript" src=".tmp/common/common.module.js"></script>
+  <script type="text/javascript" src=".tmp/common/account/account.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/cart-summary/cart-summary.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/header/header.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/footer/footer.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/product-image/product-image.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/to-currency/to-currency.filter.js"></script>
+  <script type="text/javascript" src=".tmp/common/order-address/order-address.directive.js"></script>
+  <script type="text/javascript" src=".tmp/common/order-result/order-result.controller.js"></script>
+  <script type="text/javascript" src=".tmp/app.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/home/home.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/products/products.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/product/product.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/cart/cart.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/checkout/checkout.controller.js"></script>
+  <script type="text/javascript" src=".tmp/components/orders/orders.controller.js"></script>
+  <!-- endbuild -->
+  <!-- build:js3 app/template.min.js -->
+  <script type="text/javascript" src=".tmp/templates/common/header/header.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/cart-summary/cart-summary.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/account/account.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/footer/footer.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/product-image/product-image.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/cart-empty/cart-empty.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/order-address/order-address.js"></script>
+  <script type="text/javascript" src=".tmp/templates/common/order-result/order-result.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/home/home.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/products/products.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/product/product.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/cart/cart.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/checkout/checkout.js"></script>
+  <script type="text/javascript" src=".tmp/templates/components/orders/orders.js"></script>
+  <!-- endbuild -->
+</body>
+</html>

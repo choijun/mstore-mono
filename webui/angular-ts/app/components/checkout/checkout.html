@@ -1,0 +1,51 @@
+<div>
+  <ol class="breadcrumb">
+    <li><a ng-link="home">Home</a></li>
+    <li><a ng-link="cart">Cart</a></li>
+    <li class="active">Checkout</li>
+  </ol>
+  <div cart-empty ng-if="checkout.data.details.length === 0"></div>
+  <div ng-if="checkout.data.details.length > 0">
+    <div class="row">
+      <div class="col-sm-3">
+        <label class="text-primary">Shipping Address</label>
+        <div order-address="::checkout.data.shippingAddress"></div>
+      </div>
+      <div class="col-sm-3">
+        <label class="text-primary">Billing Address</label>
+        <div order-address="::checkout.data.billingAddress"></div>
+      </div>
+      <div class="col-sm-6">
+        <table class="table table-striped table-hover cart-table">
+          <thead>
+            <tr>
+              <th class="text-center">&nbsp;</th>
+              <th class="text-right">Price</th>
+              <th class="text-right">Quantity</th>
+              <th class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in ::checkout.data.details track by item.itemId">
+              <td>
+                <a href="javascript:void(0)" ng-bind="::item.itemId"></a>
+              </td>
+              <td class="text-right price" ng-bind="::item.unitPrice | toCurrency"></td>
+              <td class="text-right quantity" ng-bind="::item.quantity"></td>
+              <td class="text-right subtotal" ng-bind="::(item.unitPrice * item.quantity) | toCurrency"></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colSpan="5" class="text-right subtotal" ng-bind="::checkout.data.subTotal | toCurrency"></th>
+            </tr>
+          </tfoot>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary pull-right" ng-click="checkout.placeOrder()">
+            <span class='glyphicon glyphicon-ok' aria-hidden="true"></span>
+            Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
