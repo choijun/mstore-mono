@@ -3,9 +3,10 @@
 
 export default class ProductController {
   /* @ngInject */
-  constructor($routeParams, ProductService, $rootScope) {
+  constructor($routeParams, ProductService, $rootScope, toCurrency) {
     this.productService = ProductService;
     this.$rootScope = $rootScope;
+    this.toCurrency = toCurrency;
     
     this.getProductById($routeParams.id);
   }

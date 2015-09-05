@@ -52,12 +52,12 @@ gulp.task('copy', ['clean'], () => {
 
 gulp.task('styles', ['clean'], () => {
   return gulp.src(PATH.assets + '**/*.scss')
-    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+    .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
     .pipe(gulp.dest(PATH.tmp + 'assets/'));
 });
 
 gulp.task('scripts', ['clean'], () => {
-  browserify({ entries: PATH.src + 'index.js', debug: true })
+  browserify({ entries: PATH.src + 'index.module.js', debug: true })
   .transform(babelify)
   .bundle()
   .pipe(source('app.js'))

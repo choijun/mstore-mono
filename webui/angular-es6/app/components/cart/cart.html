@@ -23,14 +23,14 @@
           <td>
             <a href="javascript:void(0)" ng-bind="::item.itemId"></a>
           </td>
-          <td class="text-right price" ng-bind="::item.price | toCurrency"></td>
+          <td class="text-right price" ng-bind="cart.toCurrency(item.price)"></td>
           <td class="text-right quantity" ng-bind="::item.quantity"></td>
-          <td class="text-right subtotal" ng-bind="::(item.price * item.quantity) | toCurrency"></td>
+          <td class="text-right subtotal" ng-bind="cart.toCurrency(item.price * item.quantity)"></td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <th colSpan="5" class="text-right subtotal" ng-bind="::cart.data.subTotal | toCurrency"></th>
+          <th colSpan="5" class="text-right subtotal" ng-bind="cart.toCurrency(cart.data.subTotal)"></th>
         </tr>
       </tfoot>
     </table>

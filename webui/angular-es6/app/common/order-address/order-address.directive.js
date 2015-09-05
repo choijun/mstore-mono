@@ -3,13 +3,13 @@
 export default class OrderAddress {
   constructor() {
     return {
-      controller: function () { },
-      controllerAs: 'orderAddress',
+      replace: true,
+      scope: true,
       bindToController: {
         address: '=orderAddress'
       },
-      scope: true,
-      replace: true,
+      controller: function () { },
+      controllerAs: 'orderAddress',
       templateUrl: 'app/common/order-address/order-address.html'
     };
   }

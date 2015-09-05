@@ -15,11 +15,11 @@
     </thead>
     <tbody>
       <tr ng-repeat="order in ::orders.data track by order.id">
-        <td class="text-center" ng-bind="::order.orderDate | date:'yyyy-MM-dd HH:mm:ss Z'"></td>
-        <td class="text-right" ng-bind="::order.subTotal | toCurrency"></td>
-        <td class="text-right" ng-bind-template="{{::order.taxFee | toCurrency}} ({{(order.taxRate * 100).toFixed(0)}}%)"></td>
-        <td class="text-right" ng-bind="::order.shippingFee | toCurrency"></td>
-        <td class="text-right" ng-bind="::order.total | toCurrency"></td>
+        <td class="text-center" ng-bind="orders.formatDate(order.orderDate)"></td>
+        <td class="text-right" ng-bind="orders.toCurrency(order.subTotal)"></td>
+        <td class="text-right" ng-bind-template="{{orders.toCurrency(order.taxFee)}} ({{(order.taxRate * 100).toFixed(0)}}%)"></td>
+        <td class="text-right" ng-bind="orders.toCurrency(order.shippingFee)"></td>
+        <td class="text-right" ng-bind="orders.toCurrency(order.total)"></td>
       </tr>
     </tbody>
   </table>

@@ -3,30 +3,18 @@
 
 import {servicesModule} from './services/services.module'; // jshint ignore:line
 import {commonModule} from './common/common.module'; // jshint ignore:line
-import HomeController from './components/home/home';
-import ProductsController from './components/products/products';
-import ProductController from './components/product/product';
-import CartController from './components/cart/cart';
-import CheckoutController from './components/checkout/checkout';
-import OrdersController from './components/orders/orders';
-
-class AppController {
-  /* @ngInject */
-  constructor($router) {
-    $router.config([
-      { path: '/home', component: 'home' },
-      { path: '/products', component: 'products' },
-      { path: '/products/:id', component: 'product' },
-      { path: '/cart', component: 'cart' },
-      { path: '/checkout', component: 'checkout' },
-      { path: '/orders', component: 'orders' },
-      { path: '/', redirectTo: '/home' }
-    ]);
-  }
-}
+import AppController from './app.controller';
+import HomeController from './components/home/home.controller';
+import ProductsController from './components/products/products.controller';
+import ProductController from './components/product/product.controller';
+import CartController from './components/cart/cart.controller';
+import CheckoutController from './components/checkout/checkout.controller';
+import OrdersController from './components/orders/orders.controller';
 
 angular.module('mstore', [
+  // Angular modules
   'ngNewRouter',
+  // Custom modules
   'mstore.services',
   'mstore.common'
 ])

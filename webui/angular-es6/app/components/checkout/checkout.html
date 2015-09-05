@@ -30,14 +30,14 @@
               <td>
                 <a href="javascript:void(0)" ng-bind="::item.itemId"></a>
               </td>
-              <td class="text-right price" ng-bind="::item.unitPrice | toCurrency"></td>
+              <td class="text-right price" ng-bind="checkout.toCurrency(item.unitPrice)"></td>
               <td class="text-right quantity" ng-bind="::item.quantity"></td>
-              <td class="text-right subtotal" ng-bind="::(item.unitPrice * item.quantity) | toCurrency"></td>
+              <td class="text-right subtotal" ng-bind="checkout.toCurrency(item.unitPrice * item.quantity)"></td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan="5" class="text-right subtotal" ng-bind="::checkout.data.subTotal | toCurrency"></th>
+              <th colSpan="5" class="text-right subtotal" ng-bind="checkout.toCurrency(checkout.data.subTotal)"></th>
             </tr>
           </tfoot>
         </table>

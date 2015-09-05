@@ -3,13 +3,13 @@
 export default class ProductImage {
   constructor() {
     return {
-      controller: () => { },
-      controllerAs: 'productImage',
+      replace: true,
+      scope: true,
       bindToController: {
         productId: '='
       },
-      scope: true,
-      replace: true,
+      controller: () => { },
+      controllerAs: 'productImage',
       templateUrl: 'app/common/product-image/product-image.html'
     };
   }

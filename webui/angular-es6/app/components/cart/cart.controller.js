@@ -2,9 +2,10 @@
 
 export default class CartController {
   /* @ngInject */
-  constructor(CartService, $rootScope) {
+  constructor(CartService, $rootScope, toCurrency) {
     this.cartService = CartService;
     this.$rootScope = $rootScope;
+    this.toCurrency = toCurrency;
     this.cart = { details: [] };
     this.loadCart();
   }

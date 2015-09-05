@@ -4,17 +4,19 @@
 The project directory should now have the following structures:
 
 * `app`
- * `scripts`
- * `areas`: code (scripts and views) of every feature should be a sub-directory
- * `shared`: code of shared components
- * `app.js`: main script
+ * `common`: code of shared components
+ * `components`: code (scripts and views) of every feature should be a sub-directory
+ * `services`: code of services
+ * `app.controller.js`: Angular new router
+ * `index.module.js`: main script
 * `assets`
  * `styles`
    * `bootstrap.scss`: customized Bootstrap styles
    * `app.scss`: application styles
+   * `var.scss`: application styles constant values
  * `images`: application images
 * `index.html`: application page
-* `gulpfile.js` and `gulp`: build scripts
+* `gulpfile.babel.js`: build scripts
 * `bower_components`: Bower components
 * `bower.json`: Bower package definition
 * `node_modules`: NPM components

@@ -2,11 +2,12 @@
 
 export default class CheckoutController {
   /* @ngInject */
-  constructor(OrderService, CacheService, $rootScope, $modal) {
+  constructor(OrderService, CacheService, $rootScope, $modal, toCurrency) {
     this.orderService = OrderService;
     this.cacheService = CacheService;
     this.$rootScope = $rootScope;
     this.$modal = $modal;
+    this.toCurrency = toCurrency;
     this.data = { details: [] };
     
     if (this.cacheService.get('loginUser')) {

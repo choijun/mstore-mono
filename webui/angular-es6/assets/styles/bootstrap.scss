@@ -1,37 +1,39 @@
+@import 'var';
+
 .navbar-default .navbar-brand, .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
-  color: #007aff;
+  color: $color-blue;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover  {
-  color: #007aff;
+  color: $color-blue;
 }
 .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
-  background-color: #e7e7e7;
+  background-color: $color-gray;
 }
 .btn, .btn:hover, .btn:active, .btn:focus, .btn:active:focus {
   outline: none;
   box-shadow: none;
 }
 .btn-info, .btn-info:hover, .btn-info:active, .btn-info:focus, .btn-info:active:focus {
-  border-color: #ccc;
-  background-color: #fff;
-  color: #333;
+  border-color: $color-gray;
+  background-color: $color-white;
+  color: $color-black;
 }
 .btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus, .btn-default:active:focus {
-  border-color: #007aff;
-  background-color: #fff;
-  color: #007aff;
+  border-color: $color-blue;
+  background-color: $color-white;
+  color: $color-blue;
 }
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
-  border-color: #007aff;
-  background-color: #007aff;
-  color: #fff!important;
+  border-color: $color-blue;
+  background-color: $color-blue;
+  color: $color-white !important;
 }
 .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:focus, .btn-danger:active:focus {
-  border-color: #f06953;
-  background-color: #f06953;
-  color: #fff;
+  border-color: $color-red;
+  background-color: $color-red;
+  color: $color-white;
 }
 .btn-action {
   margin-left: 10px;
@@ -42,10 +44,10 @@
 }
 a, a:hover, a:active, a:focus, a:visited, .text-primary {
   text-decoration: none;
-  color: #007aff;
+  color: $color-blue;
 }
 .text-danger {
-  color: #f06953;
+  color: $color-red;
 }
 .panel {
   margin-bottom: 0;
@@ -72,7 +74,7 @@ td, th {
   padding: 0;
 }
 .modal-footer.row .col-sm-6 {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid $color-gray;
 }
 .modal-footer.row .col-sm-6:last-child {
   border-right: none;
