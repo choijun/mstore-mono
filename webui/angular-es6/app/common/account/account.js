@@ -1,7 +1,7 @@
 'use strict';
 /* global angular */
 
-export default class AccountController {
+class AccountController {
   /* @ngInject */
   constructor(AccountService, CacheService, $location, $rootScope) {
     this.accountService = AccountService;
@@ -44,5 +44,18 @@ export default class AccountController {
       this.$rootScope.$broadcast('updateCart');
       this.$location.path('/');
     });
+  }
+}
+
+export default class Account {
+  /* @ngInject */
+  constructor() {
+    return {
+      replace: true,
+      scope: true,
+      controller: AccountController,
+      controllerAs: 'account',
+      templateUrl: 'app/common/account/account.html'
+    };
   }
 }

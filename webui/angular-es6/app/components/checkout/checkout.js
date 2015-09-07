@@ -29,7 +29,7 @@ export default class CheckoutController {
       this.$rootScope.$broadcast('updateCart');
       this.$modal.open({
         animation: true,
-        templateUrl: 'app/common/order-result/order-result.html',
+        templateUrl: 'app/components/order-result/order-result.html',
         controller: 'OrderResultController as orderResult',
         resolve: {
           orderId: () => { return this.orderId; }

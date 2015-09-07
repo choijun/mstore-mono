@@ -1,6 +1,6 @@
 'use strict';
 
-export default class CartSummaryController {
+class CartSummaryController {
   /* @ngInject */
   constructor(CartService, CacheService, $rootScope) {
     this.cartService = CartService;
@@ -22,5 +22,18 @@ export default class CartSummaryController {
   createNewCart() {
     this.cartService.createCartId();
     this.quantity = 0;
+  }
+}
+
+export default class CartSummary {
+  /* @ngInject */
+  constructor() {
+    return {
+      replace: true,
+      scope: true,
+      controller: CartSummaryController,
+      controllerAs: 'cartSummary',
+      templateUrl: 'app/common/cart-summary/cart-summary.html'
+    };
   }
 }

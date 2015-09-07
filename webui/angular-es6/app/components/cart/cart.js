@@ -6,7 +6,7 @@ export default class CartController {
     this.cartService = CartService;
     this.$rootScope = $rootScope;
     this.toCurrency = toCurrency;
-    this.cart = { details: [] };
+    this.data = { details: [] };
     this.loadCart();
   }
 

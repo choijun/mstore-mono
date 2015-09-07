@@ -12,7 +12,7 @@ import source from 'vinyl-source-stream';
 import ngAnnotate from 'gulp-ng-annotate';
 import uglify from 'gulp-uglify';
 import jshint from 'gulp-jshint';
-import ngHtml2js from 'gulp-ng-html2js';
+import templateCache from 'gulp-angular-templatecache';
 import minifycss from 'gulp-minify-css';
 import usemin from 'gulp-usemin';
 
@@ -57,7 +57,7 @@ gulp.task('styles', ['clean'], () => {
 });
 
 gulp.task('scripts', ['clean'], () => {
-  browserify({ entries: PATH.src + 'index.module.js', debug: true })
+  browserify({ entries: PATH.src + 'app.js', debug: true })
   .transform(babelify)
   .bundle()
   .pipe(source('app.js'))
@@ -67,8 +67,8 @@ gulp.task('scripts', ['clean'], () => {
 
 gulp.task('templates', ['clean'], () => {
   return gulp.src(PATH.src + '**/*.html')
-    .pipe(ngHtml2js({ moduleName: 'mstore', prefix: PATH.src }))
-    .pipe(gulp.dest(PATH.tmp + 'templates/'));
+    .pipe(templateCache({ module: 'mstore', root: PATH.src, moduleSystem: 'IIFE' }))
+    .pipe(gulp.dest(PATH.tmp));
 });
 
 gulp.task('lint', () => {
@@ -79,7 +79,7 @@ gulp.task('lint', () => {
 
 gulp.task('build', ['copy', 'styles', 'scripts', 'templates', 'lint']);
 
-gulp.task('usemin', ['copy', 'styles', 'scripts', 'templates'], () => {
+gulp.task('usemin', ['build'], () => {
   return gulp.src('index.html')
     .pipe(usemin({
       css1: [minifycss()],

@@ -15,9 +15,11 @@
 </head>
 <body ng-app="mstore">
   <div ng-strict-di ng-controller="AppController">
-    <div header></div>
+    <div navbar></div>
     <div ng-viewport class="container-fluid"></div>
-    <div footer></div>
+    <div class="container">
+      <p class="text-muted">&copy;2015 KMS Technology, Inc.</p>
+    </div>
   </div>
   <!-- build:js1 app/framework.min.js -->
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
@@ -28,20 +30,7 @@
   <script type="text/javascript" src=".tmp/app.js"></script>
   <!-- endbuild -->
   <!-- build:js3 app/template.min.js -->
-  <script type="text/javascript" src=".tmp/templates/common/header/header.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/cart-summary/cart-summary.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/account/account.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/footer/footer.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/product-image/product-image.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/cart-empty/cart-empty.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/order-address/order-address.js"></script>
-  <script type="text/javascript" src=".tmp/templates/common/order-result/order-result.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/home/home.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/products/products.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/product/product.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/cart/cart.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/checkout/checkout.js"></script>
-  <script type="text/javascript" src=".tmp/templates/components/orders/orders.js"></script>
+  <script type="text/javascript" src=".tmp/templates.js"></script>
   <!-- endbuild -->
 </body>
 </html>
