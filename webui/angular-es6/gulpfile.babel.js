@@ -38,7 +38,7 @@ let initBrowserSync = (env) => {
 }
 
 gulp.task('clean', (cb) => {
-  del([PATH.tmp + '*', PATH.dist + '*'], cb);
+  return del([PATH.tmp + '*', PATH.dist + '*'], cb);
 });
 
 gulp.task('copy', ['clean'], () => {
@@ -60,12 +60,12 @@ gulp.task('styles', ['clean'], () => {
 });
 
 gulp.task('scripts', ['clean'], () => {
-  browserify({ entries: PATH.src + 'app.js', debug: true })
-  .transform(babelify)
-  .bundle()
-  .pipe(source('app.js'))
-  .pipe(ngAnnotate())
-  .pipe(gulp.dest(PATH.tmp));
+  return browserify({ entries: PATH.src + 'app.js', debug: true })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(ngAnnotate())
+    .pipe(gulp.dest(PATH.tmp));
 });
 
 gulp.task('templates', ['clean'], () => {
