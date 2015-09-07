@@ -1,7 +1,7 @@
 <div>
   <ol class="breadcrumb">
-    <li><a ng-link="home">Home</a></li>
-    <li class="active">Cart</li>
+    <li><a ng-link="home" translate>breadcrumb.home</a></li>
+    <li class="active" translate>breadcrumb.cart</li>
   </ol>
   <div cart-empty ng-if="cart.data.details.length === 0"></div>
   <div ng-if="cart.data.details.length > 0">
@@ -10,9 +10,9 @@
         <tr>
           <th class="text-center">&nbsp;</th>
           <th class="text-center">&nbsp;</th>
-          <th class="text-right">Price</th>
-          <th class="text-right">Quantity</th>
-          <th class="text-right">Total</th>
+          <th class="text-right" translate>common.field.price</th>
+          <th class="text-right" translate>common.field.quantity</th>
+          <th class="text-right" translate>common.field.total</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
     </table>
     <a href="#/checkout" class="btn btn-sm btn-primary btn-action pull-right">
       <span class='glyphicon glyphicon-ok' aria-hidden="true"></span>
-      Checkout
+      <span translate>cart.action.checkout</span>
     </a>
   </div>
 </div>

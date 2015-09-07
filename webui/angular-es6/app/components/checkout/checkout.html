@@ -1,18 +1,18 @@
 <div>
   <ol class="breadcrumb">
-    <li><a ng-link="home">Home</a></li>
-    <li><a ng-link="cart">Cart</a></li>
-    <li class="active">Checkout</li>
+    <li><a ng-link="home" translate>breadcrumb.home</a></li>
+    <li><a ng-link="cart" translate>breadcrumb.cart</a></li>
+    <li class="active" translate>breadcrumb.checkout</li>
   </ol>
   <div cart-empty ng-if="checkout.data.details.length === 0"></div>
   <div ng-if="checkout.data.details.length > 0">
     <div class="row">
       <div class="col-sm-3">
-        <label class="text-primary">Shipping Address</label>
+        <label class="text-primary" translate>checkout.title.address.shipping</label>
         <div order-address="::checkout.data.shippingAddress"></div>
       </div>
       <div class="col-sm-3">
-        <label class="text-primary">Billing Address</label>
+        <label class="text-primary" translate>checkout.title.address.billing</label>
         <div order-address="::checkout.data.billingAddress"></div>
       </div>
       <div class="col-sm-6">
@@ -20,9 +20,9 @@
           <thead>
             <tr>
               <th class="text-center">&nbsp;</th>
-              <th class="text-right">Price</th>
-              <th class="text-right">Quantity</th>
-              <th class="text-right">Total</th>
+              <th class="text-right" translate>common.field.price</th>
+              <th class="text-right" translate>common.field.quantity</th>
+              <th class="text-right" translate>common.field.total</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +43,7 @@
         </table>
         <button type="button" class="btn btn-sm btn-primary pull-right" ng-click="checkout.placeOrder()">
             <span class='glyphicon glyphicon-ok' aria-hidden="true"></span>
-            Order
+            <span translate>checkout.action.order</span>
         </button>
       </div>
     </div>

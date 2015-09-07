@@ -42,6 +42,9 @@ gulp.task('clean', (cb) => {
 });
 
 gulp.task('copy', ['clean'], () => {
+  gulp.src('i18n/*.json')
+    .pipe(gulp.dest(PATH.tmp + 'i18n/'))
+    .pipe(gulp.dest(PATH.dist + 'i18n/'));
   gulp.src(PATH.assets + 'images/**.*')
     .pipe(gulp.dest(PATH.tmp + 'assets/images/'))
     .pipe(gulp.dest(PATH.dist + 'assets/images/'));

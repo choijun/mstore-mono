@@ -1,7 +1,7 @@
 <div>
   <ol class="breadcrumb">
-    <li><a ng-link="home">Home</a></li>
-    <li><a ng-link="products">Products</a></li>
+    <li><a ng-link="home" translate>breadcrumb.home</a></li>
+    <li><a ng-link="products" translate>breadcrumb.products</a></li>
     <li class="active" ng-bind="::product.data.name"></li>
   </ol>
   <div class="row">
@@ -40,17 +40,17 @@
                   ng-if="product.activeItem.quantity > 0"
                   ng-click="product.addToCart()">
             <span className='glyphicon glyphicon-shopping-cart' aria-hidden="true"></span>
-            Add to Cart
+            <span translate>product.action.add.to.cart</span>
           </button>
           <button type="button" class="btn btn-sm btn-danger" disabled="disabled"
-                  ng-if="product.activeItem.quantity === 0">
-            Sold out
+                  ng-if="product.activeItem.quantity === 0" translate>
+            <span translate>product.action.sold.out</span>
           </button>
         </div>
       </div>
     </div>
     <div class="col-sm-12">
-      <h2>REVIEWS</h2>
+      <h2 translate>product.title.reviews</h2>
       <div class="well" ng-repeat="review in ::product.data.reviews track by review.id">
         <h3><strong ng-bind="::review.headline"></strong></h3>
         <p class="text-muted"><strong ng-bind="::review.author"></strong></p>

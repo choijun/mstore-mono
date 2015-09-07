@@ -29,9 +29,12 @@ class AppController {
 angular.module('mstore', [
   // Angular modules
   'ngNewRouter',
+  'ngSanitize',
   // Custom modules
   'mstore.services',
-  'mstore.common'
+  'mstore.common',
+  // 3rd Party Modules
+  'pascalprecht.translate'
 ])
 .value('toCurrency', amount => ('$ ' + (amount / 100).toFixed(2)))
 .controller('AppController', AppController)
@@ -42,9 +45,15 @@ angular.module('mstore', [
 .controller('CheckoutController', CheckoutController)
 .controller('OrdersController', OrdersController)
 .controller('OrderResultController', OrderResultController)
-.config(/* @ngInject */($compileProvider, $componentLoaderProvider) => {
-  // disable debug info
+.config(/* @ngInject */($compileProvider, $componentLoaderProvider, $translateProvider) => {
+  // disables AngularJS debug info
   $compileProvider.debugInfoEnabled(false);
   // set templates path
   $componentLoaderProvider.setTemplateMapping(name => `app/components/${name}/${name}.html`);
+  // Angular Translate
+  $translateProvider
+      .useSanitizeValueStrategy('sanitize')
+      .useMissingTranslationHandlerLog()
+      .useStaticFilesLoader({ prefix: 'i18n/', suffix: '.json' })
+      .preferredLanguage('en_US');
 });
