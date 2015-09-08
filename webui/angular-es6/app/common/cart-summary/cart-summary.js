@@ -30,7 +30,6 @@ export default class CartSummary {
   constructor() {
     return {
       replace: true,
-      scope: true,
       controller: CartSummaryController,
       controllerAs: 'cartSummary',
       templateUrl: 'app/common/cart-summary/cart-summary.html'

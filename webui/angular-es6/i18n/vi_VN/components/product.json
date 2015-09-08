@@ -1,0 +1,11 @@
+{
+  "product": {
+    "action": {
+      "add.to.cart": "Add to Cart",
+      "sold.out": "Sold out"
+    },
+    "title": {
+      "reviews": "REVIEWS"
+    }
+  }
+}

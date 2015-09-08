@@ -1,0 +1,10 @@
+{
+  "order.result": {
+    "title": {
+      "place.order.success": "Place Order Success"
+    },
+    "message": {
+      "your.order.has.been.processed": "Your order <span class='text-primary'>{{id}}</span> has been processed."
+    }
+  }
+}

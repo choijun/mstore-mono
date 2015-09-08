@@ -1,0 +1,73 @@
+{
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "products": "Danh mục sản phẩm",
+    "cart": "Giỏ hàng",
+    "checkout": "Checkout",
+    "orders": "Orders"
+  },
+  "common": {
+    "field": {
+      "price": "Giá",
+      "quantity": "Số lượng",
+      "total": "Tổng"
+    },
+    "action": {
+      "ok": "OK"
+    }
+  },
+  "cart": {
+    "action": {
+      "checkout": "Checkout"
+    },
+    "message": {
+      "your.cart.is.empty": "Your cart is empty, ",
+      "click.here.to.start.shopping": "click here to start shopping"
+    }
+  },
+  "checkout": {
+    "title": {
+      "address": {
+        "shipping": "Địa chỉ giao hàng",
+        "billing": "Địa chỉ thanh toán"
+      }
+    },
+    "action": {
+      "order": "Đặt hàng"
+    }
+  },
+  "order": {
+    "field": {
+      "order.date": "Ngày đặt hàng",
+      "sub.total": "Tổng",
+      "tax": "Thuế",
+      "shipping": "Phí giao hàng"
+    },
+    "action": {
+      "edit.address": "Edit Address"
+    }
+  },
+  "account": {
+    "action": {
+      "my.orders": "My Orders",
+      "logout": "Logout"
+    }
+  },
+  "order.result": {
+    "title": {
+      "place.order.success": "Place Order Success"
+    },
+    "message": {
+      "your.order.has.been.processed": "Your order <span class='text-primary'>{{id}}</span> has been processed."
+    }
+  },
+  "product": {
+    "action": {
+      "add.to.cart": "Add to Cart",
+      "sold.out": "Sold out"
+    },
+    "title": {
+      "reviews": "REVIEWS"
+    }
+  }
+}

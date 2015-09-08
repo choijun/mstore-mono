@@ -7,6 +7,7 @@ import OrderAddress from './order-address/order-address';
 import CartSummary from './cart-summary/cart-summary';
 import Account from './account/account';
 import Navbar from './navbar/navbar';
+import LanguageSettings from './language-settings/language-settings';
 
 export const commonModule = angular.module('mstore.common', [
   // 3rd Party Modules
@@ -19,4 +20,5 @@ export const commonModule = angular.module('mstore.common', [
 .directive('orderAddress', () => new OrderAddress())
 .directive('cartSummary', () => new CartSummary())
 .directive('account', () => new Account())
+.directive('languageSettings', () => new LanguageSettings())
 .directive('navbar', () => new Navbar());

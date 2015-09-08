@@ -17,8 +17,8 @@ class AccountController {
     this.accountService.authen()
     .then(response => {
       if (response.data) {
-        this.cacheService.set('loginUser', response.data);
-        this.loginUser = angular.fromJson(response.data);
+        this.cacheService.set('loginUser', angular.toJson(response.data));
+        this.loginUser = response.data;
       } else {
         this.cacheService.remove('loginUser');
         this.loginUser = {};

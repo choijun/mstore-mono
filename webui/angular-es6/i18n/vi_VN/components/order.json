@@ -1,0 +1,19 @@
+{
+  "order": {
+    "field": {
+      "order.date": "Ngày đặt hàng",
+      "sub.total": "Tổng",
+      "tax": "Thuế",
+      "shipping": "Phí giao hàng"
+    },
+    "action": {
+      "edit.address": "Edit Address"
+    }
+  },
+  "account": {
+    "action": {
+      "my.orders": "My Orders",
+      "logout": "Logout"
+    }
+  }
+}
