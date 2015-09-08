@@ -1,0 +1,13 @@
+{
+  "checkout": {
+    "title": {
+      "address": {
+        "shipping": "Shipping Address",
+        "billing": "Billing Address"
+      }
+    },
+    "action": {
+      "order": "Order"
+    }
+  }
+}

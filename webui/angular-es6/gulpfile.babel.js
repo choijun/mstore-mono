@@ -15,6 +15,7 @@ import jshint from 'gulp-jshint';
 import templateCache from 'gulp-angular-templatecache';
 import minifycss from 'gulp-minify-css';
 import usemin from 'gulp-usemin';
+import extend from 'gulp-extend';
 
 const PATH = {
   src: 'app/',
@@ -42,8 +43,9 @@ gulp.task('clean', (cb) => {
 });
 
 gulp.task('copy', ['clean'], () => {
-  gulp.src('i18n/*.json')
-    .pipe(gulp.dest(PATH.tmp + 'i18n/'))
+  gulp.src('i18n/en_US/*.json')
+    .pipe(extend('en_US.json', true, 2))
+    .pipe(gulp.dest('i18n/'))
     .pipe(gulp.dest(PATH.dist + 'i18n/'));
   gulp.src(PATH.assets + 'images/**.*')
     .pipe(gulp.dest(PATH.tmp + 'assets/images/'))

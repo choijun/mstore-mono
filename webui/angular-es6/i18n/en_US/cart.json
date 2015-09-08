@@ -1,0 +1,11 @@
+{
+  "cart": {
+    "action": {
+      "checkout": "Checkout"
+    },
+    "message": {
+      "your.cart.is.empty": "Your cart is empty, ",
+      "click.here.to.start.shopping": "click here to start shopping"
+    }
+  }
+}
