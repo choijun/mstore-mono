@@ -127,3 +127,4 @@ Desktop.ini
 # Gradle Wrapper
 ######################
 !gradle/wrapper/gradle-wrapper.jar
+/webui/angular-es6/i18n/en_US.json

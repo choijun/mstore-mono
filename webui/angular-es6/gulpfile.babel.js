@@ -24,6 +24,8 @@ const PATH = {
   dist: 'dist/'
 };
 
+const LANGUAGES = ['en_US']
+
 let initBrowserSync = (env) => {
   var proxyOptions = url.parse('http://localhost:8000');
   proxyOptions.route = '/api';
@@ -43,10 +45,12 @@ gulp.task('clean', (cb) => {
 });
 
 gulp.task('copy', ['clean'], () => {
-  gulp.src('i18n/en_US/*.json')
-    .pipe(extend('en_US.json', true, 2))
+  for (var lang of LANGUAGES) {
+    gulp.src(`i18n/${lang}/*/**.json`)
+    .pipe(extend(`${lang}.json`, true, 2))
     .pipe(gulp.dest('i18n/'))
     .pipe(gulp.dest(PATH.dist + 'i18n/'));
+  }
   gulp.src(PATH.assets + 'images/**.*')
     .pipe(gulp.dest(PATH.tmp + 'assets/images/'))
     .pipe(gulp.dest(PATH.dist + 'assets/images/'));
