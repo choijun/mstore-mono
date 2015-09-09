@@ -128,3 +128,5 @@ Desktop.ini
 ######################
 !gradle/wrapper/gradle-wrapper.jar
 /webui/angular-es6/i18n/en_US.json
+/webui/angular-es6/i18n/vi_VN.json
+/webui/angular-es6/i18n/vi_VN.json
