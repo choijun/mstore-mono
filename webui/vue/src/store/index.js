@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { Observable } from 'rxjs';
+import Ajax from '~/core/ajax';
 
 Vue.use(Vuex);
 
 const state = {
+  currentUser: {},
   products: [],
   product: {
     items: [],
@@ -14,50 +16,35 @@ const state = {
 }
 
 const mutations = {
+  AUTHEN(state, currentUser) {
+    state.currentUser = currentUser;
+  },
   LOAD_ALL_PRODUCT(state, products) {
     state.products = products;
   },
   LOAD_PRODUCT_BY_ID(state, product) {
+    product.activeItem = product.items[0];
+    product.quantity = 1;
     state.product = product;
   },
 }
 
 const actions = {
-  findAllProducts({ commit }) {
-    Observable.ajax({
-      url: 'api/products',
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' },
-      responseType: 'json',
-    })
-    .subscribe({
-      next: value => {
-        let { response } = value;
-        commit('LOAD_ALL_PRODUCT', response);
-      },
-      error: err => {
-        console.error(err);
-      }
-    });
+  async authen({ commit }) {
+    commit('AUTHEN', await Ajax.get('api/auth/user'));
   },
-  findProductById({ commit }, id) {
-    Observable.ajax({
-      url: `api/products/${id}`,
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' },
-      responseType: 'json',
-    })
-    .subscribe({
-      next: value => {
-        let { response } = value;
-        response.activeItem = response.items[0];
-        response.quantity = 1;
-        commit('LOAD_PRODUCT_BY_ID', response);
-      },
-      error: err => {
-        console.error(err);
-      }
-    });
+  async login({ commit, dispatch }) {
+    await Ajax.get('api/login');
+    dispatch('authen');
+  },
+  async logout({ commit }) {
+    await Ajax.post('api/logout');
+  },
+  async findAllProducts({ commit }) {
+    commit('LOAD_ALL_PRODUCT', await Ajax.get('api/products'));
+  },
+  async findProductById({ commit }, id) {
+    commit('LOAD_PRODUCT_BY_ID', await Ajax.get(`api/products/${id}`));
   },
 }
 

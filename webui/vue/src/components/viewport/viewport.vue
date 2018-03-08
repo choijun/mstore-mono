@@ -14,7 +14,7 @@
       </div>
       <form class="form-inline">
         <button type="button" class="btn btn-outline-success mr-sm-2">Cart</button>
-        <button type="button" class="btn btn-outline-success">Account</button>
+        <account></account>
       </form>
     </header>
     <section id="main-container" class="container-fluid">
@@ -30,3 +30,13 @@
     margin: 60px 0;
   }
 </style>
+<script>
+import Account from './account.vue';
+
+export default {
+  components: {
+    Account,
+  },
+}
+</script>
+

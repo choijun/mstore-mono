@@ -31,7 +31,9 @@
     "ignore": "node_modules"
   },
   "dependencies": {
+    "babel-polyfill": "6.26.0",
     "bootstrap": "4.0.0",
+    "font-awesome": "4.7.0",
     "vue": "2.5.13",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"

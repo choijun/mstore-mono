@@ -31,7 +31,7 @@ export default {
   methods: {
     ...mapActions(['findAllProducts'])
   },
-  mounted: function() {
+  mounted() {
     this.findAllProducts();
   }
 };

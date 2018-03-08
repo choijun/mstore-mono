@@ -8,4 +8,8 @@ import gulp from 'gulp';
 gulp.task('vendor', () => {
   gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css')
       .pipe(gulp.dest('dist/libs/css'));
+  gulp.src('./node_modules/font-awesome/css/font-awesome.min.css')
+      .pipe(gulp.dest('dist/libs/css'));
+  gulp.src('./node_modules/font-awesome/fonts/**/*')
+      .pipe(gulp.dest('dist/libs/fonts'));
 });
