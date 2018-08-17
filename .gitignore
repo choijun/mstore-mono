@@ -1,138 +1,46 @@
-######################
-# Project Specific
-######################
-/target/
-bower_components
-**/dist/libs/
-**/dist/css/
-**/dist/js/
-/src/main/webapp/scripts/app/app.constants.js
-/src/main/webapp/bower_components
-/src/main/webapp/dist
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-######################
-# Node
-######################
-node_modules
-/node/**
-/node_modules/**
+# compiled output
+/dist
+/tmp
+/out-tsc
+bin/
+build/
+dist/
 
-######################
-# SASS
-######################
-.sass-cache/**
+# dependencies
+/node_modules
 
-######################
-# Eclipse
-######################
-*.pydevproject
+# IDEs and editors
+/.idea
 .project
-.metadata
-/bin/**
-/tmp/**
-/tmp/**/*
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
 .classpath
-.settings/**
-.loadpath
-/src/main/resources/rebel.xml
-
-# External tool builders
-.externalToolBuilders/**
-
-# Locally stored "Eclipse launch configurations"
+.c9/
 *.launch
-
-# CDT-specific
-.cproject
-
-# PDT-specific
-.buildpath
-
-######################
-# Intellij
-######################
-.idea/**
-*.iml
-*.iws
-*.ipr
-*.ids
-*.orig
-
-######################
-# Maven
-######################
-/log/**
-/target/**
-target/
-*.lst
-
-######################
-# Gradle
-######################
-.gradle/**
-
-######################
-# Package Files
-######################
-*.jar
-*.war
-*.ear
-*.db
-
-######################
-# Windows
-######################
-# Windows image file caches
-Thumbs.db
-
-# Folder config file
-Desktop.ini
-
-######################
-# Mac OSX
-######################
-.DS_Store
-.svn
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-######################
-# Directories
-######################
-/build/**
-/bin/**
-/spring_loaded/**
-/deploy/**
 .settings/
-.vscode/
+*.sublime-workspace
+.gradle/
 
-######################
-# Logs
-######################
-*.log
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-######################
-# Others
-######################
-*.class
-*.*~
-*~
-.merge_file*
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+docker/
+*.lock
+package-lock.json
 
-######################
-# Gradle Wrapper
-######################
-!gradle/wrapper/gradle-wrapper.jar
-/webui/angular-es6/i18n/en_US.json
-/webui/angular-es6/i18n/vi_VN.json
-/webui/angular-es6/i18n/vi_VN.json
+# System Files
+.DS_Store
+Thumbs.db
