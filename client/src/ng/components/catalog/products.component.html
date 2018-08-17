@@ -1,0 +1,18 @@
+<div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+    <li class="breadcrumb-item active">Products</li>
+  </ol>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3 mb-3" *ngFor="let prod of products">
+        <a [routerLink]="['/products/' + prod.id]">
+          <div class="card text-center">
+            <img class="card-img-top" [src]="'assets/' + prod.id + '.jpg'" [alt]="prod.name" />
+            <div class="card-footer text-muted">{{prod.name}}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
