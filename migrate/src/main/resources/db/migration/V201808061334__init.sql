@@ -8,7 +8,9 @@ create table product (
 create table item (
   id varchar(64) not null,
   name varchar(128) not null,
-  product_id varchar(64) ,
+  product_id varchar(64),
+  price integer,
+  quantity integer,
   primary key (id),
   constraint item_product_id_fkey foreign key (product_id)
       references product(id) match simple
