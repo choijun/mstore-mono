@@ -1,0 +1,18 @@
+insert into item (id, name, product_id, price, quantity) values ('lg-g4', '32 GB', 'lg-g4', 59976, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-32gb', '32GB', 'samsung-galaxy-s6', 67992, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-64gb', '64GB', 'samsung-galaxy-s6', 75999, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-128gb', '128GB', 'samsung-galaxy-s6', 85999, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-16gb', '16GB', 'apple-iphone-6', 64992, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-64gb', '64GB', 'apple-iphone-6', 74991, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-128gb', '128GB', 'apple-iphone-6', 84991, 10);
+insert into item (id, name, product_id, price, quantity) values ('htc-one-m9', '32 GB', 'htc-one-m9', 64992, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-plus-16gb', '16GB', 'apple-iphone-6-plus', 74976, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-plus-64gb', '64GB', 'apple-iphone-6-plus', 84999, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-6-plus-128gb', '128GB', 'apple-iphone-6-plus', 94999, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-edge-32gb', '32GB', 'samsung-galaxy-s6-edge', 77976, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-edge-64gb', '64GB', 'samsung-galaxy-s6-edge', 85983, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-s6-edge-128gb', '128GB', 'samsung-galaxy-s6-edge', 95983, 10);
+insert into item (id, name, product_id, price, quantity) values ('samsung-galaxy-note4', '32 GB', 'samsung-galaxy-note4', 69984, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-5s-16gb', '16GB', 'apple-iphone-5s', 54984, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-5s-32gb', '32GB', 'apple-iphone-5s', 59976, 10);
+insert into item (id, name, product_id, price, quantity) values ('apple-iphone-5s-64gb', '64GB', 'apple-iphone-5s', 62184, 10);

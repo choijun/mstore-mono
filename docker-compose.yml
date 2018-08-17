@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  db.comonline.com:
+    image: postgres:9.6
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: mstore
+      POSTGRES_PASSWORD: mstore123
+      POSTGRES_DB: mstore
+      PGDATA: /var/lib/postgresql/data/mstore
+    volumes:
+      - ./docker/postgres/mstore:/var/lib/postgresql/data/mstore
+    networks:
+      - bo
+
+networks:
+  bo:
+    driver: bridge
