@@ -23,6 +23,7 @@
               "client/src/ng-ts/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "client/src/ng-ts/styles.css"
             ],
             "scripts": []
@@ -37,7 +38,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
               "aot": true,

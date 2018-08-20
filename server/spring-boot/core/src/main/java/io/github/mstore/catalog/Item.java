@@ -10,14 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Item {
-  @Id
-  private String id;
-
+  @Id private String id;
   private String name;
-
   private String productId;
-
   private int price;
-
   private int quantity;
 }
