@@ -4,14 +4,14 @@ import { Product } from './product';
 
 @Component({
   selector: 'products',
-  templateUrl: 'product.list.component.html',
+  templateUrl: 'product-list.component.html',
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.productService.getProducts().subscribe(products => this.products = products);
+  async ngOnInit(): Promise<void> {
+    this.products = await this.productService.getProducts();
   }
 }

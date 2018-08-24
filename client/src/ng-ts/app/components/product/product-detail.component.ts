@@ -6,7 +6,7 @@ import { Item } from './item';
 
 @Component({
   selector: 'product',
-  templateUrl: 'product.detail.component.html',
+  templateUrl: 'product-detail.component.html',
 })
 export class ProductDetailComponent implements OnInit {
   productId: string = '';
@@ -18,14 +18,12 @@ export class ProductDetailComponent implements OnInit {
     this.productId = route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {
-    this.productService.getProductById(this.productId).subscribe(product => {
-      this.product = product;
-      (this.product.items && this.product.items.length) && (this.activeItem = this.product.items[0]);
-    });
+  async ngOnInit(): Promise<void> {
+    this.product = await this.productService.getProductById(this.productId);
+    (this.product.items && this.product.items.length) && (this.activeItem = this.product.items[0]);
   }
 
-  addToCart() {
-    console.log(this.quantity)
+  async addToCart(itemId, quantity): Promise<void> {
+    await this.productService.addToCart(itemId, quantity);
   }
 }

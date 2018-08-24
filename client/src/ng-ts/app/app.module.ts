@@ -5,18 +5,18 @@ import { NgModule } from '@angular/core';
 
 import { HomeModule } from './components/home/home.module';
 import { ProductModule } from './components/product/product.module';
+import { CartModule } from './components/cart/cart.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [ // Registers particular components within this module
-    AppComponent
-  ],
+  declarations: [ AppComponent ], // Registers particular components within this module
   imports: [ // Imports other modules into this module
     BrowserModule,
     RouterModule.forRoot([], { useHash: true }),
     HttpClientModule,
     HomeModule,
     ProductModule,
+    CartModule,
   ],
   bootstrap: [ AppComponent ], // Tells the module which component to bootstrap
 })

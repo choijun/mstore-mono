@@ -35,7 +35,7 @@
           <div class="col-sm-3">
             <button type="button" class="btn btn-sm btn-primary"
                     ng-if="activeItem.quantity > 0"
-                    (click)="addToCart()">
+                    (click)="addToCart(activeItem.id, quantity)">
               Add to Cart
             </button>
           </div>
