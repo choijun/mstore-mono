@@ -1,9 +1,8 @@
 package io.github.mstore.catalog;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,5 +17,5 @@ public class Product {
   @Id private String id;
   private String name;
   private String description;
-  @OneToMany(mappedBy = "productId", fetch = FetchType.EAGER) private List<Item> items = Collections.emptyList();
+  @Transient List<Item> items = Collections.emptyList();
 }

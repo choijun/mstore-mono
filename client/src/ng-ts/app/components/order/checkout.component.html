@@ -1,0 +1,46 @@
+<div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/cart']">Cart</a></li>
+      <li class="breadcrumb-item active">Checkout</li>
+    </ol>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h5>Order Address</h5>
+          <order-address [addr]="billingAddress"></order-address>
+          <h5>Shipping Address</h5>
+          <order-address [addr]="shippingAddress"></order-address>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-primary float-right mb-3" (click)="placeOrder()">Order</button>
+          <table class="table table-sm table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-right">Price</th>
+                <th scope="col" class="text-right">Quantity</th>
+                <th scope="col" class="text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cartItem of cart.items; let idx = index">
+                <th scope="row">{{idx + 1}}</th>
+                <td>{{cartItem.item.product.name}} {{cartItem.item.name}}</td>
+                <td class="text-right">{{(cartItem.item.price / 100) | currency}}</td>
+                <td class="text-right">{{cartItem.quantity}}</td>
+                <td class="text-right">{{(cartItem.item.price * cartItem.quantity) / 100 | currency}}</td>
+              </tr>
+            </tbody>
+            <tfoot class="thead-light">
+              <tr>
+                <th scope="col" colspan="5" class="text-right">{{(cart.total / 100) | currency}}</th>
+              </tr>
+            </tfoot>
+          </table>
+          <button class="btn btn-primary float-right" (click)="placeOrder()">Order</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -2,25 +2,24 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { CartSummaryComponent } from './cart-summary.component';
-import { CartDetailComponent } from './cart-detail.component';
+import { CheckoutComponent } from './checkout.component';
+import { OrderAddressComponent } from './order-address.component';
 
 const routes : Routes = [{
-  path: 'cart', component: CartDetailComponent,
+  path: 'checkout', component: CheckoutComponent,
 }];
 
 @NgModule({
   declarations: [
-    CartSummaryComponent,
-    CartDetailComponent,
+    OrderAddressComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes, { useHash: true }),
   ],
   exports: [
-    CartSummaryComponent,
-    CartDetailComponent,
+    CheckoutComponent,
   ]
 })
-export class CartModule { }
+export class OrderModule { }

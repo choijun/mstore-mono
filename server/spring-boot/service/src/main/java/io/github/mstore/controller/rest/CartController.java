@@ -14,17 +14,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.mstore.cart.Cart;
 import io.github.mstore.cart.CartItem;
 import io.github.mstore.cart.CartItemRepository;
+import io.github.mstore.catalog.Item;
+import io.github.mstore.catalog.ItemRepository;
+import io.github.mstore.catalog.ProductRepository;
 
 @RestController
 @RequestMapping("api/carts")
 public class CartController {
   private CartItemRepository cartItemRepo;
+  private ItemRepository itemRepo;
+  private ProductRepository productRepo;
 
   @Autowired
-  public CartController(CartItemRepository cartItemRepo) {
+  public CartController(CartItemRepository cartItemRepo, ItemRepository itemRepo, ProductRepository productRepo) {
     this.cartItemRepo = cartItemRepo;
+    this.itemRepo = itemRepo;
+    this.productRepo = productRepo;
   }
 
   @GetMapping("cart-id")
@@ -33,17 +41,27 @@ public class CartController {
   }
 
   @GetMapping("{id}")
-  public List<CartItem> details(@PathVariable("id") String cartId) {
-    return this.cartItemRepo.findByCartId(cartId);
+  public Cart getCart(@PathVariable("id") String cartId) {
+    List<CartItem> items = this.cartItemRepo.findByCartId(cartId);
+    items.forEach(cartItem -> {
+      if (cartItem.getItemId() != null) {
+        Item item = itemRepo.findById(cartItem.getItemId()).get();
+        if (item.getProductId() != null) {
+          item.setProduct(productRepo.findById(item.getProductId()).get());
+        }
+        cartItem.setItem(item);
+      }
+    });
+    return new Cart(cartId, items);
   }
 
   @Transactional
   @PostMapping("{id}")
-  public List<CartItem> addToCart(@PathVariable("id") String cartId, @RequestBody @Valid CartItem cartItem) {
-    List<CartItem> cartItems = details(cartId);
+  public Cart addToCart(@PathVariable("id") String cartId, @RequestBody @Valid CartItem cartItem) {
+    Cart cart = getCart(cartId);
     boolean existed = false;
 
-    for (CartItem item : cartItems) {
+    for (CartItem item : cart.getItems()) {
       if (item.getItemId().equals(cartItem.getItemId())) {
         existed = true;
         item.addMore(cartItem.getQuantity());
@@ -53,9 +71,9 @@ public class CartController {
     }
 
     if (!existed) {
-      cartItems.add(this.cartItemRepo.saveAndFlush(cartItem));
+      cart.getItems().add(this.cartItemRepo.saveAndFlush(cartItem));
     }
 
-    return cartItems;
+    return cart;
   }
 }

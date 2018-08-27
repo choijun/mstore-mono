@@ -21,11 +21,7 @@ export class ProductService extends ApiService {
 
   async addToCart(itemId: string, quantity: number): Promise<void> {
     const cartId = await this.cartService.getCartId(),
-          cartDetails = await this.post<Cart[]>(`api/carts/${cartId}`, {
-            cartId,
-            itemId,
-            quantity,
-          }, []);
-    this.cartService.cartSubject.next(cartDetails);
+          cart = await this.post<Cart | any>(`api/carts/${cartId}`, { cartId, itemId, quantity, }, {});
+    this.cartService.cartSubject.next(cart);
   }
 }

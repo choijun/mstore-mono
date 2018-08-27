@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService extends ApiService {
-  cartSubject: BehaviorSubject<Cart[]> = new BehaviorSubject<Cart[]>([]);
+  cartSubject: BehaviorSubject<Cart | any> = new BehaviorSubject<Cart | any>({});
 
   constructor(http: HttpClient, private cacheService: CacheService) {
     super(http);
@@ -22,8 +22,12 @@ export class CartService extends ApiService {
     return cartId;
   }
 
-  async getCartDetails(): Promise<Cart[]> {
+  async getCart(): Promise<Cart | any> {
     const cartId: string = await this.getCartId();
-    return await this.get<Cart[]>(`api/carts/${cartId}`, []);
+    return await this.get<Cart | any>(`api/carts/${cartId}`, {});
+  }
+
+  removeCartId(): void {
+    this.cacheService.remove('cartId');
   }
 }

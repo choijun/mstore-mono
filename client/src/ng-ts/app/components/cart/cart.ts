@@ -1,5 +1,6 @@
+import { CartItem } from "./cart-item";
+
 export class Cart {
   id: string;
-  itemId: string;
-  quantity: number;
+  items: CartItem[];
 }

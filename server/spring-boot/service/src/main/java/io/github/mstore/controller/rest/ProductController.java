@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.mstore.catalog.ItemRepository;
 import io.github.mstore.catalog.Product;
 import io.github.mstore.catalog.ProductRepository;
 
@@ -15,10 +16,12 @@ import io.github.mstore.catalog.ProductRepository;
 @RequestMapping("api/products")
 public class ProductController {
   private ProductRepository productRepo;
+  private ItemRepository itemRepo;
 
   @Autowired
-  public ProductController(ProductRepository productRepo) {
+  public ProductController(ProductRepository productRepo, ItemRepository itemRepo) {
     this.productRepo = productRepo;
+    this.itemRepo = itemRepo;
   }
 
   @GetMapping
@@ -29,6 +32,7 @@ public class ProductController {
   @GetMapping("{id}")
   public Product detail(@PathVariable("id") String id) {
     Product product = productRepo.findById(id).get();
+    product.setItems(itemRepo.findByProductId(product.getId()));
     return product;
   }
 }

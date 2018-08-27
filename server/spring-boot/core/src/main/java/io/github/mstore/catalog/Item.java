@@ -2,6 +2,7 @@ package io.github.mstore.catalog;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,5 @@ public class Item {
   private String productId;
   private int price;
   private int quantity;
+  @Transient private Product product;
 }

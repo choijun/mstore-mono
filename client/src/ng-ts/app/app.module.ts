@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { HomeModule } from './components/home/home.module';
 import { ProductModule } from './components/product/product.module';
 import { CartModule } from './components/cart/cart.module';
+import { OrderModule } from './components/order/order.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -17,6 +19,7 @@ import { AppComponent } from './app.component';
     HomeModule,
     ProductModule,
     CartModule,
+    OrderModule,
   ],
   bootstrap: [ AppComponent ], // Tells the module which component to bootstrap
 })
