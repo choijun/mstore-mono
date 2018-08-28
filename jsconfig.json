@@ -6,9 +6,9 @@
   },
   "exclude": [
     "node_modules",
+    "docker",
     "gulp",
     "migrate",
-    "server",
-    "service"
+    "server"
   ]
 }
